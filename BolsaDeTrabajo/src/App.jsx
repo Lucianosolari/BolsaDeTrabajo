@@ -10,6 +10,7 @@ function App() {
         <Route path="/" element={<NavBar />}>
           <Route path="/register" element={<div>en registro</div>} />
         </Route>
+        <Route path="/student" element={<div>en alumnos</div>}></Route>
       </Routes>
     </BrowserRouter>
   );

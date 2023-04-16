@@ -1,13 +1,18 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 
-function App() {
-  const [count, setCount] = useState(0);
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-  return <NavBar />;
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route path="/register" element={<div>en registro</div>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light">
+    <footer className="bg-dark text-light py-3 mt-auto">
       {/* Utiliza la clase de estilo fixed-bottom para pegar el footer en la parte inferior de la ventana */}
       <Container fluid>
         <Row>

@@ -12,8 +12,13 @@ import {
 } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AddressForm from "./AddressForm";
+import UniversityInfoForm from "./UniversityInfoForm";
+import OtherInfoForm from "./OtherInfoForm";
+import UpdateKnowledgeForm from "./UpdateKnowledgeForm";
+import ApplicationHistory from "./ApplicationHistory";
 
-export default function StudentsForm () {
+export default function PersonalInfoForm() {
   const [user, setUser] = useState("");
   const [legajo, setLegajo] = useState("");
   const [lastName, setLastName] = useState("");
@@ -108,29 +113,30 @@ export default function StudentsForm () {
       </Row>
       <Row>
         <Col>
-<FormGroup controlId="doc">
-  <FormLabel>Tipo y número de documento</FormLabel>
-  <Row>
-    <Col md={4}>
-      <Form.Select 
-        type="select"
-        placeholder="Tipo de documento"
-        value={docType}
-        onChange={(e) => setDocType(e.target.value)}>
-        <option>DNI</option>
-        <option>LU</option>
-      </Form.Select>
-    </Col>
-    <Col md={8}>
-      <FormControl
-        type="text"
-        placeholder="Número de documento"
-        value={docNumber}
-        onChange={(e) => setDocNumber(e.target.value)}
-      />
-    </Col>
-  </Row>
-</FormGroup>
+          <FormGroup controlId="doc">
+            <FormLabel>Tipo y número de documento</FormLabel>
+            <Row>
+              <Col md={4}>
+                <Form.Select
+                  type="select"
+                  placeholder="Tipo de documento"
+                  value={docType}
+                  onChange={(e) => setDocType(e.target.value)}
+                >
+                  <option>DNI</option>
+                  <option>LU</option>
+                </Form.Select>
+              </Col>
+              <Col md={8}>
+                <FormControl
+                  type="text"
+                  placeholder="Número de documento"
+                  value={docNumber}
+                  onChange={(e) => setDocNumber(e.target.value)}
+                />
+              </Col>
+            </Row>
+          </FormGroup>
         </Col>
       </Row>
       <Row>
@@ -227,9 +233,19 @@ export default function StudentsForm () {
           </FormGroup>
         </Col>
       </Row>
+      <p>"Familiar"</p>
+      <AddressForm></AddressForm>
+      <p>"Personal"</p>
+      <AddressForm></AddressForm>
+
+      <UniversityInfoForm></UniversityInfoForm>
+      <OtherInfoForm></OtherInfoForm>
+      <UpdateKnowledgeForm></UpdateKnowledgeForm>
+      <ApplicationHistory></ApplicationHistory>
+
       <Button variant="primary" type="submit">
         Enviar
       </Button>
     </Form>
-    );
-  }
+  );
+}

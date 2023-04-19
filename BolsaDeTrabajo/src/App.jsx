@@ -6,6 +6,7 @@ import PersonalInfoForm from "./components/Students/PersonalInfoForm";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import { Container } from "react-bootstrap";
+import AdminForm from "./Admin/AdminForm";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<div>en registro</div>} />
               <Route path="/studentsform" element={<PersonalInfoForm />} />
+              <Route path="/admin" element={<AdminForm />} />
             </Routes>
           </Container>
         </BrowserRouter>

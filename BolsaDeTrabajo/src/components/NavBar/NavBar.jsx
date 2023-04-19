@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import Home from "../Home/Home";
@@ -13,7 +13,7 @@ const NavBar = () => {
   //     navbar.style.transform = "translateY(0)";
   //   }
   // });
-  const [navbarVisible, setNavbarVisible] = React.useState(true);
+  const [navbarVisible, setNavbarVisible] = useState(true);
 
   const handleScroll = () => {
     const scrolled = window.scrollY;

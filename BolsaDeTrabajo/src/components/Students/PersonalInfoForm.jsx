@@ -17,6 +17,7 @@ import UniversityInfoForm from "./UniversityInfoForm";
 import OtherInfoForm from "./OtherInfoForm";
 import UpdateKnowledgeForm from "./UpdateKnowledgeForm";
 import ApplicationHistory from "./ApplicationHistory";
+import CompanyInfoForm from "../Companies/CompanyInfoForm";
 
 export default function PersonalInfoForm() {
   const [user, setUser] = useState("");
@@ -242,6 +243,8 @@ export default function PersonalInfoForm() {
       <OtherInfoForm></OtherInfoForm>
       <UpdateKnowledgeForm></UpdateKnowledgeForm>
       <ApplicationHistory></ApplicationHistory>
+
+      <CompanyInfoForm></CompanyInfoForm>
 
       <Button variant="primary" type="submit">
         Enviar

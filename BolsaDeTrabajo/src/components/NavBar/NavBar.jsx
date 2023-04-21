@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import Home from "../Home/Home";
 import Footer from "../Footer/Footer";
+import { BiLogIn } from "react-icons/bi";
 
 const NavBar = () => {
   // window.addEventListener("scroll", function () {
@@ -51,6 +52,15 @@ const NavBar = () => {
             <Link to="/studentsform">Alumnos</Link>
             <Link to="/admin">Admin</Link>
           </Nav>
+          <Button
+            href="/login"
+            variant="primary"
+            size="lg"
+            icon={<BiLogIn />}
+            onClick={() => <Link to="/login" />}
+          >
+            Iniciar sesión
+          </Button>
         </Navbar.Collapse>
       </Navbar>
       <main>

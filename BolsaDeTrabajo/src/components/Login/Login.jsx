@@ -3,6 +3,7 @@ import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 
 export default function Login() {
   const [email, setEmail] = useState("");

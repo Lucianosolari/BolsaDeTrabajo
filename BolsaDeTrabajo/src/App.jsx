@@ -6,8 +6,9 @@ import PersonalInfoForm from "./components/Students/PersonalInfoForm";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import { Container } from "react-bootstrap";
-import AdminForm from "./Admin/AdminForm";
+import AdminForm from "./components/Admin/AdminForm";
 import RecoverPassword from "./components/Login/RecoverPassword";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
@@ -15,10 +16,10 @@ function App() {
       <div className="d-flex flex-column min-vh-100">
         <BrowserRouter>
           <NavBar />
-          <Container className="flex-grow-1" style={{ marginTop: "70px" }}>
+          <Container className="flex-grow-1" style={{ marginTop: "90px" }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/register" element={<div>en registro</div>} />
+              <Route path="/login" element={<Login />} />
               <Route path="/studentsform" element={<PersonalInfoForm />} />
               <Route path="/admin" element={<AdminForm />} />
               <Route path="/recover-password" element={<RecoverPassword />} />

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
+import "./NavBar.css";
 import Home from "../Home/Home";
 import Footer from "../Footer/Footer";
 import { BiLogIn } from "react-icons/bi";
+import { FaUser } from "react-icons/fa";
 
 const NavBar = () => {
   // window.addEventListener("scroll", function () {
@@ -44,7 +46,9 @@ const NavBar = () => {
           (navbarVisible ? "" : "scroll-down")
         }
       >
-        <Link to="/">Logo de la Empresa</Link>
+        <Link to="/">
+          <img src="./logo.png" alt="Logo de la Empresa" />
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -52,14 +56,9 @@ const NavBar = () => {
             <Link to="/studentsform">Alumnos</Link>
             <Link to="/admin">Admin</Link>
           </Nav>
-          <Button
-            href="/login"
-            variant="primary"
-            size="lg"
-            icon={<BiLogIn />}
-            onClick={() => <Link to="/login" />}
-          >
-            Iniciar sesión
+
+          <Button as={Link} to="/login" variant="primary" size="lg">
+            <FaUser size={20} />
           </Button>
         </Navbar.Collapse>
       </Navbar>

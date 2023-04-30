@@ -15,6 +15,7 @@ function App() {
   //const [users, setUsers] = useState([]);
 
   const [token, setToken] = useState("");
+  const [userType, setUserType] = useState("");
 
   const handleClick = () => {
     fetch("https://localhost:7069/api/Authentication/authenticate", {
@@ -27,8 +28,11 @@ function App() {
         Password: "string",
       }),
     })
-      .then((response) => response.text()) // obtener el token como texto
-      .then((data) => setToken(data)) // almacenar el token en el estado
+      .then((response) => response.json()) // obtener el token como objeto JSON
+      .then((data) => {
+        setToken(data.token); // almacenar el token en el estado
+        setUserType(data.userType); // almacenar el userType en el estado
+      })
       .catch((error) => console.error(error));
   };
 
@@ -59,6 +63,11 @@ function App() {
           <Container className="flex-grow-1" style={{ marginTop: "90px" }}>
             <button onClick={handleClick}>Logear usuario</button>
             <button onClick={handleCreateOffer}>Crear Oferta</button>
+
+            <div>
+              {token && <p>Token: {token}</p>}
+              {userType && <p>UserType: {userType}</p>}
+            </div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />

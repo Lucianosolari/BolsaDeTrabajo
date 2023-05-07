@@ -1,33 +1,43 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { loginUser } from "../../api";
+import { UserContext } from "../../context/UserContext";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add your login logic here
-  };
+  const { setUser } = useContext(UserContext);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleClickLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await loginUser({ username: userName, password: password });
+
+      console.log(data);
+      setUser(data);
+    } catch (error) {
+      console.error(error);
+      // Handle login error
+    }
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="email">
-        <Form.Label>Correo electrónico:</Form.Label>
+    <Form onSubmit={handleClickLogin}>
+      <Form.Group controlId="tetx">
+        <Form.Label>Usuario:</Form.Label>
         <Form.Control
-          type="email"
-          placeholder="Ingresa tu correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Ingresa tu usuario"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
           required
         />
       </Form.Group>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
+import { UserContext } from "../../context/UserContext";
 
 export default function RecoverPassword() {
   const [email, setEmail] = useState("");
+  const { user } = useContext(UserContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +24,9 @@ export default function RecoverPassword() {
           required
         />
       </Form.Group>
+      <div>
+        {user ? <div>Hola {user.token}</div> : <div>Hola invitado</div>}
+      </div>
 
       <Button variant="primary" type="submit">
         Recuperar contraseña

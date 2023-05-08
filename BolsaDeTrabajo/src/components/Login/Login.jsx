@@ -63,6 +63,7 @@ export default function Login() {
       </Button>
 
       <Link to="/recover-password">¿Olvidaste tu contraseña?</Link>
+      <Link to="/createOffer">Crear oferta</Link>
     </Form>
   );
 }

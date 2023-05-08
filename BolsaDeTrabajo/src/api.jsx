@@ -25,6 +25,29 @@ export async function loginUser(userData) {
   }
 }
 
+export async function createOffer({ token, offerData }) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Offer/createOffer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        offerTitle: offerData.title,
+        offerSpecialty: offerData.specialty,
+        offerDescription: offerData.description,
+        createdDate: offerData.date,
+        companyId: offerData.companyId,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 // const handleCreateOffer = () => {
 //   fetch("https://localhost:7069/api/Offer/createOffer", {
 //     method: "POST",

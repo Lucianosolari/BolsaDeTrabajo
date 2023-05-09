@@ -1,3 +1,7 @@
 img {
   width: 50px;
 }
+
+#basic-navbar-nav {
+  justify-content: space-around;
+}

@@ -2,7 +2,7 @@ import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PersonalInfoForm from "./components/Students/PersonalInfoForm";
+import RegisterPersonalInfoForm from "./components/Students/RegisterPersonalInfoForm";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import { Container } from "react-bootstrap";
@@ -25,7 +25,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/studentsform" element={<PersonalInfoForm />} />
+                <Route
+                  path="/studentsform"
+                  element={<RegisterPersonalInfoForm />}
+                />
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />
                 <Route path="/createOffer" element={<CreateOffer />} />

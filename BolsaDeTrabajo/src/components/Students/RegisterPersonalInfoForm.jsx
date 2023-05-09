@@ -21,7 +21,8 @@ import CompanyInfoForm from "../Companies/CompanyInfoForm";
 import Login from "../Login/Login";
 
 export default function PersonalInfoForm() {
-  const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [legajo, setLegajo] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -43,13 +44,24 @@ export default function PersonalInfoForm() {
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col>
-          <FormGroup controlId="user">
+          <FormGroup controlId="userName">
             <FormLabel>Usuario</FormLabel>
             <FormControl
               type="text"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               placeholder="Ingresa tu usuario"
+            />
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup controlId="password">
+            <FormLabel>Contraseña</FormLabel>
+            <FormControl
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Ingresa tu contraseña"
             />
           </FormGroup>
         </Col>
@@ -126,7 +138,7 @@ export default function PersonalInfoForm() {
                   onChange={(e) => setDocType(e.target.value)}
                 >
                   <option>DNI</option>
-                  <option>LU</option>
+                  <option>LE</option>
                 </Form.Select>
               </Col>
               <Col md={8}>
@@ -235,19 +247,6 @@ export default function PersonalInfoForm() {
           </FormGroup>
         </Col>
       </Row>
-      <p>"Familiar"</p>
-      <AddressForm></AddressForm>
-      <p>"Personal"</p>
-      <AddressForm></AddressForm>
-
-      <UniversityInfoForm></UniversityInfoForm>
-      <OtherInfoForm></OtherInfoForm>
-      <UpdateKnowledgeForm></UpdateKnowledgeForm>
-      <ApplicationHistory></ApplicationHistory>
-
-      <CompanyInfoForm></CompanyInfoForm>
-
-      <Login></Login>
 
       <Button variant="primary" type="submit">
         Enviar

@@ -48,6 +48,43 @@ export async function createOffer({ token, offerData }) {
     throw error;
   }
 }
+
+export async function createStudent(studentData) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Student/createStudent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: studentData.userName,
+        password: studentData.password,
+        file: studentData.file,
+        name: studentData.lastName,
+        surname: studentData.firstName,
+        email: studentData.email,
+        altEmail: studentData.altEmail,
+        documentType: studentData.docType,
+        documentNumber: studentData.docNumber,
+        CUIL_CUIT: studentData.cuil,
+        birth: studentData.birthdate,
+        sex: studentData.gender,
+        civilStatus: studentData.maritalStatus,
+      }),
+    });
+
+    if (!response.ok) {
+      // Si la respuesta no es exitosa, lanzar un error con el mensaje del servidor
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 // const handleCreateOffer = () => {
 //   fetch("https://localhost:7069/api/Offer/createOffer", {
 //     method: "POST",

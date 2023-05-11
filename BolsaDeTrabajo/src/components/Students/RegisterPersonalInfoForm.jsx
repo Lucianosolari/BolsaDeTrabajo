@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { format } from "date-fns";
 import {
   Form,
   FormGroup,
@@ -19,11 +20,12 @@ import UpdateKnowledgeForm from "./UpdateKnowledgeForm";
 import ApplicationHistory from "./ApplicationHistory";
 import CompanyInfoForm from "../Companies/CompanyInfoForm";
 import Login from "../Login/Login";
+import { createStudent } from "../../api";
 
 export default function PersonalInfoForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [legajo, setLegajo] = useState("");
+  const [file, setFile] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,13 +37,41 @@ export default function PersonalInfoForm() {
   const [gender, setGender] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleCreateStudent = async (event) => {
     event.preventDefault();
-    // Aquí puedes hacer algo con los valores de los campos
+    const formattedBirthdate = birthdate
+      ? format(birthdate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+      : null;
+
+    try {
+      const data = await createStudent({
+        userName: userName,
+        password: password,
+        file: file,
+        lastName: lastName,
+        firstName: firstName,
+        email: email,
+        altEmail: altEmail,
+        docType: docType,
+        docNumber: docNumber,
+        cuil: cuil,
+        birthdate: formattedBirthdate,
+        gender: gender,
+        maritalStatus: maritalStatus,
+      });
+      console.log(data);
+      // Hacer algo con los datos retornados (data) después de crear el estudiante
+    } catch (error) {
+      console.error(error);
+
+      // Manejar el error de creación del estudiante
+      const errorMessage = await error.response.json();
+      console.log(errorMessage);
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleCreateStudent}>
       <Row>
         <Col>
           <FormGroup controlId="userName">
@@ -66,12 +96,12 @@ export default function PersonalInfoForm() {
           </FormGroup>
         </Col>
         <Col>
-          <FormGroup controlId="legajo">
+          <FormGroup controlId="file">
             <FormLabel>Número de Legajo</FormLabel>
             <FormControl
-              type="text"
-              value={legajo}
-              onChange={(e) => setLegajo(e.target.value)}
+              type="int"
+              value={file}
+              onChange={(e) => setFile(e.target.value)}
               placeholder="Ingresa tu número de legajo"
             />
           </FormGroup>
@@ -143,7 +173,7 @@ export default function PersonalInfoForm() {
               </Col>
               <Col md={8}>
                 <FormControl
-                  type="text"
+                  type="int"
                   placeholder="Número de documento"
                   value={docNumber}
                   onChange={(e) => setDocNumber(e.target.value)}
@@ -158,7 +188,7 @@ export default function PersonalInfoForm() {
           <FormGroup controlId="cuil">
             <FormLabel>CUIL o CUIT</FormLabel>
             <FormControl
-              type="text"
+              type="int"
               value={cuil}
               onChange={(e) => setCuil(e.target.value)}
               placeholder="Ingresa el CUIL o CUIT"
@@ -249,7 +279,7 @@ export default function PersonalInfoForm() {
       </Row>
 
       <Button variant="primary" type="submit">
-        Enviar
+        Registrarse
       </Button>
     </Form>
   );

@@ -10,6 +10,7 @@ import {
   Col,
   FormCheck,
   FormSelect,
+  Alert,
 } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -33,6 +34,7 @@ export default function PersonalInfoForm() {
   const [emailError, setEmailError] = useState("");
   const [altEmailError, setAltEmailError] = useState("");
   const [docNumberError, setDocNumberError] = useState("");
+  const [error, setError] = useState("");
 
   const validateEmail = (email) => {
     const regex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
@@ -51,15 +53,10 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     setEmailError("");
-  }, [email]);
-
-  useEffect(() => {
-    setEmailError("");
-  }, [altEmail]);
-
-  useEffect(() => {
-    setEmailError("");
-  }, [docNumberError]);
+    setAltEmailError("");
+    setDocNumberError("");
+    setError("");
+  }, [email, altEmail, docNumber, file, userName]);
 
   const handleCreateStudent = async (event) => {
     event.preventDefault();
@@ -112,11 +109,15 @@ export default function PersonalInfoForm() {
       console.log(data);
       // Hacer algo con los datos retornados (data) después de crear el estudiante
     } catch (error) {
-      console.error(error);
-
-      // Manejar el error de creación del estudiante
-      const errorMessage = await error.response.json();
-      console.log(errorMessage);
+      if (error == "Error: DNI ya registrado") {
+        setError(error);
+      } else if (error == "Error: Legajo ya registrado") {
+        setError(error);
+      } else if (error == "Error: Nombre de usuario ya utilizado") {
+        setError(error);
+      } else {
+        alert("Error del servidor");
+      }
     }
   };
 
@@ -334,6 +335,8 @@ export default function PersonalInfoForm() {
           </FormGroup>
         </Col>
       </Row>
+
+      {error && <Alert variant="danger">{error.toString()}</Alert>}
 
       <Button variant="primary" type="submit">
         Registrarse

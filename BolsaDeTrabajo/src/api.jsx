@@ -62,7 +62,7 @@ export async function createStudent(studentData) {
         file: studentData.file,
         name: studentData.lastName,
         surname: studentData.firstName,
-        email: studentData.email,
+        userEmail: studentData.email,
         altEmail: studentData.altEmail,
         documentType: studentData.docType,
         documentNumber: studentData.docNumber,
@@ -74,8 +74,8 @@ export async function createStudent(studentData) {
     });
 
     if (!response.ok) {
-      const errorResponse = await response.json();
-      const errorMessage = errorResponse.detail || "Error desconocido";
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
       console.error(errorMessage); // Imprimir el mensaje de error en la consola
       throw new Error(errorMessage);
     }
@@ -100,6 +100,32 @@ export async function getOffers() {
       throw new Error("Error en la solicitud");
     }
     const data = await response;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function recoverPassword(userName) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/User/recoverPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: userName.username,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || "No se pudo encontrar nombre de usuario."
+      );
+    }
     return data;
   } catch (error) {
     console.error(error);

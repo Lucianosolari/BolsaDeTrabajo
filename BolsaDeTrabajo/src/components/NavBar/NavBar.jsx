@@ -51,16 +51,15 @@ const NavBar = () => {
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Link to="/register">Registro</Link>
-            <Link to="/studentsform">Alumnos</Link>
+          <Nav className="mr-auto flex">
+            <Link to="/studentsform">Registrate</Link>
+            <Link to="/Offers">Empleos</Link>
             <Link to="/admin">Admin</Link>
           </Nav>
-
-          <Button as={Link} to="/login" variant="primary" size="lg">
-            <FaUser size={20} />
-          </Button>
         </Navbar.Collapse>
+        <Button as={Link} to="/login" variant="primary" size="lg">
+          <FaUser size={20} />
+        </Button>
       </Navbar>
       <main>
         <Outlet />

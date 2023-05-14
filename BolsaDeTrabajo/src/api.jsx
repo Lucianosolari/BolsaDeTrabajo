@@ -74,9 +74,10 @@ export async function createStudent(studentData) {
     });
 
     if (!response.ok) {
-      // Si la respuesta no es exitosa, lanzar un error con el mensaje del servidor
       const errorResponse = await response.json();
-      throw new Error(errorResponse.message);
+      const errorMessage = errorResponse.detail || "Error desconocido";
+      console.error(errorMessage); // Imprimir el mensaje de error en la consola
+      throw new Error(errorMessage);
     }
     const data = await response.json();
     return data;
@@ -85,6 +86,27 @@ export async function createStudent(studentData) {
     throw error;
   }
 }
+
+export async function getOffers() {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Offer/Offers`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    const data = await response;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 // const handleCreateOffer = () => {
 //   fetch("https://localhost:7069/api/Offer/createOffer", {
 //     method: "POST",

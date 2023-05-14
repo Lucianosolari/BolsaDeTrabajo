@@ -12,6 +12,7 @@ import Login from "./components/Login/Login";
 import { useState } from "react";
 import { UserProvider } from "./context/UserContext";
 import CreateOffer from "./components/Offers/CreateOffer";
+import Offers from "./components/Offers/Offers";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />
                 <Route path="/createOffer" element={<CreateOffer />} />
+                <Route path="/Offers" element={<Offers />}></Route>
               </Routes>
             </Container>
           </BrowserRouter>

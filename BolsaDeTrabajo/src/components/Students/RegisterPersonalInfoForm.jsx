@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import {
   Form,
@@ -13,13 +13,7 @@ import {
 } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import AddressForm from "./AddressForm";
-import UniversityInfoForm from "./UniversityInfoForm";
-import OtherInfoForm from "./OtherInfoForm";
-import UpdateKnowledgeForm from "./UpdateKnowledgeForm";
-import ApplicationHistory from "./ApplicationHistory";
-import CompanyInfoForm from "../Companies/CompanyInfoForm";
-import Login from "../Login/Login";
+
 import { createStudent } from "../../api";
 
 export default function PersonalInfoForm() {
@@ -30,18 +24,74 @@ export default function PersonalInfoForm() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [altEmail, setAltEmail] = useState("");
-  const [docType, setDocType] = useState("");
+  const [docType, setDocType] = useState("DNI");
   const [docNumber, setDocNumber] = useState("");
   const [cuil, setCuil] = useState("");
   const [birthdate, setBirthdate] = useState(null);
   const [gender, setGender] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [altEmailError, setAltEmailError] = useState("");
+  const [docNumberError, setDocNumberError] = useState("");
+
+  const validateEmail = (email) => {
+    const regex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
+    return regex.test(email);
+  };
+
+  const validateAltEmail = (altEmail) => {
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return regex.test(altEmail);
+  };
+
+  const validateDocNumber = (docNumber) => {
+    const dniRegex = /^\d{7,8}$/;
+    return dniRegex.test(docNumber);
+  };
+
+  useEffect(() => {
+    setEmailError("");
+  }, [email]);
+
+  useEffect(() => {
+    setEmailError("");
+  }, [altEmail]);
+
+  useEffect(() => {
+    setEmailError("");
+  }, [docNumberError]);
 
   const handleCreateStudent = async (event) => {
     event.preventDefault();
     const formattedBirthdate = birthdate
       ? format(birthdate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
       : null;
+
+    const isEmailValid = validateEmail(email);
+    if (!isEmailValid) {
+      setEmailError(
+        "El email es inválido. Debe ser una dirección de correo válida que termine en '@frro.utn.edu.ar'."
+      );
+      return;
+    } else {
+      setEmailError(""); // Limpiar el mensaje de error si el email es válido
+    }
+    const isAltEmailValid = validateAltEmail(altEmail);
+    if (!isAltEmailValid) {
+      setAltEmailError(
+        "Email es inválido. Debe ser una dirección de correo válida como ejemplo@gmail.com "
+      );
+      return;
+    } else {
+      setAltEmailError("");
+    }
+    const isDocNumber = validateDocNumber(docNumber);
+    if (!isDocNumber) {
+      setDocNumberError("El documento debe ser valido");
+      return;
+    } else {
+      setDocNumberError("");
+    }
 
     try {
       const data = await createStudent({
@@ -141,6 +191,7 @@ export default function PersonalInfoForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Ingresa tu correo electrónico"
             />
+            {emailError && <div className="text-danger">{emailError}</div>}
           </FormGroup>
         </Col>
         <Col>
@@ -152,6 +203,9 @@ export default function PersonalInfoForm() {
               onChange={(e) => setAltEmail(e.target.value)}
               placeholder="Ingresa un correo electrónico alternativo"
             />
+            {altEmailError && (
+              <div className="text-danger">{altEmailError}</div>
+            )}
           </FormGroup>
         </Col>
       </Row>
@@ -178,6 +232,9 @@ export default function PersonalInfoForm() {
                   value={docNumber}
                   onChange={(e) => setDocNumber(e.target.value)}
                 />
+                {docNumberError && (
+                  <div className="text-danger">{docNumberError}</div>
+                )}
               </Col>
             </Row>
           </FormGroup>

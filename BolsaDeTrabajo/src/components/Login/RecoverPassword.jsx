@@ -1,32 +1,37 @@
 import { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
-import { UserContext } from "../../context/UserContext";
+import { recoverPassword } from "../../api";
 
 export default function RecoverPassword() {
-  const [email, setEmail] = useState("");
-  const { user } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleRecoverPassword = async (event) => {
     event.preventDefault();
     // Add your password recovery logic here
     // Send email with new password to the entered email
+    try {
+      const data = await recoverPassword({ username: userName });
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleRecoverPassword}>
       <Form.Group controlId="email">
-        <Form.Label>Correo electrónico:</Form.Label>
+        <Form.Label>
+          Para recuperar la contraseña te enviaremos un email
+        </Form.Label>
         <Form.Control
-          type="email"
-          placeholder="Ingresa tu correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Ingresa tu usuario para recuperar tu contraseña"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
           required
         />
       </Form.Group>
-      <div>
-        {user ? <div>Hola {user.token}</div> : <div>Hola invitado</div>}
-      </div>
 
       <Button variant="primary" type="submit">
         Recuperar contraseña

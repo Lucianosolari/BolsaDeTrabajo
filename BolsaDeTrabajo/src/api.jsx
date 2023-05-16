@@ -53,6 +53,7 @@ export async function createStudent(studentData) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Student/createStudent`, {
       method: "POST",
+      mode:"no-cors",
       headers: {
         "Content-Type": "application/json",
       },

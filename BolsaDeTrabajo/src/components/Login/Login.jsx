@@ -5,12 +5,13 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
+import SettingStudents from "../Students/SettingStudents";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   const [error, setError] = useState("");
 
   const handleShowPassword = () => {
@@ -64,7 +65,8 @@ export default function Login() {
           </Button>
         </InputGroup>
       </Form.Group>
-      {error && <Alert variant="danger">{error}</Alert>}
+
+      <SettingStudents> </SettingStudents>
 
       <Button variant="primary" type="submit">
         Iniciar sesión
@@ -73,6 +75,8 @@ export default function Login() {
       <Link to="/recover-password" style={{ color: "black" }}>
         ¿Olvidaste tu contraseña?
       </Link>
+
+      {user && <Alert variant="danger">{error}</Alert>}
     </Form>
   );
 }

@@ -134,6 +134,31 @@ export async function recoverPassword(userName) {
   }
 }
 
+export async function deleteStudent(token, id) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Student/deleteStudent/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userId: id,
+      }),
+    });
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const error = new Error(`Response status is ${response.status}`);
+      error.response = errorResponse;
+      console.log(error.response);
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 // const handleCreateOffer = () => {
 //   fetch("https://localhost:7069/api/Offer/createOffer", {
 //     method: "POST",

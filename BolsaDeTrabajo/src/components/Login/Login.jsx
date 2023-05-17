@@ -73,7 +73,7 @@ export default function Login() {
       </Button>
 
       <Link to="/recover-password" style={{ color: "black" }}>
-        ¿Olvidaste tu contraseña?
+        ¿Olvidaste tu contraseñaa?
       </Link>
 
       {user && <Alert variant="danger">{error}</Alert>}

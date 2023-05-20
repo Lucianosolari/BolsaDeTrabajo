@@ -9,6 +9,7 @@ import { Container } from "react-bootstrap";
 import AdminForm from "./components/Admin/AdminForm";
 import RecoverPassword from "./components/Login/RecoverPassword";
 import Login from "./components/Login/Login";
+import UniversityInfoForm from "./components/Students/UniversityInfoForm";
 import { useState } from "react";
 import { UserProvider } from "./context/UserContext";
 import CreateOffer from "./components/Offers/CreateOffer";
@@ -32,6 +33,11 @@ function App() {
                 />
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />
+                <Route
+                  path="/UniversityInfoForm"
+                  element={<UniversityInfoForm></UniversityInfoForm>}
+                />
+
                 <Route path="/createOffer" element={<CreateOffer />} />
                 <Route path="/Offers" element={<Offers />}></Route>
               </Routes>

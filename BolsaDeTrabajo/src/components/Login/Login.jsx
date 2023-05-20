@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Form, Button, InputGroup, FormControl, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { loginUser } from "../../api";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser, logout } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import SettingStudents from "../Students/SettingStudents";
 
@@ -13,6 +13,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser, user } = useContext(UserContext);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -26,6 +27,7 @@ export default function Login() {
       console.log(data);
       setUser(data);
       setError("");
+      navigate("/UniversityInfoForm");
     } catch (error) {
       console.error(error);
       setError(
@@ -35,6 +37,21 @@ export default function Login() {
       setPassword("");
       // Handle login error
     }
+  };
+
+  const logoutUserClick = async () => {
+    console.log(user.userId);
+    try {
+      console.log(user.userId);
+      const data = await logout(user.token);
+      setUser(null);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      // Handle login error
+    }
+    console.log(user.token);
   };
 
   return (
@@ -71,12 +88,13 @@ export default function Login() {
       <Button variant="primary" type="submit">
         Iniciar sesión
       </Button>
+      <Button variant="primary" type="button" onClick={logoutUserClick}>
+        Cerrar sesión
+      </Button>
 
       <Link to="/recover-password" style={{ color: "black" }}>
         ¿Olvidaste tu contraseña?
       </Link>
-
-      {user && <Alert variant="danger">{error}</Alert>}
     </Form>
   );
 }

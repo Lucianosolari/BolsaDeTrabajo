@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import "./NavBar.css";
 import Home from "../Home/Home";
 import Footer from "../Footer/Footer";
 import { BiLogIn } from "react-icons/bi";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaCog } from "react-icons/fa";
+import { UserContext } from "../../context/UserContext";
 
 const NavBar = () => {
+  const { setUser, user } = useContext(UserContext);
   // window.addEventListener("scroll", function () {
   //   var navbar = document.getElementById("navbar");
   //   if (window.scrollY > 0) {
@@ -57,10 +59,17 @@ const NavBar = () => {
             <Link to="/admin">Admin</Link>
           </Nav>
         </Navbar.Collapse>
-        <Button as={Link} to="/login" variant="primary" size="lg">
-          <FaUser size={20} />
-        </Button>
+        {!user ? (
+          <Button as={Link} to="/login" variant="primary" size="lg">
+            <FaUser size={20} />
+          </Button>
+        ) : (
+          <Button as={Link} to="/" variant="primary" size="lg">
+            <FaCog className="fa fa-cog" aria-hidden="true" size={20} />
+          </Button>
+        )}
       </Navbar>
+
       <main>
         <Outlet />
       </main>

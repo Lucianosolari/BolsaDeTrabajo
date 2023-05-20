@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { createOffer } from "../../api";
 import { UserContext } from "../../context/UserContext";
 
-export default function CreateOffer() {
+const CreateOffer = () => {
   const [title, setTitle] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [description, setDescription] = useState("");
@@ -78,4 +78,5 @@ export default function CreateOffer() {
       </Button>
     </Form>
   );
-}
+};
+export default CreateOffer;

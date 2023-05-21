@@ -14,6 +14,8 @@ import { useState } from "react";
 import { UserProvider } from "./context/UserContext";
 import CreateOffer from "./components/Offers/CreateOffer";
 import Offers from "./components/Offers/Offers";
+import AddressForm from "./components/Students/AddressForm";
+import NavStudent from "./components/Students/NavStudent";
 
 function App() {
   return (
@@ -40,6 +42,9 @@ function App() {
 
                 <Route path="/createOffer" element={<CreateOffer />} />
                 <Route path="/Offers" element={<Offers />}></Route>
+
+                <Route path="/navStudent" element={<NavStudent />}></Route>
+                <Route path="/addressStudent" element={<AddressForm />} />
               </Routes>
             </Container>
           </BrowserRouter>

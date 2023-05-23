@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { getOffers } from "../../api";
 import "./Offers.css";
 import { format } from "date-fns";
+import { UserContext } from "../../context/UserContext";
 
 function Offers() {
   const [offersData, setOffersData] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetchOffers();
@@ -22,7 +24,7 @@ function Offers() {
   };
 
   return (
-    <div>
+    <div style={{ marginBlock: "20px" }}>
       {offersData.map((offer, index) => (
         <Card
           key={offer.offerId}
@@ -31,10 +33,12 @@ function Offers() {
           <Card.Body>
             <Card.Title>{offer.company.companyName}</Card.Title>
             <Card.Title>{offer.offerTitle}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {offer.offerSpecialty}
-            </Card.Subtitle>
-            <Card.Text>{offer.offerDescription}</Card.Text>
+            {user && (
+              <Card.Subtitle className="mb-2 text-muted">
+                {offer.offerSpecialty}
+              </Card.Subtitle>
+            )}
+            {user && <Card.Text>{offer.offerDescription}</Card.Text>}
             <Card.Text>
               {format(new Date(offer.createdDate), "dd/MM/yyyy")}
             </Card.Text>

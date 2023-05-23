@@ -159,6 +159,31 @@ export async function deleteStudent(token, id) {
   }
 }
 
+export async function deleteCompany(token, id) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Company/deleteCompany/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userId: id,
+      }),
+    });
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const error = new Error(`Response status is ${response.status}`);
+      error.response = errorResponse;
+      console.log(error.response);
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function logout(token) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Authentication/logout`, {
@@ -180,22 +205,3 @@ export async function logout(token) {
     throw error;
   }
 }
-
-// const handleCreateOffer = () => {
-//   fetch("https://localhost:7069/api/Offer/createOffer", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`, // Agregamos el token en el encabezado 'Authorization'
-//     },
-//     body: JSON.stringify({
-//       offerTitle: "Nueva",
-//       offerSpecialty: "de react",
-//       offerDescription: "de react",
-//       createdDate: "2024-04-27T01:45:18.341Z",
-//     }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => console.log(data))
-//     .catch((error) => console.error(error));
-// };

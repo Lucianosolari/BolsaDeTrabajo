@@ -1,11 +1,18 @@
-import { useState, useContext, useEffect } from "react";
-import { Form, Button, InputGroup, FormControl, Alert } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import {
+  Form,
+  Button,
+  InputGroup,
+  FormControl,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser, logout } from "../../api";
+import { loginUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
-import SettingStudents from "../Students/SettingStudents";
+import "./Login.css";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -13,6 +20,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser, user } = useContext(UserContext);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleShowPassword = () => {
@@ -21,80 +29,80 @@ export default function Login() {
 
   const handleClickLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const data = await loginUser({ username: userName, password: password });
-
-      console.log(data);
       setUser(data);
       setError("");
-      navigate("/UniversityInfoForm");
+      navigate("/Offers");
     } catch (error) {
-      console.error(error);
       setError(
         "Usuario o contraseña incorrecto. Por favor, inténtalo de nuevo."
       );
-      setUserName("");
-      setPassword("");
-      // Handle login error
     }
+
+    setIsLoading(false);
   };
 
-  const logoutUserClick = async () => {
-    console.log(user.userId);
-    try {
-      console.log(user.userId);
-      const data = await logout(user.token);
-      setUser(null);
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
+    setError("");
+  };
 
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      // Handle login error
-    }
-    console.log(user.token);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setError("");
   };
 
   return (
-    <Form onSubmit={handleClickLogin}>
-      <Form.Group controlId="tetx">
-        <Form.Label>Usuario:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Ingresa tu usuario"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          required
-        />
-      </Form.Group>
-
-      <Form.Group controlId="password">
-        <Form.Label>Contraseña:</Form.Label>
-        <InputGroup>
-          <FormControl
-            type={showPassword ? "text" : "password"}
-            placeholder="Ingresa tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+    <div className="login-card">
+      <Form onSubmit={handleClickLogin}>
+        <Form.Group controlId="tetx">
+          <Form.Label>Ingresa tu usuario:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ingresa tu usuario"
+            value={userName}
+            onChange={handleUserNameChange}
             required
           />
-          <Button variant="outline-secondary" onClick={handleShowPassword}>
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-          </Button>
-        </InputGroup>
-      </Form.Group>
+        </Form.Group>
 
-      <SettingStudents> </SettingStudents>
+        <Form.Group controlId="password">
+          <Form.Label>Ingresa tu contraseña:</Form.Label>
+          <InputGroup>
+            <FormControl
+              type={showPassword ? "text" : "password"}
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+            <Button variant="outline-secondary" onClick={handleShowPassword}>
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </Button>
+          </InputGroup>
+          {error && <Alert variant="danger">{error}</Alert>}
+        </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Iniciar sesión
-      </Button>
-      <Button variant="primary" type="button" onClick={logoutUserClick}>
-        Cerrar sesión
-      </Button>
+        <Button variant="primary" type="submit" style={{ marginTop: "10px" }}>
+          {isLoading ? (
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Cargando...</span>
+            </Spinner>
+          ) : (
+            "Iniciar sesión"
+          )}
+        </Button>
 
-      <Link to="/recover-password" style={{ color: "black" }}>
-        ¿Olvidaste tu contraseña?
-      </Link>
-    </Form>
+        <Link
+          to="/recover-password"
+          style={{ color: "black", marginTop: "20px" }}
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </Form>
+    </div>
   );
 }

@@ -1,10 +1,16 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavStudent = () => {
   return (
-    <Nav variant="pills" defaultActiveKey="/form1">
+    <Navbar
+      id="navbar"
+      bg="light"
+      expand="lg"
+      fixed="button"
+      className="bg-dark text-light py-3 mt-auto"
+    >
       <Nav.Item>
         <Nav.Link as={Link} to="/addressStudent">
           Dirección
@@ -20,7 +26,7 @@ const NavStudent = () => {
           Formulario 3
         </Nav.Link>
       </Nav.Item>
-    </Nav>
+    </Navbar>
   );
 };
 

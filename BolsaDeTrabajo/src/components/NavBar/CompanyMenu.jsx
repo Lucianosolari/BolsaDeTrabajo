@@ -51,19 +51,27 @@ const CompanyMenu = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu style={{ display: "inline-flex", flexWrap: "wrap" }}>
-        <Dropdown.Item as={Link} to="/">
+        <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
           <FaUser className="mr-2" /> Datos de la empresa
         </Dropdown.Item>
-        <Dropdown.Item as={Link} to="/createOffer">
+        <Dropdown.Item as={Link} to="/createOffer" style={{ margin: "0px" }}>
           <FaClipboard className="mr-2" /> Cargar ofertas
         </Dropdown.Item>
-        <Dropdown.Item as={Link} to="/">
+        <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
           <FaCog className="mr-2" /> Configuraciones
         </Dropdown.Item>
-        <Dropdown.Item type="button" onClick={logoutUserClick}>
+        <Dropdown.Item
+          type="button"
+          onClick={logoutUserClick}
+          style={{ margin: "0px" }}
+        >
           <FaSignOutAlt className="mr-2" /> Cerrar sesión
         </Dropdown.Item>
-        <Dropdown.Item type="button" onClick={removeUserClick}>
+        <Dropdown.Item
+          type="button"
+          onClick={removeUserClick}
+          style={{ margin: "0px" }}
+        >
           <FaTrashAlt className="mr-2" /> Eliminar cuenta
         </Dropdown.Item>
       </Dropdown.Menu>

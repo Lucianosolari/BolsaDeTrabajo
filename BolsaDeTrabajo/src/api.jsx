@@ -205,3 +205,31 @@ export async function logout(token) {
     throw error;
   }
 }
+
+export async function updateStudentAddressInfo(token, addressData) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Student/addStudentAdressInfo`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(addressData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      return data;
+    } else {
+      console.error(
+        "Error al actualizar la información de dirección:",
+        response.statusText
+      );
+      throw new Error(response.statusText);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

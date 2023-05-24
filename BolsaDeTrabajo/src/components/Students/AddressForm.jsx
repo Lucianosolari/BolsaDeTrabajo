@@ -1,199 +1,387 @@
 import React, { useState } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Card, Button } from "react-bootstrap";
+import { useContext } from "react";
+import { updateStudentAddressInfo } from "../../api";
+import { UserContext } from "../../context/UserContext";
 
 export default function AddressForm() {
-  const [calle, setCalle] = useState("");
-  const [numeroCalle, setNumeroCalle] = useState("");
-  const [letraBis, setLetraBis] = useState("");
-  const [piso, setPiso] = useState("");
-  const [depto, setDepto] = useState("");
-  const [pais, setPais] = useState("");
-  const [provincia, setProvincia] = useState("");
-  const [localidad, setLocalidad] = useState("");
-  const [telefonoParticular, setTelefonoParticular] = useState("");
-  const [otroTelefono, setOtroTelefono] = useState("");
+  const [personalStreet, setPersonalStreet] = useState("");
+  const [personalStreetNumber, setPersonalStreetNumber] = useState(0);
+  const [personalStreetLetter, setPersonalStreetLetter] = useState("");
+  const [personalFloor, setPersonalFloor] = useState(0);
+  const [personalDepartment, setPersonalDepartment] = useState("");
+  const [personalCountry, setPersonalCountry] = useState("");
+  const [personalProvince, setPersonalProvince] = useState("");
+  const [personalLocation, setPersonalLocation] = useState("");
+  const [personalPersonalPhone, setPersonalPersonalPhone] = useState(0);
+  const [personalOtherPhone, setPersonalOtherPhone] = useState(0);
 
-  // Manejadores de cambio de los campos
-  const handleCalleChange = (e) => {
-    setCalle(e.target.value);
-  };
+  const [familyStreet, setFamilyStreet] = useState("");
+  const [familyStreetNumber, setFamilyStreetNumber] = useState(0);
+  const [familyStreetLetter, setFamilyStreetLetter] = useState("");
+  const [familyFloor, setFamilyFloor] = useState(0);
+  const [familyDepartment, setFamilyDepartment] = useState("");
+  const [familyCountry, setFamilyCountry] = useState("");
+  const [familyProvince, setFamilyProvince] = useState("");
+  const [familyLocation, setFamilyLocation] = useState("");
+  const [familyPersonalPhone, setFamilyPersonalPhone] = useState(0);
+  const [familyOtherPhone, setFamilyOtherPhone] = useState(0);
 
-  const handleNumeroCalleChange = (e) => {
-    setNumeroCalle(e.target.value);
-  };
+  const { user } = useContext(UserContext);
 
-  const handleLetraBisChange = (e) => {
-    setLetraBis(e.target.value);
-  };
-
-  const handlePisoChange = (e) => {
-    setPiso(e.target.value);
-  };
-
-  const handleDeptoChange = (e) => {
-    setDepto(e.target.value);
-  };
-
-  const handlePaisChange = (e) => {
-    setPais(e.target.value);
-  };
-
-  const handleProvinciaChange = (e) => {
-    setProvincia(e.target.value);
-  };
-
-  const handleLocalidadChange = (e) => {
-    setLocalidad(e.target.value);
-  };
-
-  const handleTelefonoParticularChange = (e) => {
-    setTelefonoParticular(e.target.value);
-  };
-
-  const handleOtroTelefonoChange = (e) => {
-    setOtroTelefono(e.target.value);
+  const handleClickUpdateStudentAddressInfo = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await updateStudentAddressInfo(user.token, {
+        familyStreet: familyStreet,
+        familyStreetNumber: familyStreetNumber,
+        familyStreetLetter: familyStreetLetter,
+        familyFloor: familyFloor,
+        familyDepartment: familyDepartment,
+        familyCountry: familyCountry,
+        familyProvince: familyProvince,
+        familyLocation: familyLocation,
+        familyPersonalPhone: familyPersonalPhone,
+        familyOtherPhone: familyOtherPhone,
+        personalStreet: personalStreet,
+        personalStreetNumber: personalStreetNumber,
+        personalStreetLetter: personalStreetLetter,
+        personalFloor: personalFloor,
+        personalDepartment: personalDepartment,
+        personalCountry: personalCountry,
+        personalProvince: personalProvince,
+        personalLocation: personalLocation,
+        personalPersonalPhone: personalPersonalPhone,
+        personalOtherPhone: personalOtherPhone,
+      });
+    } catch (error) {
+      console.error(error);
+      console.error("Error al actualizar la información de dirección:", error);
+    }
   };
 
   return (
     <>
-      <Form.Group as={Row} controlId="calle">
-        <Form.Label column sm={2}>
-          Calle
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el nombre de la calle"
-            value={calle}
-            onChange={handleCalleChange}
-          />
-        </Col>
-      </Form.Group>
+      <div className="container">
+        <Card>
+          <Card.Header>Domicilio familiar</Card.Header>
 
-      <Form.Group as={Row} controlId="numeroCalle">
-        <Form.Label column sm={2}>
-          Número de calle
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el número de la calle"
-            value={numeroCalle}
-            onChange={handleNumeroCalleChange}
-          />
-        </Col>
-      </Form.Group>
-      <Form.Group as={Row} controlId="letraBis">
-        <Form.Label column sm={2}>
-          Letra/Bis
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese la letra o bis (opcional)"
-            value={letraBis}
-            onChange={handleLetraBisChange}
-          />
-        </Col>
-      </Form.Group>
-      <Form.Group as={Row} controlId="piso">
-        <Form.Label column sm={2}>
-          Piso
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el número de piso (opcional)"
-            value={piso}
-            onChange={handlePisoChange}
-          />
-        </Col>
-      </Form.Group>
+          <Card.Body>
+            <Form.Group as={Row} controlId="familyStreet">
+              <Form.Label column sm={2}>
+                Calle
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la calle"
+                  value={familyStreet}
+                  onChange={(e) => setFamilyStreet(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="depto">
-        <Form.Label column sm={2}>
-          Depto
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el número de departamento (opcional)"
-            value={depto}
-            onChange={handleDeptoChange}
-          />
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyStreetNumber">
+              <Form.Label column sm={2}>
+                Número de calle
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="number"
+                  placeholder="Ingrese el número de la calle"
+                  value={familyStreetNumber}
+                  onChange={(e) =>
+                    setFamilyStreetNumber(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="pais">
-        <Form.Label column sm={2}>
-          País
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control as="select" value={pais} onChange={handlePaisChange}>
-            <option value="">Seleccione un país</option>
-            <option value="Argentina">Argentina</option>
-            <option value="Brasil">Brasil</option>
-            <option value="Chile">Chile</option>
-            {/* Agregar más opciones de países */}
-          </Form.Control>
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyStreetLetter">
+              <Form.Label column sm={2}>
+                Letra/Bis
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese la letra o bis (opcional)"
+                  value={familyStreetLetter}
+                  onChange={(e) => setFamilyStreetLetter(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="provincia">
-        <Form.Label column sm={2}>
-          Provincia
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el nombre de la provincia"
-            value={provincia}
-            onChange={handleProvinciaChange}
-          />
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyFloor">
+              <Form.Label column sm={2}>
+                Piso
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="number"
+                  placeholder="Ingrese el número de piso (opcional)"
+                  value={familyFloor}
+                  onChange={(e) => setFamilyFloor(parseInt(e.target.value))}
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="localidad">
-        <Form.Label column sm={2}>
-          Localidad
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese el nombre de la localidad"
-            value={localidad}
-            onChange={handleLocalidadChange}
-          />
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyDepartment">
+              <Form.Label column sm={2}>
+                Número departamento
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el número de departamento (opcional)"
+                  value={familyDepartment}
+                  onChange={(e) => setFamilyDepartment(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="telefonoParticular">
-        <Form.Label column sm={2}>
-          Teléfono particular
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese su número de teléfono particular"
-            value={telefonoParticular}
-            onChange={handleTelefonoParticularChange}
-          />
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyCountry">
+              <Form.Label column sm={2}>
+                País
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  as="select"
+                  value={familyCountry}
+                  onChange={(e) => setFamilyCountry(e.target.value)}
+                >
+                  <option value="">Seleccione un país</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Brasil">Brazil</option>
+                  <option value="Chile">Chile</option>
+                  {/* Add more country options */}
+                </Form.Control>
+              </Col>
+            </Form.Group>
 
-      <Form.Group as={Row} controlId="otroTelefono">
-        <Form.Label column sm={2}>
-          Otro teléfono
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese otro número de teléfono (opcional)"
-            value={otroTelefono}
-            onChange={handleOtroTelefonoChange}
-          />
-        </Col>
-      </Form.Group>
+            <Form.Group as={Row} controlId="familyProvince">
+              <Form.Label column sm={2}>
+                Provincia
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la provincia"
+                  value={familyProvince}
+                  onChange={(e) => setFamilyProvince(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="familyLocation">
+              <Form.Label column sm={2}>
+                Ciudad/Localidad
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la localidad"
+                  value={familyLocation}
+                  onChange={(e) => setFamilyLocation(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="familyPersonalPhone">
+              <Form.Label column sm={2}>
+                Teléfono particular
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese su número de teléfono particular"
+                  value={familyPersonalPhone}
+                  onChange={(e) =>
+                    setFamilyPersonalPhone(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="familyOtherPhone">
+              <Form.Label column sm={2}>
+                Otro teléfono
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese otro número de teléfono (opcional)"
+                  value={familyOtherPhone}
+                  onChange={(e) =>
+                    setFamilyOtherPhone(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
+          </Card.Body>
+        </Card>
+      </div>
+
+      <br></br>
+      <div className="container">
+        <Card>
+          <Card.Body>
+            <Card.Header>Domicilio personal</Card.Header>
+
+            <Form.Group as={Row} controlId="personalStreet">
+              <Form.Label column sm={2}>
+                Calle
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la calle"
+                  value={personalStreet}
+                  onChange={(e) => setPersonalStreet(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="personalStreetNumber">
+              <Form.Label column sm={2}>
+                Número de calle
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="number"
+                  placeholder="Ingrese el número de la calle"
+                  value={personalStreetNumber}
+                  onChange={(e) =>
+                    setPersonalStreetNumber(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalStreetLetter">
+              <Form.Label column sm={2}>
+                Letra/Bis
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese la letra o bis (opcional)"
+                  value={personalStreetLetter}
+                  onChange={(e) => setPersonalStreetLetter(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalFloor">
+              <Form.Label column sm={2}>
+                Piso
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="number"
+                  placeholder="Ingrese el número de piso (opcional)"
+                  value={personalFloor}
+                  onChange={(e) => setPersonalFloor(parseInt(e.target.value))}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalDepartment">
+              <Form.Label column sm={2}>
+                Número departamento
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el número de departamento (opcional)"
+                  value={personalDepartment}
+                  onChange={(e) => setPersonalDepartment(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalCountry">
+              <Form.Label column sm={2}>
+                País
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  as="select"
+                  value={personalCountry}
+                  onChange={(e) => setPersonalCountry(e.target.value)}
+                >
+                  <option value="">Seleccione un país</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Brasil">Brazil</option>
+                  <option value="Chile">Chile</option>
+                  {/* Add more country options */}
+                </Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalProvince">
+              <Form.Label column sm={2}>
+                Provincia
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la provincia"
+                  value={personalProvince}
+                  onChange={(e) => setPersonalProvince(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalLocation">
+              <Form.Label column sm={2}>
+                Ciudad/Localidad
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese el nombre de la localidad"
+                  value={personalLocation}
+                  onChange={(e) => setPersonalLocation(e.target.value)}
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalPersonalPhone">
+              <Form.Label column sm={2}>
+                Teléfono particular
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese su número de teléfono particular"
+                  value={personalPersonalPhone}
+                  onChange={(e) =>
+                    setPersonalPersonalPhone(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="personalOtherPhone">
+              <Form.Label column sm={2}>
+                Otro teléfono
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese otro número de teléfono (opcional)"
+                  value={personalOtherPhone}
+                  onChange={(e) =>
+                    setPersonalOtherPhone(parseInt(e.target.value))
+                  }
+                />
+              </Col>
+            </Form.Group>
+          </Card.Body>
+        </Card>
+      </div>
+      <Button onClick={handleClickUpdateStudentAddressInfo}>
+        Cargar Domicilios
+      </Button>
     </>
   );
 }

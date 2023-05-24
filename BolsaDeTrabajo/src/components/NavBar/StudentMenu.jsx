@@ -52,19 +52,31 @@ const StudentMenu = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item as={Link} to="/navStudent">
-            <FaUser className="mr-2" /> Datos personales
+          <Dropdown.Item
+            as={Link}
+            to="/addressStudent"
+            style={{ margin: "0px" }}
+          >
+            <FaUser className="mr-2" /> Domicilio Familiar
           </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/">
+          <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
             <FaClipboard className="mr-2" /> Datos facultativos
           </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/">
+          <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
             <FaCog className="mr-2" /> Configuraciones
           </Dropdown.Item>
-          <Dropdown.Item onClick={logoutUserClick} type="button">
+          <Dropdown.Item
+            onClick={logoutUserClick}
+            type="button"
+            style={{ margin: "0px" }}
+          >
             <FaSignOutAlt className="mr-2" /> Cerrar sesión
           </Dropdown.Item>
-          <Dropdown.Item onClick={removeUserClick} type="button">
+          <Dropdown.Item
+            onClick={removeUserClick}
+            type="button"
+            style={{ margin: "0px" }}
+          >
             <FaTrashAlt className="mr-2" /> Eliminar cuenta
           </Dropdown.Item>
         </Dropdown.Menu>

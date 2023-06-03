@@ -55,7 +55,6 @@ const CreateCareer = () => {
             <Form.Label>Tipo</Form.Label>
             <Form.Control
               as="select"
-              placeholder="Prueba"
               value={careerType}
               onChange={(event) => setCareerType(event.target.value)}
             >

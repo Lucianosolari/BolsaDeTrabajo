@@ -6,6 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext";
 import StudentMenu from "./StudentMenu";
 import CompanyMenu from "./CompanyMenu";
+import AdminMenu from "./AdminMenu";
 
 const NavBar = () => {
   const { user } = useContext(UserContext);
@@ -19,13 +20,11 @@ const NavBar = () => {
     );
   } else {
     if (user.userType === "Student") {
-      // Content for students
       content = <StudentMenu />;
     } else if (user.userType === "Company") {
-      // Content for companies
       content = <CompanyMenu />;
     } else if (user.userType === "Admin") {
-      content = <p>Soy admin</p>;
+      content = <AdminMenu/>
     }
   }
 

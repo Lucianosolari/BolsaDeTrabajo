@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import "./NavBar.css";

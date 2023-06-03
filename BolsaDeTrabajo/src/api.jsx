@@ -27,7 +27,7 @@ export async function loginUser(userData) {
 
 export async function createOffer({ token, offerData }) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Offer/createOffer`, {
+    const response = await fetch(`${DB_DOMAIN}/Company/createOffer`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,6 +39,29 @@ export async function createOffer({ token, offerData }) {
         offerDescription: offerData.description,
         createdDate: offerData.date,
         companyId: offerData.companyId,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function createCareer({token, careerData}) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Admin/createCareer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        careerName: careerData.careerName,
+        careerAbbreviation: careerData.careerAbbreviation,
+        careerType: careerData.careerType,
+        careerTotalSubjects: careerData.careerTotalSubjects
       }),
     });
     const data = await response.json();

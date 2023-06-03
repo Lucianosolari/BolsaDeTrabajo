@@ -10,12 +10,12 @@ import AdminForm from "./components/Admin/AdminForm";
 import RecoverPassword from "./components/Login/RecoverPassword";
 import Login from "./components/Login/Login";
 import UniversityInfoForm from "./components/Students/UniversityInfoForm";
-import { useState } from "react";
 import { UserProvider } from "./context/UserContext";
 import CreateOffer from "./components/Offers/CreateOffer";
 import Offers from "./components/Offers/Offers";
 import AddressForm from "./components/Students/AddressForm";
 import NavStudent from "./components/Students/NavStudent";
+import CreateCareer from "./components/Admin/CreateCareer";
 
 function App() {
   return (
@@ -45,6 +45,9 @@ function App() {
 
                 <Route path="/navStudent" element={<NavStudent />}></Route>
                 <Route path="/addressStudent" element={<AddressForm />} />
+                
+                <Route path="/createCareer" element={<CreateCareer/>}/>
+
               </Routes>
             </Container>
           </BrowserRouter>

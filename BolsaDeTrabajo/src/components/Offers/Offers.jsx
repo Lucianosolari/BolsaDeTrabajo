@@ -4,6 +4,7 @@ import { getOffers } from "../../api";
 import "./Offers.css";
 import { format } from "date-fns";
 import { UserContext } from "../../context/UserContext";
+import { Link } from "react-router-dom";
 
 function Offers() {
   const [offersData, setOffersData] = useState([]);

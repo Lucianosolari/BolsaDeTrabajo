@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import {
   FaCog,

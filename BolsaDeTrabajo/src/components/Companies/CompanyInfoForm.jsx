@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-export default function CompanyInfoForm() {
+const CompanyInfoForm = () => {
   // company data
   const [companyName, setCompanyName] = useState("");
   const [companyCUIT, setCompanyCUIT] = useState("");
@@ -173,4 +173,6 @@ export default function CompanyInfoForm() {
       </Button>
     </Form>
   );
-}
+};
+
+export default CompanyInfoForm;

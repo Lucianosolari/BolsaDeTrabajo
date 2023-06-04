@@ -16,6 +16,8 @@ import Offers from "./components/Offers/Offers";
 import AddressForm from "./components/Students/AddressForm";
 import NavStudent from "./components/Students/NavStudent";
 import CreateCareer from "./components/Admin/CreateCareer";
+import SignIn from "./components/SignIn/SignIn";
+import CompanyInfoForm from "./components/Companies/CompanyInfoForm";
 
 function App() {
   return (
@@ -29,9 +31,17 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
+
+                <Route path="/signInOption" element={<SignIn/>}/>
+
                 <Route
                   path="/studentsform"
                   element={<RegisterPersonalInfoForm />}
+                />
+
+                <Route
+                  path="/companyform"
+                  element={<CompanyInfoForm/>}
                 />
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />

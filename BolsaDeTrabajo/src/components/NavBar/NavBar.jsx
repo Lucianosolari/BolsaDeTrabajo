@@ -43,7 +43,7 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto flex">
-            <Link to="/studentsform">Unite a la bolsa</Link>
+            <Link to="/signInOption">Unite a la bolsa</Link>
             <Link to="/Offers">Ultimos empleos</Link>
             <Link to="/admin">Novedades</Link>
           </Nav>

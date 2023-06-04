@@ -111,6 +111,49 @@ export async function createStudent(studentData) {
   }
 }
 
+export async function createCompany(companyData) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Company/createCompany`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: companyData.userName,
+        password: companyData.password,
+        companyCUIT: companyData.CUIT,
+        companyLine: companyData.line,
+        companyName: companyData.name,
+        companyAddress: companyData.address,
+        companyLocation: companyData.location,
+        companyPostalCode: companyData.postalCode,
+        userEmail: companyData.email,
+        companyPhone: companyData.phone,
+        companyWebPage: companyData.webPage,
+
+        companyPersonalName: companyData.personalName,
+        companyPersonalSurname: companyData.personalSurname,
+        companyPersonalJob: companyData.personalJob,
+        companyPersonalPhone: companyData.personalPhone,
+        companyRelationContact: companyData.relationContact,
+        companyPendingConfirmation: companyData.pendingConfirmation
+      }),
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      console.error(errorMessage); // Imprimir el mensaje de error en la consola
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function getOffers() {
   try {
     const response = await fetch(`${DB_DOMAIN}/Offer/Offers`, {

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { createCompany } from "../../api";
 
 const CompanyInfoForm = () => {
   // company data
-  const [companyName, setCompanyName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [companyCUIT, setCompanyCUIT] = useState("");
   const [companyLine, setCompanyLine] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [companyAdress, setCompanyAdress] = useState("");
   const [companyLocation, setCompanyLocation] = useState("");
   const [companyPostalCode, setCompanyPostalCode] = useState("");
@@ -19,32 +22,69 @@ const CompanyInfoForm = () => {
   const [companyPersonalPhone, setCompanyPersonalPhone] = useState(0);
   const [companyPersonalEmail, setCompanyPersonalEmail] = useState("");
   const [companyRelationContact, setCompanyRelationContact] = useState("");
+  //const [companyPendingConfirmation, setCompanyPendingConfirmation] = useState(true);
 
-  const handleSubmit = (event) => {
+  const [error, setError] = useState("");
+
+  const handleCreateCompany = async (event) => {
     event.preventDefault();
-    // Aquí podrías enviar los datos a tu backend o hacer algo con ellos.
+    try {
+      const data = await createCompany({
+        userName: userName,
+        password: password,
+        CUIT: companyCUIT,
+        line: companyLine,
+        name: companyName,
+        address: companyAdress,
+        location: companyLocation,
+        postalCode: companyPostalCode,
+        email: companyPersonalEmail, // CAMBIAR EN BACK (ESTÁ COMO MAIL DE EMPRESA)
+        phone: companyPhone,
+        webPage: companyWebPage,
+
+        personalName: companyPersonalName,
+        personalSurname: companyPersonalSurname,
+        personalJob: companyPersonalJob,
+        personalPhone: companyPersonalPhone,
+        relationContact: companyRelationContact,
+        pendingConfirmation: true //SI SE INSCRIBE DIRECTAMENTE, NO VA A HACER FALTA
+      });
+      console.log(data);
+    // Hacer algo con los datos retornados (data) después de crear la empresa
+    } catch (error) {
+      setError(error);
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleCreateCompany}>
 
       {/* company data */}
 
-      <Form.Group controlId="company-name">
-        <Form.Label>Razón social</Form.Label>
+      <Form.Group controlId="company-user-name">
+        <Form.Label>Usuario</Form.Label>
         <Form.Control
           type="text"
-          value={companyName}
-          onChange={(event) => setCompanyName(event.target.value)}
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </Form.Group>
 
-      <Form.Group controlId="company-cUIT">
+      <Form.Group controlId="company-password">
+        <Form.Label>Contraseña</Form.Label>
+        <Form.Control
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId="company-CUIT">
         <Form.Label>CUIT</Form.Label>
         <Form.Control
           type="text"
           value={companyCUIT}
-          onChange={(event) => setCompanyCUIT(event.target.value)}
+          onChange={(e) => setCompanyCUIT(e.target.value)}
         />
       </Form.Group>
 
@@ -53,7 +93,16 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyLine}
-          onChange={(event) => setCompanyLine(event.target.value)}
+          onChange={(e) => setCompanyLine(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId="company-name">
+        <Form.Label>Razón social</Form.Label>
+        <Form.Control
+          type="text"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
         />
       </Form.Group>
 
@@ -62,7 +111,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyAdress}
-          onChange={(event) => setCompanyAdress(event.target.value)}
+          onChange={(e) => setCompanyAdress(e.target.value)}
         />
       </Form.Group>
 
@@ -71,7 +120,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           as="select"
           value={companyLocation}
-          onChange={(event) => setCompanyLocation(event.target.value)}
+          onChange={(e) => setCompanyLocation(e.target.value)}
         >
           <option value="" disabled>Seleccione una localidad</option>
           <option value="Rosario">Rosario</option>
@@ -86,7 +135,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyPostalCode}
-          onChange={(event) => setCompanyPostalCode(event.target.value)}
+          onChange={(e) => setCompanyPostalCode(e.target.value)}
         />
       </Form.Group>
 
@@ -95,7 +144,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="number"
           value={companyPhone}
-          onChange={(event) => setCompanyPhone(event.target.value)}
+          onChange={(e) => setCompanyPhone(e.target.value)}
         />
       </Form.Group>
 
@@ -104,7 +153,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyWebPage}
-          onChange={(event) => setCompanyWebPage(event.target.value)}
+          onChange={(e) => setCompanyWebPage(e.target.value)}
         />
       </Form.Group>
 
@@ -115,7 +164,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyPersonalName}
-          onChange={(event) => setCompanyPersonalName(event.target.value)}
+          onChange={(e) => setCompanyPersonalName(e.target.value)}
         />
       </Form.Group>
 
@@ -124,7 +173,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyPersonalSurname}
-          onChange={(event) => setCompanyPersonalSurname(event.target.value)}
+          onChange={(e) => setCompanyPersonalSurname(e.target.value)}
         />
       </Form.Group>
 
@@ -133,7 +182,7 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="text"
           value={companyPersonalJob}
-          onChange={(event) => setCompanyPersonalJob(event.target.value)}
+          onChange={(e) => setCompanyPersonalJob(e.target.value)}
         />
       </Form.Group>
 
@@ -142,16 +191,16 @@ const CompanyInfoForm = () => {
         <Form.Control
           type="number"
           value={companyPersonalPhone}
-          onChange={(event) => setCompanyPersonalPhone(event.target.value)}
+          onChange={(e) => setCompanyPersonalPhone(e.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="company-personal-email">
         <Form.Label>Correo personal</Form.Label>
         <Form.Control
-          type="text"
+          type="email"
           value={companyPersonalEmail}
-          onChange={(event) => setCompanyPersonalEmail(event.target.value)}
+          onChange={(e) => setCompanyPersonalEmail(e.target.value)}
         />
       </Form.Group>
 
@@ -160,7 +209,7 @@ const CompanyInfoForm = () => {
             <Form.Control
               as="select"
               value={companyRelationContact}
-              onChange={(event) => setCompanyRelationContact(event.target.value)}
+              onChange={(e) => setCompanyRelationContact(e.target.value)}
             >
                 <option value="" disabled>Seleccione un tipo de relación</option>
                 <option value="CompanyWork">Trabajo en la Empresa que solicita la Búsqueda</option>

@@ -127,7 +127,6 @@ export async function createCompany(companyData) {
         companyAddress: companyData.address,
         companyLocation: companyData.location,
         companyPostalCode: companyData.postalCode,
-        userEmail: companyData.email,
         companyPhone: companyData.phone,
         companyWebPage: companyData.webPage,
 
@@ -135,6 +134,7 @@ export async function createCompany(companyData) {
         companyPersonalSurname: companyData.personalSurname,
         companyPersonalJob: companyData.personalJob,
         companyPersonalPhone: companyData.personalPhone,
+        userEmail: companyData.email,
         companyRelationContact: companyData.relationContact,
         companyPendingConfirmation: companyData.pendingConfirmation
       }),

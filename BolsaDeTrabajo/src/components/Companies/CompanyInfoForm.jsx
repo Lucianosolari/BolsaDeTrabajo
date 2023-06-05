@@ -9,7 +9,7 @@ const CompanyInfoForm = () => {
   const [companyCUIT, setCompanyCUIT] = useState("");
   const [companyLine, setCompanyLine] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [companyAdress, setCompanyAdress] = useState("");
+  const [companyAddress, setCompanyAddress] = useState("");
   const [companyLocation, setCompanyLocation] = useState("");
   const [companyPostalCode, setCompanyPostalCode] = useState("");
   const [companyPhone, setCompanyPhone] = useState(0);
@@ -35,10 +35,9 @@ const CompanyInfoForm = () => {
         CUIT: companyCUIT,
         line: companyLine,
         name: companyName,
-        address: companyAdress,
+        address: companyAddress,
         location: companyLocation,
         postalCode: companyPostalCode,
-        email: companyPersonalEmail, // CAMBIAR EN BACK (ESTÁ COMO MAIL DE EMPRESA)
         phone: companyPhone,
         webPage: companyWebPage,
 
@@ -46,6 +45,7 @@ const CompanyInfoForm = () => {
         personalSurname: companyPersonalSurname,
         personalJob: companyPersonalJob,
         personalPhone: companyPersonalPhone,
+        email: companyPersonalEmail,
         relationContact: companyRelationContact,
         pendingConfirmation: true //SI SE INSCRIBE DIRECTAMENTE, NO VA A HACER FALTA
       });
@@ -110,8 +110,8 @@ const CompanyInfoForm = () => {
         <Form.Label>Domicilio</Form.Label>
         <Form.Control
           type="text"
-          value={companyAdress}
-          onChange={(e) => setCompanyAdress(e.target.value)}
+          value={companyAddress}
+          onChange={(e) => setCompanyAddress(e.target.value)}
         />
       </Form.Group>
 

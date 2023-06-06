@@ -16,6 +16,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { createStudent } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 export default function PersonalInfoForm() {
   const [userName, setUserName] = useState("");
@@ -35,6 +36,7 @@ export default function PersonalInfoForm() {
   const [altEmailError, setAltEmailError] = useState("");
   const [docNumberError, setDocNumberError] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const regex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
@@ -106,6 +108,8 @@ export default function PersonalInfoForm() {
         gender: gender,
         maritalStatus: maritalStatus,
       });
+      //navigate("/login"); //VER REDIRECCIÓN AL LOGIN POST REGISTRARSE
+      //alert("Usuario creado, inicia sesión")
       console.log(data);
       // Hacer algo con los datos retornados (data) después de crear el estudiante
     } catch (error) {

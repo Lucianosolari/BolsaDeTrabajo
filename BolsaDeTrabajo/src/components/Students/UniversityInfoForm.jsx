@@ -2,45 +2,45 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 export default function UniversityInfoForm() {
-  const [especialidad, setEspecialidad] = useState("");
-  const [cantidadMaterias, setCantidadMaterias] = useState("");
-  const [planEspecialidad, setPlanEspecialidad] = useState("");
-  const [anioCursa, setAnioCursa] = useState("");
-  const [turnoCursa, setTurnoCursa] = useState("");
-  const [promedioConAplazo, setPromedioConAplazo] = useState("");
-  const [promedioSinAplazo, setPromedioSinAplazo] = useState("");
-  const [tituloUniversitario, setTituloUniversitario] = useState("");
+  const [specialty, setSpecialty] = useState("");
+  const [approvedSubjectsQuantity, setApprovedSubjectsQuantity] = useState(0);
+  const [specialtyPlan, setSpecialtyPlan] = useState("");
+  const [currentStudyYear, setCurrentStudyYear] = useState("");
+  const [studyTurn, setStudyTurn] = useState("");
+  const [averageMarksWithPostponement, setAverageMarksWithPostponement] = useState("");
+  const [averageMarksWithoutPostponement, setAverageMarksWithoutPostponement] = useState("");
+  const [collegeDegree, setCollegeDegree] = useState("");
 
   const handleEspecialidadChange = (e) => {
-    setEspecialidad(e.target.value);
+    setSpecialty(e.target.value);
   };
 
   const handleCantidadMateriasChange = (e) => {
-    setCantidadMaterias(e.target.value);
+    setApprovedSubjectsQuantity(e.target.value);
   };
 
   const handlePlanEspecialidadChange = (e) => {
-    setPlanEspecialidad(e.target.value);
+    setSpecialtyPlan(e.target.value);
   };
 
   const handleAnioCursaChange = (e) => {
-    setAnioCursa(e.target.value);
+    setCurrentStudyYear(e.target.value);
   };
 
   const handleTurnoCursaChange = (e) => {
-    setTurnoCursa(e.target.value);
+    setStudyTurn(e.target.value);
   };
 
   const handlePromedioConAplazoChange = (e) => {
-    setPromedioConAplazo(e.target.value);
+    setAverageMarksWithPostponement(e.target.value);
   };
 
   const handlePromedioSinAplazoChange = (e) => {
-    setPromedioSinAplazo(e.target.value);
+    setAverageMarksWithoutPostponement(e.target.value);
   };
 
   const handleTituloUniversitarioChange = (e) => {
-    setTituloUniversitario(e.target.value);
+    setCollegeDegree(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -51,41 +51,41 @@ export default function UniversityInfoForm() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="especialidad">
+        <Form.Group controlId="specialty">
           <Form.Label>Especialidad</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Ingrese la especialidad"
-            value={especialidad}
+            placeholder="Ingrese la specialty"
+            value={specialty}
             onChange={handleEspecialidadChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="cantidadMaterias">
+        <Form.Group controlId="approvedSubjectsQuantity">
           <Form.Label>Cantidad de Materias aprobadas</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingrese la cantidad de materias aprobadas"
-            value={cantidadMaterias}
+            value={approvedSubjectsQuantity}
             onChange={handleCantidadMateriasChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="planEspecialidad">
+        <Form.Group controlId="specialtyPlan">
           <Form.Label>Plan de Especialidad</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Ingrese el plan de especialidad"
-            value={planEspecialidad}
+            placeholder="Ingrese el plan de specialty"
+            value={specialtyPlan}
             onChange={handlePlanEspecialidadChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="anioCursa">
+        <Form.Group controlId="currentStudyYear">
           <Form.Label>Año que Cursa</Form.Label>
           <Form.Control
             as="select"
-            value={anioCursa}
+            value={currentStudyYear}
             onChange={handleAnioCursaChange}
           >
             <option value="">Seleccione</option>
@@ -98,11 +98,11 @@ export default function UniversityInfoForm() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="turnoCursa">
+        <Form.Group controlId="studyTurn">
           <Form.Label>Turno que Cursa</Form.Label>
           <Form.Control
             as="select"
-            value={turnoCursa}
+            value={studyTurn}
             onChange={handleTurnoCursaChange}
           >
             <option value="">Seleccione</option>
@@ -112,32 +112,32 @@ export default function UniversityInfoForm() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="promedioConAplazo">
+        <Form.Group controlId="averageMarksWithPostponement">
           <Form.Label>Promedio con Aplazo</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingrese el promedio con aplazo"
-            value={promedioConAplazo}
+            value={averageMarksWithPostponement}
             onChange={handlePromedioConAplazoChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="promedioSinAplazo">
+        <Form.Group controlId="averageMarksWithoutPostponement">
           <Form.Label>Promedio sin Aplazo</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingrese el promedio sin aplazo"
-            value={promedioSinAplazo}
+            value={averageMarksWithoutPostponement}
             onChange={handlePromedioSinAplazoChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="tituloUniversitario">
+        <Form.Group controlId="collegeDegree">
           <Form.Label>Título Universitario</Form.Label>
           <Form.Control
             type="text"
             placeholder="Ingrese el título universitario"
-            value={tituloUniversitario}
+            value={collegeDegree}
             onChange={handleTituloUniversitarioChange}
           />
         </Form.Group>

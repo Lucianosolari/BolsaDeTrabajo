@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { updateStudentUniversityInfo } from "../../api";
 
 export default function UniversityInfoForm() {
   const [specialty, setSpecialty] = useState("");
@@ -10,43 +11,27 @@ export default function UniversityInfoForm() {
   const [averageMarksWithPostponement, setAverageMarksWithPostponement] = useState("");
   const [averageMarksWithoutPostponement, setAverageMarksWithoutPostponement] = useState("");
   const [collegeDegree, setCollegeDegree] = useState("");
+  const [error, setError] = useState("");
 
-  const handleEspecialidadChange = (e) => {
-    setSpecialty(e.target.value);
-  };
-
-  const handleCantidadMateriasChange = (e) => {
-    setApprovedSubjectsQuantity(e.target.value);
-  };
-
-  const handlePlanEspecialidadChange = (e) => {
-    setSpecialtyPlan(e.target.value);
-  };
-
-  const handleAnioCursaChange = (e) => {
-    setCurrentStudyYear(e.target.value);
-  };
-
-  const handleTurnoCursaChange = (e) => {
-    setStudyTurn(e.target.value);
-  };
-
-  const handlePromedioConAplazoChange = (e) => {
-    setAverageMarksWithPostponement(e.target.value);
-  };
-
-  const handlePromedioSinAplazoChange = (e) => {
-    setAverageMarksWithoutPostponement(e.target.value);
-  };
-
-  const handleTituloUniversitarioChange = (e) => {
-    setCollegeDegree(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes realizar alguna acción con los datos del formulario
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const data = await updateStudentUniversityInfo({
+        specialty: specialty,
+        approvedSubjectsQuantity: approvedSubjectsQuantity,
+        specialtyPlan: specialtyPlan,
+        currentStudyYear: currentStudyYear,
+        studyTurn: studyTurn,
+        averageMarksWithPostponement: averageMarksWithPostponement,
+        averageMarksWithoutPostponement: averageMarksWithoutPostponement,
+        collegeDegree: collegeDegree
+    });
+    console.log(data);
+  } catch (e) {
+    setError(e);
+    console.log(error);
+  }
+};
 
   return (
     <>
@@ -57,7 +42,7 @@ export default function UniversityInfoForm() {
             type="text"
             placeholder="Ingrese la specialty"
             value={specialty}
-            onChange={handleEspecialidadChange}
+            onChange={(e) => setSpecialty(e.target.value)}
           />
         </Form.Group>
 
@@ -67,7 +52,7 @@ export default function UniversityInfoForm() {
             type="number"
             placeholder="Ingrese la cantidad de materias aprobadas"
             value={approvedSubjectsQuantity}
-            onChange={handleCantidadMateriasChange}
+            onChange={(e) => setApprovedSubjectsQuantity(e.target.value)}
           />
         </Form.Group>
 
@@ -77,7 +62,7 @@ export default function UniversityInfoForm() {
             type="text"
             placeholder="Ingrese el plan de specialty"
             value={specialtyPlan}
-            onChange={handlePlanEspecialidadChange}
+            onChange={(e) => setSpecialtyPlan(e.target.value)}
           />
         </Form.Group>
 
@@ -86,7 +71,7 @@ export default function UniversityInfoForm() {
           <Form.Control
             as="select"
             value={currentStudyYear}
-            onChange={handleAnioCursaChange}
+            onChange={(e) => setCurrentStudyYear(e.target.value)}
           >
             <option value="">Seleccione</option>
             <option value="1">1° Año</option>
@@ -103,7 +88,7 @@ export default function UniversityInfoForm() {
           <Form.Control
             as="select"
             value={studyTurn}
-            onChange={handleTurnoCursaChange}
+            onChange={(e) => setStudyTurn(e.target.value)}
           >
             <option value="">Seleccione</option>
             <option value="manana">Mañana</option>
@@ -118,7 +103,7 @@ export default function UniversityInfoForm() {
             type="number"
             placeholder="Ingrese el promedio con aplazo"
             value={averageMarksWithPostponement}
-            onChange={handlePromedioConAplazoChange}
+            onChange={(e) => setAverageMarksWithPostponement(e.target.value)}
           />
         </Form.Group>
 
@@ -128,7 +113,7 @@ export default function UniversityInfoForm() {
             type="number"
             placeholder="Ingrese el promedio sin aplazo"
             value={averageMarksWithoutPostponement}
-            onChange={handlePromedioSinAplazoChange}
+            onChange={(e) => setAverageMarksWithoutPostponement(e.target.value)}
           />
         </Form.Group>
 
@@ -138,7 +123,7 @@ export default function UniversityInfoForm() {
             type="text"
             placeholder="Ingrese el título universitario"
             value={collegeDegree}
-            onChange={handleTituloUniversitarioChange}
+            onChange={(e) => setCollegeDegree(e.target.value)}
           />
         </Form.Group>
 

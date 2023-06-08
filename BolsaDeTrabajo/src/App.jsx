@@ -32,32 +32,28 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/signInOption" element={<SignIn/>}/>
+                <Route path="/signInOption" element={<SignIn />} />
 
                 <Route
                   path="/studentsform"
                   element={<RegisterPersonalInfoForm />}
                 />
 
-                <Route
-                  path="/companyform"
-                  element={<CompanyInfoForm/>}
-                />
+                <Route path="/companyform" element={<CompanyInfoForm />} />
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />
-                <Route
-                  path="/UniversityInfoForm"
-                  element={<UniversityInfoForm></UniversityInfoForm>}
-                />
 
                 <Route path="/createOffer" element={<CreateOffer />} />
                 <Route path="/Offers" element={<Offers />}></Route>
 
                 <Route path="/navStudent" element={<NavStudent />}></Route>
                 <Route path="/addressStudent" element={<AddressForm />} />
-                
-                <Route path="/createCareer" element={<CreateCareer/>}/>
+                <Route
+                  path="/universityStudent"
+                  element={<UniversityInfoForm />}
+                />
 
+                <Route path="/createCareer" element={<CreateCareer />} />
               </Routes>
             </Container>
           </BrowserRouter>

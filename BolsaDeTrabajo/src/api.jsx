@@ -167,6 +167,36 @@ export async function updateStudentUniversityInfo(token, universityData) {
   }
 }
 
+export async function updateStudentOtherInfo(token, universityData) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Student/updateStudentOtherInfo`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(universityData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      return data;
+    } else {
+      console.error(
+        "Error al actualizar la información de universidad:",
+        response.statusText
+      );
+      throw new Error(response.statusText);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+//IMPLEMENTAR STUDENT CON KNOWLEDGE
+
 export async function createCompany(companyData) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Company/createCompany`, {

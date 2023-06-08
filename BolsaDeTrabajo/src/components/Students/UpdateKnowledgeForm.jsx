@@ -3,60 +3,56 @@ import { Form, Button, Table } from "react-bootstrap";
 //import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function UpdateKnowledgeForm() {
-  const [conocimientos, setConocimientos] = useState([]);
-  const [conocimientoSeleccionado, setConocimientoSeleccionado] = useState("");
-  const [nivelSeleccionado, setNivelSeleccionado] = useState("bajo");
+  const [knowledge, setKnowledge] = useState([]);
+  const [selectedKnowledge, setSelectedKnowledge] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState("bajo");
 
-  const handleConocimientoChange = (event) => {
-    setConocimientoSeleccionado(event.target.value);
+  const handleKnowledgeChange = (event) => {
+    setSelectedKnowledge(event.target.value);
   };
 
-  const handleNivelChange = (event) => {
-    setNivelSeleccionado(event.target.value);
-  };
-
-  const handleAgregarConocimiento = () => {
-    if (conocimientoSeleccionado !== "") {
-      const nuevoConocimiento = {
-        conocimiento: conocimientoSeleccionado,
-        nivel: nivelSeleccionado,
+  const handleAddKnowledge = () => {
+    if (selectedKnowledge !== "") {
+      const newKnowledge = {
+        knowledge: selectedKnowledge,
+        nivel: selectedLevel,
       };
-      setConocimientos([...conocimientos, nuevoConocimiento]);
-      setConocimientoSeleccionado("");
-      setNivelSeleccionado("bajo");
+      setKnowledge([...knowledge, newKnowledge]);
+      setSelectedKnowledge("");
+      setSelectedLevel("bajo");
     }
   };
 
-  const handleBorrarConocimiento = (index) => {
-    const nuevosConocimientos = [...conocimientos];
-    nuevosConocimientos.splice(index, 1);
-    setConocimientos(nuevosConocimientos);
+  const handleDeleteKnowledge = (index) => {
+    const newKnowledges = [...knowledge];
+    newKnowledges.splice(index, 1);
+    setKnowledge(newKnowledges);
   };
 
   return (
     <>
       <Form>
-        <Form.Group controlId="conocimientoSeleccionado">
+        <Form.Group controlId="selectedKnowledge">
           <Form.Label>Conocimientos</Form.Label>
           <Form.Control
             as="select"
-            value={conocimientoSeleccionado}
-            onChange={handleConocimientoChange}
+            value={selectedKnowledge}
+            onChange={handleKnowledgeChange}
           >
             <option value="">Seleccione un conocimiento</option>
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
             <option value="JavaScript">JavaScript</option>
-            {/* Agrega más opciones de conocimientos aquí */}
+            {/* Agrega más opciones de knowledge aquí */}
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="nivelSeleccionado">
+        <Form.Group controlId="selectedLevel">
           <Form.Label>Nivel</Form.Label>
           <Form.Control
             as="select"
-            value={nivelSeleccionado}
-            onChange={handleNivelChange}
+            value={selectedLevel}
+            onChange={(e) => setSelectedLevel(e.target.value)}
           >
             <option value="bajo">Bajo</option>
             <option value="medio">Medio</option>
@@ -64,11 +60,11 @@ export default function UpdateKnowledgeForm() {
           </Form.Control>
         </Form.Group>
 
-        <Button onClick={handleAgregarConocimiento}>
+        <Button onClick={handleAddKnowledge}>
           Agregar Conocimiento
         </Button>
 
-        {conocimientos.length > 0 && (
+        {knowledge.length > 0 && (
           <Table>
             <thead>
               <tr>
@@ -78,15 +74,15 @@ export default function UpdateKnowledgeForm() {
               </tr>
             </thead>
             <tbody>
-              {conocimientos.map((conocimiento, index) => (
+              {knowledge.map((knowledge, index) => (
                 <tr key={index}>
-                  <td>{conocimiento.conocimiento}</td>
-                  <td>{conocimiento.nivel}</td>
+                  <td>{knowledge.knowledge}</td>
+                  <td>{knowledge.nivel}</td>
                   <td>
                     {/* Agrega el icono de borrado con su función de manejo de eventos */}
                     <Button
                       variant="danger"
-                      onClick={() => handleBorrarConocimiento(index)}
+                      onClick={() => handleDeleteKnowledge(index)}
                     ></Button>
                   </td>
                 </tr>

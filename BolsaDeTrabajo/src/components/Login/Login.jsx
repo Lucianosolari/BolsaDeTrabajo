@@ -37,9 +37,7 @@ export default function Login() {
       setError("");
       navigate("/Offers");
     } catch (error) {
-      setError(
-        "Usuario o contraseña incorrecto. Por favor, inténtalo de nuevo."
-      );
+      setError(error.message || "Error del servidor.");
     }
 
     setIsLoading(false);

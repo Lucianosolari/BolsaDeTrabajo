@@ -13,11 +13,15 @@ export async function loginUser(userData) {
       }),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(data.message || "No se pudo iniciar sesión.");
+      const data = await response.json();
+      throw new Error(
+        data.error ||
+          "No se pudo iniciar sesión. Usuario o contraseña incorrecto. Por favor, inténtalo de nuevo."
+      );
     }
+
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
@@ -49,7 +53,7 @@ export async function createOffer({ token, offerData }) {
   }
 }
 
-export async function createCareer({token, careerData}) {
+export async function createCareer({ token, careerData }) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Admin/createCareer`, {
       method: "POST",
@@ -61,7 +65,7 @@ export async function createCareer({token, careerData}) {
         careerName: careerData.careerName,
         careerAbbreviation: careerData.careerAbbreviation,
         careerType: careerData.careerType,
-        careerTotalSubjects: careerData.careerTotalSubjects
+        careerTotalSubjects: careerData.careerTotalSubjects,
       }),
     });
     const data = await response.json();
@@ -141,14 +145,17 @@ export async function updateStudentAddressInfo(token, addressData) {
 
 export async function updateStudentUniversityInfo(token, universityData) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Student/updateStudentUniversityInfo`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(universityData),
-    });
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/updateStudentUniversityInfo`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(universityData),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -169,14 +176,17 @@ export async function updateStudentUniversityInfo(token, universityData) {
 
 export async function updateStudentOtherInfo(token, universityData) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Student/updateStudentOtherInfo`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(universityData),
-    });
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/updateStudentOtherInfo`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(universityData),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -222,7 +232,7 @@ export async function createCompany(companyData) {
         companyPersonalPhone: companyData.personalPhone,
         userEmail: companyData.email,
         companyRelationContact: companyData.relationContact,
-        companyPendingConfirmation: companyData.pendingConfirmation
+        companyPendingConfirmation: companyData.pendingConfirmation,
       }),
     });
 

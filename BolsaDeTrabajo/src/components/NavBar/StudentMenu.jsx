@@ -57,9 +57,13 @@ const StudentMenu = () => {
             to="/addressStudent"
             style={{ margin: "0px" }}
           >
-            <FaUser className="mr-2" /> Domicilio Familiar
+            <FaUser className="mr-2" /> Domicilio
           </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
+          <Dropdown.Item
+            as={Link}
+            to="/universityStudent"
+            style={{ margin: "0px" }}
+          >
             <FaClipboard className="mr-2" /> Datos facultativos
           </Dropdown.Item>
           <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>

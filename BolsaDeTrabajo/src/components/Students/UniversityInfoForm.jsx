@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import { updateStudentUniversityInfo } from "../../api";
+import { UserContext } from "../../context/UserContext";
 
 export default function UniversityInfoForm() {
   const [specialty, setSpecialty] = useState("");
@@ -8,15 +9,18 @@ export default function UniversityInfoForm() {
   const [specialtyPlan, setSpecialtyPlan] = useState("");
   const [currentStudyYear, setCurrentStudyYear] = useState("");
   const [studyTurn, setStudyTurn] = useState("");
-  const [averageMarksWithPostponement, setAverageMarksWithPostponement] = useState("");
-  const [averageMarksWithoutPostponement, setAverageMarksWithoutPostponement] = useState("");
+  const [averageMarksWithPostponement, setAverageMarksWithPostponement] =
+    useState("");
+  const [averageMarksWithoutPostponement, setAverageMarksWithoutPostponement] =
+    useState("");
   const [collegeDegree, setCollegeDegree] = useState("");
   const [error, setError] = useState("");
+  const { user } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await updateStudentUniversityInfo({
+      const data = await updateStudentUniversityInfo(user.token, {
         specialty: specialty,
         approvedSubjectsQuantity: approvedSubjectsQuantity,
         specialtyPlan: specialtyPlan,
@@ -24,14 +28,14 @@ export default function UniversityInfoForm() {
         studyTurn: studyTurn,
         averageMarksWithPostponement: averageMarksWithPostponement,
         averageMarksWithoutPostponement: averageMarksWithoutPostponement,
-        collegeDegree: collegeDegree
-    });
-    console.log(data);
-  } catch (e) {
-    setError(e);
-    console.log(error);
-  }
-};
+        collegeDegree: collegeDegree,
+      });
+      console.log(data);
+    } catch (e) {
+      setError(e);
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -40,7 +44,7 @@ export default function UniversityInfoForm() {
           <Form.Label>Especialidad</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Ingrese la specialty"
+            placeholder="Ingrese la especialidad"
             value={specialty}
             onChange={(e) => setSpecialty(e.target.value)}
           />
@@ -73,13 +77,13 @@ export default function UniversityInfoForm() {
             value={currentStudyYear}
             onChange={(e) => setCurrentStudyYear(e.target.value)}
           >
-            <option value="">Seleccione</option>
-            <option value="1">1° Año</option>
-            <option value="2">2° Año</option>
-            <option value="3">3° Año</option>
-            <option value="4">4° Año</option>
-            <option value="5">5° Año</option>
-            <option value="6">6° Año</option>
+            <option value={0}>Seleccione</option>
+            <option value={1}>1° Año</option>
+            <option value={2}>2° Año</option>
+            <option value={3}>3° Año</option>
+            <option value={4}>4° Año</option>
+            <option value={5}>5° Año</option>
+            <option value={6}>6° Año</option>
           </Form.Control>
         </Form.Group>
 

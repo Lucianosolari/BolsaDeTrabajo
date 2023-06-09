@@ -174,24 +174,23 @@ export async function updateStudentUniversityInfo(token, universityData) {
   }
 }
 
-export async function updateStudentOtherInfo(token, universityData) {
+export async function uploadCV(token, cvFile) {
   try {
-    const response = await fetch(
-      `${DB_DOMAIN}/Student/updateStudentOtherInfo`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(universityData),
-      }
-    );
+    const formData = new FormData();
+    formData.append("file", cvFile);
+
+    const response = await fetch(`${DB_DOMAIN}/Student/uploadCV`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-      return data;
+      const message = await response.text();
+      console.log(message);
+      return message;
     } else {
       console.error(
         "Error al actualizar la información de universidad:",

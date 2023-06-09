@@ -66,8 +66,8 @@ const StudentMenu = () => {
           >
             <FaClipboard className="mr-2" /> Datos facultativos
           </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
-            <FaCog className="mr-2" /> Configuraciones
+          <Dropdown.Item as={Link} to="/uploadCV" style={{ margin: "0px" }}>
+            <FaCog className="mr-2" /> Cargar CV
           </Dropdown.Item>
           <Dropdown.Item
             onClick={logoutUserClick}

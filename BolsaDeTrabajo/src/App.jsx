@@ -18,6 +18,7 @@ import NavStudent from "./components/Students/NavStudent";
 import CreateCareer from "./components/Admin/CreateCareer";
 import SignIn from "./components/SignIn/SignIn";
 import CompanyInfoForm from "./components/Companies/CompanyInfoForm";
+import CvFileForm from "./components/Students/CvFileForm";
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
                   path="/universityStudent"
                   element={<UniversityInfoForm />}
                 />
+
+                <Route path="/uploadCV" element={<CvFileForm />} />
 
                 <Route path="/createCareer" element={<CreateCareer />} />
               </Routes>

@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-3 mt-auto">
+    <footer className="custom-gradient text-light py-3 mt-auto">
       <Container fluid>
         <Row>
           <Col>

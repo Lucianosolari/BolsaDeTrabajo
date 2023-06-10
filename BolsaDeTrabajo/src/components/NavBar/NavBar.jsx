@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button, Row, Col } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import "./NavBar.css";
 import { FaUser } from "react-icons/fa";
@@ -24,31 +24,30 @@ const NavBar = () => {
     } else if (user.userType === "Company") {
       content = <CompanyMenu />;
     } else if (user.userType === "Admin") {
-      content = <AdminMenu/>
+      content = <AdminMenu />;
     }
   }
 
   return (
     <>
-      <Navbar
-        id="navbar"
-        bg="light"
-        expand="lg"
-        fixed="top"
-        className="bg-dark text-light py-3 mt-auto"
-      >
-        <Link to="/">
-          <img src="./logo.png" alt="Logo de la Empresa" />
-        </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto flex">
-            {!user && (<Link to="/signInOption">Unite a la bolsa</Link>)}
-            <Link to="/Offers">Ultimos empleos</Link>
-            <Link to="/admin">Novedades</Link>
-          </Nav>
-          {content}
-        </Navbar.Collapse>
+      <Navbar id="navbar" expand="lg" fixed="top" className="custom-gradient">
+        <Row className="w-100">
+          <Col xs={3}>
+            <Link to="/">
+              <img src="./logo.png" alt="Logo de la Empresa" />
+            </Link>
+          </Col>
+          <Col xs={6} className="text-center">
+            <Nav className="mr-auto flex">
+              {!user && <Link to="/signInOption">Unite a la bolsa</Link>}
+              <Link to="/Offers">Ultimos empleos</Link>
+              <Link to="/admin">Novedades</Link>
+            </Nav>
+          </Col>
+          <Col xs={3} className="text-right">
+            {content}
+          </Col>
+        </Row>
       </Navbar>
 
       <main>

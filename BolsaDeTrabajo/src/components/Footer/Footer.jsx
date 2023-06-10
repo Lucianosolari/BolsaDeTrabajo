@@ -1,21 +1,52 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { FaPhone, FaEnvelope, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <footer className="bg-dark text-light py-3 mt-auto">
-      {/* Utiliza la clase de estilo fixed-bottom para pegar el footer en la parte inferior de la ventana */}
       <Container fluid>
         <Row>
           <Col>
-            {/* Contenido del footer */}
             <h4>Contacto</h4>
-            <p>Información de contacto...</p>
+            <p>
+              <FaPhone /> Teléfono: +54 341 20232023
+            </p>
+            <p>
+              <FaEnvelope /> Email: info@frro.utn.edu.ar
+            </p>
+          </Col>
+          <Col className="col-6 text-center">
+            <h4>Universidad Tecnológica de Rosario</h4>
+            <p>
+              <a
+                href="https://www.frro.utn.edu.ar/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ingresa a la Web de UTN
+              </a>
+            </p>
+            <h4>GitHub</h4>
+            <a
+              href="https://github.com/manuelibarbia"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={30} /> Manuel Ibarbia
+            </a>
+            <a
+              href="https://github.com/Lucianosolari"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub size={30} /> Luciano Solari
+            </a>
           </Col>
           <Col>
-            {/* Otros elementos del footer */}
-            <h4>Otro elemento del footer</h4>
-            <p>Contenido del elemento...</p>
+            <h4>Creadores</h4>
+            <p>Manuel Ibarbia</p>
+            <p>Luciano Solari</p>
           </Col>
         </Row>
       </Container>

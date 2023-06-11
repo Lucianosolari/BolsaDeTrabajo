@@ -19,6 +19,7 @@ import CreateCareer from "./components/Admin/CreateCareer";
 import SignIn from "./components/SignIn/SignIn";
 import CompanyInfoForm from "./components/Companies/CompanyInfoForm";
 import CvFileForm from "./components/Students/CvFileForm";
+import OtherInfoForm from "./components/Students/OtherInfoForm";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
                 />
 
                 <Route path="/uploadCV" element={<CvFileForm />} />
+                <Route path="/OtherInfo" element={<OtherInfoForm />} />
 
                 <Route path="/createCareer" element={<CreateCareer />} />
               </Routes>

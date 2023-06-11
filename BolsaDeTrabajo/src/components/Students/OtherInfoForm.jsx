@@ -4,7 +4,7 @@ import { updateStudentOtherInfo } from "../../api";
 
 export default function OtherInfoForm() {
   const [secondaryDegree, setSecondaryDegree] = useState("");
-  const [cvFile, setCvFile] = useState(null);
+
   const [observations, setObservations] = useState("");
   const [error, setError] = useState("");
 
@@ -13,9 +13,8 @@ export default function OtherInfoForm() {
     try {
       const data = await updateStudentOtherInfo({
         secondaryDegree: secondaryDegree,
-        cvFile: cvFile,
-        observations: observations
-      })
+        observations: observations,
+      });
     } catch (e) {
       setError(e);
       console.log(error);
@@ -35,13 +34,6 @@ export default function OtherInfoForm() {
           />
         </Form.Group>
 
-        <Form.Group controlId="cvFile">
-          <Form.Label>Archivo CV</Form.Label>
-          <Form.Control type="file" onChange={(e) => setCvFile(e.target.files[0])} />
-          <Button>Ver CV actual</Button>
-          <Form.Control></Form.Control>
-        </Form.Group>
-
         <Form.Group controlId="observations">
           <Form.Label>Observaciones</Form.Label>
           <Form.Control
@@ -53,7 +45,7 @@ export default function OtherInfoForm() {
           />
         </Form.Group>
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">Cargar datos</Button>
       </Form>
     </>
   );

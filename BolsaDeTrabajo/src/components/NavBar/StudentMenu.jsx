@@ -69,6 +69,11 @@ const StudentMenu = () => {
           <Dropdown.Item as={Link} to="/uploadCV" style={{ margin: "0px" }}>
             <FaCog className="mr-2" /> Cargar CV
           </Dropdown.Item>
+
+          <Dropdown.Item as={Link} to="/OtherInfo" style={{ margin: "0px" }}>
+            <FaCog className="mr-2" /> Cargar otra info - Falta implementar
+          </Dropdown.Item>
+
           <Dropdown.Item
             onClick={logoutUserClick}
             type="button"

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card, Alert } from "react-bootstrap";
 import { UserContext } from "../../context/UserContext";
 import { uploadCV } from "../../api";
 
@@ -7,29 +7,44 @@ const CvFileForm = () => {
   const [cvFile, setCvFile] = useState(null);
   const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!cvFile) {
+      setError("Debe cargar un archivo");
+      return;
+    }
+
     try {
-      const data = await uploadCV(user.token, cvFile);
-      console.log(data); // Hacer algo con la respuesta exitosa
+      const response = await uploadCV(user.token, cvFile);
+
+      setSuccess(response.message.message);
+      setError(null);
     } catch (error) {
-      setError(error);
-      console.log(error); // Manejar el error de alguna manera
+      setError("Error del servidor.");
+      setSuccess(null);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="cvFile">
-        <Form.Label>Archivo CV</Form.Label>
-        <Form.Control
-          type="file"
-          onChange={(e) => setCvFile(e.target.files[0])}
-        />
-        <Button type="submit">Cargar CV</Button>
-      </Form.Group>
-    </Form>
+    <Card>
+      <Card.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="cvFile">
+            <Form.Label>Archivo CV</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={(e) => setCvFile(e.target.files[0])}
+            />
+            <Button type="submit">Cargar CV</Button>
+          </Form.Group>
+        </Form>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{success}</Alert>}
+      </Card.Body>
+    </Card>
   );
 };
 

@@ -37,8 +37,11 @@ const NavBar = () => {
               <img src="./logo.png" alt="Logo de la Empresa" />
             </Link>
           </Col>
-          <Col xs={6} className="text-center">
-            <Nav className="mr-auto flex">
+          <Col
+            xs={6}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <Nav className="mr-auto ">
               {!user && <Link to="/signInOption">Unite a la bolsa</Link>}
               <Link to="/Offers">Ultimos empleos</Link>
               <Link to="/admin">Novedades</Link>

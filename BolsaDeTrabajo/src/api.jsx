@@ -126,17 +126,13 @@ export async function updateStudentAddressInfo(token, addressData) {
       body: JSON.stringify(addressData),
     });
 
-    if (response.ok) {
+    if (!response.ok) {
       const data = await response.json();
-      console.log(data.message);
-      return data;
-    } else {
-      console.error(
-        "Error al actualizar la información de dirección:",
-        response.statusText
-      );
-      throw new Error(response.statusText);
+      throw new Error(data.error);
     }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -188,9 +184,37 @@ export async function uploadCV(token, cvFile) {
     });
 
     if (response.ok) {
-      const message = await response.text();
+      const message = await response.json();
       console.log(message);
-      return message;
+      return { message };
+    } else {
+      console.error("Error al cargar el CV:", response);
+      throw new Error("Error al cargar el CV");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function updateStudentOtherInfo(token, otherData) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/updateStudentOtherInfo`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(otherData),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      return data;
     } else {
       console.error(
         "Error al actualizar la información de universidad:",

@@ -228,6 +228,30 @@ export async function updateStudentOtherInfo(token, otherData) {
   }
 }
 
+export async function addStudentToOffer(token, studentId, offerId) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/${offerId}/Students/${studentId}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      return true;
+    } else {
+      const error = await response.text();
+      console.error("Error al inscribir al estudiante:", error);
+      throw new Error("Error al inscribir al estudiante");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 //IMPLEMENTAR STUDENT CON KNOWLEDGE
 
 export async function createCompany(companyData) {

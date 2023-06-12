@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Card } from "react-bootstrap";
-import { getOffers } from "../../api";
+import { Button, Card } from "react-bootstrap";
+import { getOffers, addStudentToOffer } from "../../api";
 import "./Offers.css";
 import { format } from "date-fns";
 import { UserContext } from "../../context/UserContext";
@@ -18,6 +18,14 @@ function Offers() {
       const response = await getOffers();
       const data = await response?.json();
       setOffersData(data?.value || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleStudentToOffer = async (offerId) => {
+    try {
+      await addStudentToOffer(user.token, user.userId, offerId);
     } catch (error) {
       console.error(error);
     }
@@ -42,6 +50,14 @@ function Offers() {
             <Card.Text>
               {format(new Date(offer.createdDate), "dd/MM/yyyy")}
             </Card.Text>
+            {user && (
+              <Button
+                onClick={() => handleStudentToOffer(offer.offerId)}
+                variant="primary"
+              >
+                Inscribirse a la oferta
+              </Button>
+            )}
           </Card.Body>
         </Card>
       ))}

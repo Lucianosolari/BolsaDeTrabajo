@@ -317,6 +317,31 @@ export async function getOffers() {
   }
 }
 
+export async function getStudentOffers(studentId, token) {
+  try {
+    const response = await fetch(
+      `https://localhost:7069/api/Student/${studentId}/Offers`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function recoverPassword(userName) {
   try {
     const response = await fetch(`${DB_DOMAIN}/User/recoverPassword`, {

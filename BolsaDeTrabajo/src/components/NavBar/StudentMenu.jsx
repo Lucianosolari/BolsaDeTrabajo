@@ -8,6 +8,7 @@ import {
   FaBars,
   FaSignOutAlt,
   FaTrashAlt,
+  FaBriefcase,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -72,6 +73,10 @@ const StudentMenu = () => {
 
           <Dropdown.Item as={Link} to="/OtherInfo" style={{ margin: "0px" }}>
             <FaCog className="mr-2" /> Cargar otra info - Falta implementar
+          </Dropdown.Item>
+
+          <Dropdown.Item as={Link} to="/offerStudent" style={{ margin: "0px" }}>
+            <FaBriefcase className="mr-2" /> Ver mis ofertas
           </Dropdown.Item>
 
           <Dropdown.Item

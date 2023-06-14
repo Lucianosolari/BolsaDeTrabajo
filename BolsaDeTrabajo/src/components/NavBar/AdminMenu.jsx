@@ -57,6 +57,9 @@ const AdminMenu = () => {
           <Dropdown.Item as={Link} to="/createCareer" style={{ margin: "0px" }}>
             <FaBook className="mr-2" /> Crear carrera
           </Dropdown.Item>
+          <Dropdown.Item as={Link} to="/pendingCompanies" style={{ margin: "0px" }}>
+            <FaBook className="mr-2" /> Empresas pendientes
+          </Dropdown.Item>
           <Dropdown.Item
             onClick={logoutUserClick}
             type="button"

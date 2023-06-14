@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { getPendingCompanies } from "../../api"; //removeStudentFromOffer
+import { getPendingCompanies, updatePendingCompany } from "../../api"; //removeStudentFromOffer
 import { format } from "date-fns";
 import { Card, Button } from "react-bootstrap";
 
@@ -10,6 +10,7 @@ const PendingCompanies = () => {
 
   useEffect(() => {
     getPendingCompanies(user.token)
+      .then((response) => response.json())
       .then((data) => {
         setPendingCompanies(data);
       })
@@ -19,12 +20,11 @@ const PendingCompanies = () => {
   }, []);
 
   const handleUpdatePendingCompany = (companyId) => {
-    updatePendingCompany(companyId, user.userId, user.token)
+    updatePendingCompany(companyId, user.token)
       .then(() => {
-        const updatedCompanies = pendingCompanies.filter(
-          (company) => company.companyId !== companyId
+        setPendingCompanies((prevCompanies) =>
+          prevCompanies.filter((company) => company.userId !== companyId)
         );
-        setPendingCompanies(updatedCompanies);
       })
       .catch((error) => {
         console.error(error);
@@ -33,26 +33,30 @@ const PendingCompanies = () => {
 
   return (
     <div style={{ marginBlock: "20px" }}>
-      {pendingCompanies.map((company, index) => (
-        <Card
-          key={company.companyId}
-          className={index % 2 === 0 ? "even-card" : "odd-card"}
-        >
-          <Card.Body>
-            <Card.Title> {company.companyName}</Card.Title>
+      {pendingCompanies.length > 0 ? (
+        pendingCompanies.map((company, index) => (
+          <Card
+            key={company.companyId}
+            className={index % 2 === 0 ? "even-card" : "odd-card"}
+          >
+            <Card.Body>
+              <Card.Title> {company.companyName}</Card.Title>
 
-            <Card.Text> Rubro: {company.companyLine}</Card.Text>
-            <Card.Text> Ciudad: {company.companyLocation}</Card.Text>
+              <Card.Text> Rubro: {company.companyLine}</Card.Text>
+              <Card.Text> Ciudad: {company.companyLocation}</Card.Text>
 
-            <Button
-              onClick={() => handleUpdatePendingCompany(company.companyId)}
-              variant="danger"
-            >
-              Habilitar compañía
-            </Button>
-          </Card.Body>
-        </Card>
-      ))}
+              <Button
+                onClick={() => handleUpdatePendingCompany(company.userId)}
+                variant="danger"
+              >
+                Habilitar compañía
+              </Button>
+            </Card.Body>
+          </Card>
+        ))
+      ) : (
+        <p>Por el momento no hay empresas pendientes de confirmar.</p>
+      )}
     </div>
   );
 };

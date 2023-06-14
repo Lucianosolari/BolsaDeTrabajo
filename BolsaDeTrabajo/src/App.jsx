@@ -21,6 +21,7 @@ import CompanyInfoForm from "./components/Companies/CompanyInfoForm";
 import CvFileForm from "./components/Students/CvFileForm";
 import OtherInfoForm from "./components/Students/OtherInfoForm";
 import OfferStudent from "./components/Students/OfferStudent";
+import PendingCompanies from "./components/Admin/PendingCompanies";
 
 function App() {
   return (
@@ -62,6 +63,10 @@ function App() {
                 <Route path="offerStudent" element={<OfferStudent />} />
 
                 <Route path="/createCareer" element={<CreateCareer />} />
+                <Route
+                  path="/pendingCompanies"
+                  element={<PendingCompanies />}
+                />
               </Routes>
             </Container>
           </BrowserRouter>

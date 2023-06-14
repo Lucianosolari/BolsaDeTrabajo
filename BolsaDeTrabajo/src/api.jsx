@@ -76,12 +76,13 @@ export async function createCareer({ token, careerData }) {
   }
 }
 
-export async function getPendingCompanies() {
+export async function getPendingCompanies(token) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Admin/getAllCompanyPending`, {
       method: "GET",
       headers: {
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -96,24 +97,30 @@ export async function getPendingCompanies() {
   }
 }
 
-export async function updatePendingCompany(token, companyId) {
+export async function updatePendingCompany(companyId, token) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Admin/updateCompanyPending/${companyId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(companyId),
-    });
+    const response = await fetch(
+      `${DB_DOMAIN}/Admin/updateCompanyPending/${companyId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.error);
+      const errorData = await response.json();
+      throw new Error(errorData.error);
     }
 
-    const data = await response.json();
-    return data;
+    const responseText = await response.text();
+    if (responseText.length === 0) {
+      throw new Error("Error");
+    }
+
+    return JSON.parse(responseText);
   } catch (error) {
     console.error(error);
     throw error;

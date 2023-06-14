@@ -127,6 +127,83 @@ export async function updatePendingCompany(companyId, token) {
   }
 }
 
+// cambiar ruta de controler y tipo
+export async function getKnowledge(token) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Admin/getKnowledge`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    const data = await response;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+// cambiar ruta de controler y tipo
+export async function addKnowledge(token, type) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Admin/updateCompanyPending`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        type: type,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
+    }
+
+    const responseText = await response.text();
+    if (responseText.length === 0) {
+      throw new Error("Error");
+    }
+
+    return JSON.parse(responseText);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+// cambiar ruta de controler y tipo
+export async function deleteKnowledge(token, id) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Company/deleteCompany/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        knowledgeId: id,
+      }),
+    });
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const error = new Error(`Response status is ${response.status}`);
+      error.response = errorResponse;
+      console.log(error.response);
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function createStudent(studentData) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Student/createStudent`, {
@@ -242,6 +319,27 @@ export async function uploadCV(token, cvFile) {
       console.error("Error al cargar el CV:", response);
       throw new Error("Error al cargar el CV");
     }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function downloadCV(token) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Student/downloadCV`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    const data = await response;
+    return data;
   } catch (error) {
     console.error(error);
     throw error;

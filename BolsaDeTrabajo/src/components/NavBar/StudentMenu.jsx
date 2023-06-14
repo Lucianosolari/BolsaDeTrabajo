@@ -79,6 +79,10 @@ const StudentMenu = () => {
             <FaBriefcase className="mr-2" /> Ver mis ofertas
           </Dropdown.Item>
 
+          <Dropdown.Item as={Link} to="/CVStudent" style={{ margin: "0px" }}>
+            <FaBriefcase className="mr-2" /> Ver mi CV
+          </Dropdown.Item>
+
           <Dropdown.Item
             onClick={logoutUserClick}
             type="button"

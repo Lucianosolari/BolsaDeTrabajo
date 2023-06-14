@@ -22,6 +22,7 @@ import CvFileForm from "./components/Students/CvFileForm";
 import OtherInfoForm from "./components/Students/OtherInfoForm";
 import OfferStudent from "./components/Students/OfferStudent";
 import PendingCompanies from "./components/Admin/PendingCompanies";
+import CvFileDownload from "./components/Students/CvFileDownload";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
                 />
 
                 <Route path="/uploadCV" element={<CvFileForm />} />
+                <Route path="/CVStudent" element={<CvFileDownload />} />
                 <Route path="/OtherInfo" element={<OtherInfoForm />} />
 
                 <Route path="offerStudent" element={<OfferStudent />} />

@@ -76,6 +76,50 @@ export async function createCareer({ token, careerData }) {
   }
 }
 
+export async function getPendingCompanies() {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Admin/getAllCompanyPending`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    const data = await response;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function updatePendingCompany(token, companyId) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Admin/updateCompanyPending/${companyId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(companyId),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function createStudent(studentData) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Student/createStudent`, {

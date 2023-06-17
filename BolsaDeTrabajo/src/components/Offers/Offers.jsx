@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 import { getOffers, addStudentToOffer } from "../../api";
 import "./Offers.css";
+import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { UserContext } from "../../context/UserContext";
 
@@ -32,7 +33,44 @@ function Offers() {
   };
 
   return (
-    <div style={{ marginBlock: "20px" }}>
+    <Container style={{ marginBlock: "20px" }}>
+      <h1>¡Estas son las ofertas que tenemos para ti!</h1>
+
+      {user ? (
+        <h3>¡No esperes más y postúlate ahora mismo! </h3>
+      ) : (
+        <h3>Para postularte tienes que iniciar sesión</h3>
+      )}
+
+      {!user && (
+        <Row>
+          <Col>
+            <p>
+              ¿Aún no estás registrado? Ingresa y hazlo{" "}
+              <Link to="/studentsform" className="highlight-link">
+                <Button variant="primary">Registrarme</Button>
+              </Link>
+            </p>
+          </Col>
+        </Row>
+      )}
+
+      {!user && (
+        <Row>
+          <Col>
+            <p>
+              ¿Ya tienes cuenta? Ingresa{" "}
+              <Link
+                to={{ pathname: "/login", state: { from: "Offers" } }}
+                className="highlight-link"
+              >
+                <Button variant="secondary">aquí</Button>
+              </Link>
+            </p>
+          </Col>
+        </Row>
+      )}
+
       {offersData.map((offer, index) => (
         <Card
           key={offer.offerId}
@@ -61,7 +99,7 @@ function Offers() {
           </Card.Body>
         </Card>
       ))}
-    </div>
+    </Container>
   );
 }
 

@@ -488,6 +488,31 @@ export async function getStudentOffers(studentId, token) {
     throw error;
   }
 }
+//Falta implementar en BACK - igual a getStudentOffers
+export async function getCompanyOffers(companyId, token) {
+  try {
+    const response = await fetch(
+      `https://localhost:7069/api/Company/${companyId}/Offers`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 export async function recoverPassword(userName) {
   try {

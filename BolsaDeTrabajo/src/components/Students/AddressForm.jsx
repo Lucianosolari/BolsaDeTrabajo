@@ -35,9 +35,9 @@ export default function AddressForm() {
   const [familyPersonalPhone, setFamilyPersonalPhone] = useState(0);
   const [familyOtherPhone, setFamilyOtherPhone] = useState(0);
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState("");
   const [showAlertValidation, setShowAlertValidation] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const { user } = useContext(UserContext);
 
@@ -47,8 +47,24 @@ export default function AddressForm() {
       if (
         !familyStreet ||
         !familyStreetNumber ||
+        !familyStreetLetter ||
+        !familyFloor ||
+        !familyDepartment ||
+        !familyCountry ||
+        !familyProvince ||
+        !familyLocation ||
+        !familyPersonalPhone ||
+        !familyOtherPhone ||
         !personalStreet ||
-        !personalStreetNumber
+        !personalStreetNumber ||
+        !personalStreetLetter ||
+        !personalFloor ||
+        !personalDepartment ||
+        !personalCountry ||
+        !personalProvince ||
+        !personalLocation ||
+        !personalPersonalPhone ||
+        !personalOtherPhone
       ) {
         setShowAlertValidation(true);
         return;
@@ -415,10 +431,11 @@ export default function AddressForm() {
             Domicilio cargado con éxito, continúa cargando tus datos
           </Alert>
         )}
+
         {showAlertValidation && (
           <Alert
             variant="danger"
-            onClose={() => setShowAlert(false)}
+            onClose={() => setShowAlertValidation(false)}
             dismissible
           >
             Por favor, complete todos los campos obligatorios.
@@ -426,7 +443,8 @@ export default function AddressForm() {
         )}
 
         {error && (
-          <Alert variant="danger" onClose={() => setError(null)} dismissible>
+          <Alert variant="danger" onClose={() => setError("")} dismissible>
+            {" "}
             Error al actualizar la información de dirección: {error.message}
           </Alert>
         )}

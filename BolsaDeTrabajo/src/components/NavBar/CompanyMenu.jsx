@@ -50,16 +50,14 @@ const CompanyMenu = () => {
         <FaBars className="mr-2" />
       </Dropdown.Toggle>
 
-      <Dropdown.Menu style={{ display: "inline-flex", flexWrap: "wrap" }}>
-        <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
-          <FaUser className="mr-2" /> Datos de la empresa
+      <Dropdown.Menu>
+        <Dropdown.Item as={Link} to="/offerCompany" style={{ margin: "0px" }}>
+          <FaUser className="mr-2" /> Mis ofertas
         </Dropdown.Item>
         <Dropdown.Item as={Link} to="/createOffer" style={{ margin: "0px" }}>
           <FaClipboard className="mr-2" /> Cargar ofertas
         </Dropdown.Item>
-        <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
-          <FaCog className="mr-2" /> Configuraciones
-        </Dropdown.Item>
+
         <Dropdown.Item
           type="button"
           onClick={logoutUserClick}

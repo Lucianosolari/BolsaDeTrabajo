@@ -10,6 +10,7 @@ function Offers() {
   const [offersData, setOffersData] = useState([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [selectedOfferId, setSelectedOfferId] = useState("");
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function Offers() {
     } catch (error) {
       setError(error.message);
     }
+    setSelectedOfferId(offerId);
   };
 
   return (
@@ -108,20 +110,23 @@ function Offers() {
               </Button>
             )}
           </Card.Body>
+
+          {selectedOfferId === offer.offerId && (
+            <Card.Footer>
+              {message && (
+                <Alert variant="success" dismissible>
+                  {message}
+                </Alert>
+              )}
+              {error && (
+                <Alert variant="danger" dismissible>
+                  {error}
+                </Alert>
+              )}
+            </Card.Footer>
+          )}
         </Card>
       ))}
-
-      {message && (
-        <Alert variant="success" dismissible>
-          {message}
-        </Alert>
-      )}
-
-      {error && (
-        <Alert variant="danger" dismissible>
-          {error}
-        </Alert>
-      )}
     </Container>
   );
 }

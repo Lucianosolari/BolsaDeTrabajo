@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Card, Container, Row, Col } from "react-bootstrap";
+import { Button, Card, Container, Row, Col, Alert } from "react-bootstrap";
 import { getOffers, addStudentToOffer } from "../../api";
 import "./Offers.css";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import { UserContext } from "../../context/UserContext";
 
 function Offers() {
   const [offersData, setOffersData] = useState([]);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -26,9 +28,18 @@ function Offers() {
 
   const handleStudentToOffer = async (offerId) => {
     try {
-      await addStudentToOffer(user.token, user.userId, offerId);
+      const response = await addStudentToOffer(
+        user.token,
+        user.userId,
+        offerId
+      );
+      if (response === true) {
+        setMessage(
+          "Te inscribiste correctamente. En la sección 'Ver mis ofertas' podrás ver más detalles."
+        );
+      }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   };
 
@@ -99,6 +110,18 @@ function Offers() {
           </Card.Body>
         </Card>
       ))}
+
+      {message && (
+        <Alert variant="success" dismissible>
+          {message}
+        </Alert>
+      )}
+
+      {error && (
+        <Alert variant="danger" dismissible>
+          {error}
+        </Alert>
+      )}
     </Container>
   );
 }

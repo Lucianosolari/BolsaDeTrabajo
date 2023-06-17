@@ -393,11 +393,9 @@ export async function addStudentToOffer(token, studentId, offerId) {
       return true;
     } else {
       const error = await response.text();
-      console.error("Error al inscribir al estudiante:", error);
-      throw new Error("Error al inscribir al estudiante");
+      throw new Error(error);
     }
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }

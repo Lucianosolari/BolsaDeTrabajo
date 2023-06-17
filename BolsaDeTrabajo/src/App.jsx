@@ -23,6 +23,7 @@ import OtherInfoForm from "./components/Students/OtherInfoForm";
 import OfferStudent from "./components/Students/OfferStudent";
 import PendingCompanies from "./components/Admin/PendingCompanies";
 import CvFileDownload from "./components/Students/CvFileDownload";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
                   path="/pendingCompanies"
                   element={<PendingCompanies />}
                 />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Container>
           </BrowserRouter>

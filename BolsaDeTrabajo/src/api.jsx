@@ -399,6 +399,29 @@ export async function addStudentToOffer(token, studentId, offerId) {
     throw error;
   }
 }
+
+export async function deleteStudentToOffer(token, studentId, offerId) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/${offerId}/DeleteStudent/${studentId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      return true;
+    } else {
+      const error = await response.text();
+      throw new Error(error);
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 //IMPLEMENTAR STUDENT CON KNOWLEDGE
 
 export async function createCompany(companyData) {
@@ -488,7 +511,7 @@ export async function getStudentOffers(studentId, token) {
     throw error;
   }
 }
-//Falta implementar en BACK - igual a getStudentOffers
+
 export async function getCompanyOffers(companyId, token) {
   try {
     const response = await fetch(

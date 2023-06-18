@@ -20,7 +20,22 @@ export default function UniversityInfoForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
+      if (
+        !specialty ||
+        !approvedSubjectsQuantity ||
+        !specialtyPlan ||
+        !currentStudyYear ||
+        !studyTurn ||
+        !averageMarksWithPostponement ||
+        !averageMarksWithoutPostponement ||
+        !collegeDegree
+      ) {
+        setError("Por favor, complete todos los campos.");
+        setSuccess("");
+        return;
+      }
       const data = await updateStudentUniversityInfo(user.token, {
         specialty,
         approvedSubjectsQuantity,

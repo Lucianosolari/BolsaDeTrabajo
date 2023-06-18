@@ -9,6 +9,7 @@ import {
   FaSignOutAlt,
   FaTrashAlt,
   FaBriefcase,
+  FaFilePdf,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -20,23 +21,17 @@ const StudentMenu = () => {
   const { setUser, user } = useContext(UserContext);
 
   const logoutUserClick = async () => {
-    console.log(user.userId);
     try {
-      console.log(user.userId);
       const data = await logout(user.token);
       setUser(null);
       navigate("/");
-      console.log(user.token);
     } catch (error) {
       console.error(error);
     }
-    console.log(user.token);
   };
 
   const removeUserClick = async () => {
-    console.log(user.userId);
     try {
-      console.log(user.userId);
       const data = await deleteStudent(user.token, user.userId);
       setUser(null);
       navigate("/");
@@ -68,7 +63,7 @@ const StudentMenu = () => {
             <FaClipboard className="mr-2" /> Datos facultativos
           </Dropdown.Item>
           <Dropdown.Item as={Link} to="/uploadCV" style={{ margin: "0px" }}>
-            <FaCog className="mr-2" /> Cargar CV
+            <FaFilePdf className="mr-2" /> Cargar CV
           </Dropdown.Item>
 
           <Dropdown.Item as={Link} to="/OtherInfo" style={{ margin: "0px" }}>
@@ -80,7 +75,7 @@ const StudentMenu = () => {
           </Dropdown.Item>
 
           <Dropdown.Item as={Link} to="/CVStudent" style={{ margin: "0px" }}>
-            <FaBriefcase className="mr-2" /> Ver mi CV
+            <FaFilePdf className="mr-2" /> Ver mi CV
           </Dropdown.Item>
 
           <Dropdown.Item

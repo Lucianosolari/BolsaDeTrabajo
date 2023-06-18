@@ -39,7 +39,7 @@ export default function OtherInfoForm() {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingrese observations"
+            placeholder="Ingrese observaciones"
             value={observations}
             onChange={(e) => setObservations(e.target.value)}
           />

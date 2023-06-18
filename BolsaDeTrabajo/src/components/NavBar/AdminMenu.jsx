@@ -7,6 +7,7 @@ import {
   FaBars,
   FaSignOutAlt,
   FaTrashAlt,
+  FaBuilding,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -18,23 +19,17 @@ const AdminMenu = () => {
   const { setUser, user } = useContext(UserContext);
 
   const logoutUserClick = async () => {
-    console.log(user.userId);
     try {
-      console.log(user.userId);
       const data = await logout(user.token);
       setUser(null);
       navigate("/");
-      console.log(user.token);
     } catch (error) {
       console.error(error);
     }
-    console.log(user.token);
   };
 
   const removeUserClick = async () => {
-    console.log(user.userId);
     try {
-      console.log(user.userId);
       const data = await deleteStudent(user.token, user.userId);
       setUser(null);
       navigate("/");
@@ -43,7 +38,7 @@ const AdminMenu = () => {
     }
   };
 
-  return(
+  return (
     <>
       <Dropdown>
         <Dropdown.Toggle id="dropdown-basic">
@@ -51,15 +46,25 @@ const AdminMenu = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item as={Link} to="/" style={{ margin: "0px" }}>
-            <FaCog className="mr-2" /> Configuraciones
-          </Dropdown.Item>
           <Dropdown.Item as={Link} to="/createCareer" style={{ margin: "0px" }}>
-            <FaBook className="mr-2" /> Crear carrera
+            <FaBook className="mr-2" /> Crear Carrera
           </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/pendingCompanies" style={{ margin: "0px" }}>
-            <FaBook className="mr-2" /> Empresas pendientes
+          <Dropdown.Item
+            as={Link}
+            to="/createKnowledge"
+            style={{ margin: "0px" }}
+          >
+            <FaBook className="mr-2" /> Crear Conocimiento
           </Dropdown.Item>
+
+          <Dropdown.Item
+            as={Link}
+            to="/pendingCompanies"
+            style={{ margin: "0px" }}
+          >
+            <FaBuilding className="mr-2" /> Ver empresas pendientes
+          </Dropdown.Item>
+
           <Dropdown.Item
             onClick={logoutUserClick}
             type="button"

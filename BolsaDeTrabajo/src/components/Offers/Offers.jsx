@@ -38,9 +38,11 @@ function Offers() {
         setMessage(
           "Te inscribiste correctamente. En la sección 'Ver mis ofertas' podrás ver más detalles."
         );
+        setError(""); // Limpiar el estado de error
       }
     } catch (error) {
       setError(error.message);
+      setMessage(""); // Limpiar el estado de mensaje
     }
     setSelectedOfferId(offerId);
   };
@@ -114,12 +116,20 @@ function Offers() {
           {selectedOfferId === offer.offerId && (
             <Card.Footer>
               {message && (
-                <Alert variant="success" dismissible>
+                <Alert
+                  variant="success"
+                  dismissible
+                  onClose={() => setMessage("")}
+                >
                   {message}
                 </Alert>
               )}
               {error && (
-                <Alert variant="danger" dismissible>
+                <Alert
+                  variant="danger"
+                  dismissible
+                  onClose={() => setError("")}
+                >
                   {error}
                 </Alert>
               )}

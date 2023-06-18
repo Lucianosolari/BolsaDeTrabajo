@@ -17,6 +17,11 @@ const CvFileForm = () => {
       return;
     }
 
+    if (cvFile.type !== "application/pdf") {
+      setError("El archivo debe ser de tipo PDF");
+      return;
+    }
+
     try {
       const response = await uploadCV(user.token, cvFile);
 
@@ -33,9 +38,10 @@ const CvFileForm = () => {
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="cvFile">
-            <Form.Label>Archivo CV</Form.Label>
+            <Form.Label>Archivo CV (PDF)</Form.Label>
             <Form.Control
               type="file"
+              accept=".pdf"
               onChange={(e) => setCvFile(e.target.files[0])}
             />
             <Button type="submit">Cargar CV</Button>

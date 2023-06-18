@@ -11,7 +11,6 @@ export default function CvFileDownload() {
       const response = await downloadCV(user.token);
       const blob = await response.blob();
 
-      // Crea un enlace temporal y lo simula para descargar el archivo
       const downloadLink = document.createElement("a");
       downloadLink.href = URL.createObjectURL(blob);
       downloadLink.download = "cv.pdf";
@@ -22,8 +21,10 @@ export default function CvFileDownload() {
   };
 
   return (
-    <div>
-      <Button onClick={handleDownloadCV}>Descargar CV</Button>
+    <div className="text-center mt-4">
+      <Button variant="primary" size="lg" onClick={handleDownloadCV}>
+        Descargar mi CV
+      </Button>
     </div>
   );
 }

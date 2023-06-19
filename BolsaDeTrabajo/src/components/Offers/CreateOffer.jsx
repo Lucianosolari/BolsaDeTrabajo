@@ -11,17 +11,18 @@ const CreateOffer = () => {
   const [date, setDate] = useState("");
   const { user } = useContext(UserContext);
   const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
+  const [frontError, setFrontError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const handleClickCreateOffer = async (e) => {
     e.preventDefault();
     if (!title || !specialty || !description || !date) {
-      setError("Por favor, complete todos los campos");
+      setFrontError("Por favor, complete todos los campos");
       return;
     }
     try {
       setSuccess("");
-      setError("");
+      setFrontError("");
       const data = await createOffer({
         token: user.token,
         offerData: {
@@ -41,9 +42,15 @@ const CreateOffer = () => {
         setDate("");
       }
     } catch (error) {
-      setError(error.message);
+      setApiError(error.message);
     }
   };
+
+  useEffect(() => {
+    setApiError("");
+    setFrontError("");
+  }, [title, specialty, description, date])
+  
 
   return (
     <Form onSubmit={handleClickCreateOffer}>
@@ -92,15 +99,21 @@ const CreateOffer = () => {
         Crear Oferta
       </Button>
 
+      {frontError && (
+        <Alert variant="danger" dismissible onClose={() => setFrontError("")}>
+          {frontError}
+        </Alert>
+      )}
+
       {success && (
         <Alert variant="success" dismissible onClose={() => setSuccess("")}>
           {success}
         </Alert>
       )}
 
-      {error && (
-        <Alert variant="danger" dismissible onClose={() => setError("")}>
-          {error}
+      {apiError && (
+        <Alert variant="danger" dismissible onClose={() => setApiError("")}>
+          {apiError}
         </Alert>
       )}
     </Form>

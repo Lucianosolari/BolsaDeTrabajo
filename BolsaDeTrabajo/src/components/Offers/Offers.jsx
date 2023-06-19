@@ -42,6 +42,7 @@ function Offers() {
       }
     } catch (error) {
       setError(error.message);
+      console.log(error);
       setMessage(""); // Limpiar el estado de mensaje
     }
     setSelectedOfferId(offerId);

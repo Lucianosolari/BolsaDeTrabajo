@@ -36,6 +36,8 @@ export default function PersonalInfoForm() {
   const [altEmailError, setAltEmailError] = useState("");
   const [docNumberError, setDocNumberError] = useState("");
   const [error, setError] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -58,7 +60,8 @@ export default function PersonalInfoForm() {
     setAltEmailError("");
     setDocNumberError("");
     setError("");
-  }, [email, altEmail, docNumber, file, userName]);
+    setApiError("");
+  }, [userName, password, file, lastName, firstName, email, altEmail, docType, docNumber, cuil, birthdate, gender, maritalStatus]);
 
   const handleCreateStudent = async (event) => {
     event.preventDefault();
@@ -66,6 +69,10 @@ export default function PersonalInfoForm() {
       ? format(birthdate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
       : null;
 
+      if (!userName || !password || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
+        setError("Todos los campos deben estar completados")
+        return;
+      }
     const isEmailValid = validateEmail(email);
     if (!isEmailValid) {
       setEmailError(
@@ -86,7 +93,7 @@ export default function PersonalInfoForm() {
     }
     const isDocNumber = validateDocNumber(docNumber);
     if (!isDocNumber) {
-      setDocNumberError("El documento debe ser valido");
+      setDocNumberError("El documento debe ser válido");
       return;
     } else {
       setDocNumberError("");
@@ -109,19 +116,13 @@ export default function PersonalInfoForm() {
         maritalStatus: maritalStatus,
       });
       //navigate("/login"); //VER REDIRECCIÓN AL LOGIN POST REGISTRARSE
-      //alert("Usuario creado, inicia sesión")
+      setApiError("");
+      setApiSuccess("Usuario creado correctamente");
       console.log(data);
       // Hacer algo con los datos retornados (data) después de crear el estudiante
     } catch (error) {
-      if (error == "Error: DNI ya registrado") {
-        setError(error);
-      } else if (error == "Error: Legajo ya registrado") {
-        setError(error);
-      } else if (error == "Error: Nombre de usuario ya utilizado") {
-        setError(error);
-      } else {
-        alert("Error del servidor");
-      }
+      setApiError(error.message);
+      setApiSuccess("");
     }
   };
 
@@ -340,7 +341,9 @@ export default function PersonalInfoForm() {
         </Col>
       </Row>
 
-      {error && <Alert variant="danger">{error.toString()}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
+      {apiError && <Alert variant="danger">{apiError}</Alert>}
+      {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
 
       <Button variant="primary" type="submit">
         Registrarse

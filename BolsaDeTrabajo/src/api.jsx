@@ -218,6 +218,7 @@ export async function createStudent(studentData) {
       body: JSON.stringify({
         userName: studentData.userName,
         password: studentData.password,
+        confirmPassword: studentData.confirmPassword,
         file: studentData.file,
         name: studentData.lastName,
         surname: studentData.firstName,

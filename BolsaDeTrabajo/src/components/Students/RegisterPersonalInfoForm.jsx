@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 export default function PersonalInfoForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [file, setFile] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -103,6 +104,7 @@ export default function PersonalInfoForm() {
       const data = await createStudent({
         userName: userName,
         password: password,
+        confirmPassword: confirmPassword,
         file: file,
         lastName: lastName,
         firstName: firstName,
@@ -131,12 +133,12 @@ export default function PersonalInfoForm() {
       <Row>
         <Col>
           <FormGroup controlId="userName">
-            <FormLabel>Usuario</FormLabel>
+            <FormLabel>Nombre de usuario</FormLabel>
             <FormControl
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              placeholder="Ingresa tu usuario"
+              placeholder="Ingresa tu nombre de usuario"
             />
           </FormGroup>
         </Col>
@@ -148,6 +150,17 @@ export default function PersonalInfoForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Ingresa tu contraseña"
+            />
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup controlId="confirmPassword">
+            <FormLabel>Confirmar contraseña</FormLabel>
+            <FormControl
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Ingresa nuevamente tu contraseña"
             />
           </FormGroup>
         </Col>

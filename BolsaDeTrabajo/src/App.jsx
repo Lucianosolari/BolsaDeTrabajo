@@ -64,8 +64,8 @@ function App() {
                 <Route path="/CVStudent" element={<CvFileDownload />} />
                 <Route path="/OtherInfo" element={<OtherInfoForm />} />
 
-                <Route path="offerStudent" element={<OfferStudent />} />
-                <Route path="offerCompany" element={<OfferCompany />} />
+                <Route path="/offerStudent" element={<OfferStudent />} />
+                <Route path="/offerCompany" element={<OfferCompany />} />
                 <Route path="/createCareer" element={<CreateCareer />} />
                 <Route
                   path="/pendingCompanies"

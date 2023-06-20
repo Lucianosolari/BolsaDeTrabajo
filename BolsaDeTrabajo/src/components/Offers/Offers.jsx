@@ -104,7 +104,7 @@ function Offers() {
             <Card.Text>
               {format(new Date(offer.createdDate), "dd/MM/yyyy")}
             </Card.Text>
-            {user && (
+            {user && user.userType === "Student" && (
               <Button
                 onClick={() => handleStudentToOffer(offer.offerId)}
                 variant="primary"

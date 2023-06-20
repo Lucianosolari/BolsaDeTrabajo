@@ -515,7 +515,7 @@ export async function getStudentOffers(studentId, token) {
 export async function getCompanyOffers(companyId, token) {
   try {
     const response = await fetch(
-      `https://localhost:7069/api/Company/${companyId}/Offers`,
+      `https://localhost:7069/api/Offer/ByCompany/${companyId}`,
       {
         method: "GET",
         headers: {
@@ -574,6 +574,28 @@ export async function deleteStudent(token, id) {
       body: JSON.stringify({
         userId: id,
       }),
+    });
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const error = new Error(`Response status is ${response.status}`);
+      error.response = errorResponse;
+      console.log(error.response);
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function deleteOffer(offerId, token) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Offer/deleteOffer/${offerId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       const errorResponse = await response.json();

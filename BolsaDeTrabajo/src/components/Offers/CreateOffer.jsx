@@ -8,7 +8,7 @@ const CreateOffer = () => {
   const [title, setTitle] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const { user } = useContext(UserContext);
   const [success, setSuccess] = useState("");
   const [frontError, setFrontError] = useState("");
@@ -16,7 +16,7 @@ const CreateOffer = () => {
 
   const handleClickCreateOffer = async (e) => {
     e.preventDefault();
-    if (!title || !specialty || !description || !date) {
+    if (!title || !specialty || !description) {
       setFrontError("Por favor, complete todos los campos");
       return;
     }
@@ -39,7 +39,7 @@ const CreateOffer = () => {
         setTitle("");
         setSpecialty("");
         setDescription("");
-        setDate("");
+        setDate(new Date().toISOString().slice(0, 10));
       }
     } catch (error) {
       setApiError(error.message);
@@ -49,8 +49,7 @@ const CreateOffer = () => {
   useEffect(() => {
     setApiError("");
     setFrontError("");
-  }, [title, specialty, description, date])
-  
+  }, [title, specialty, description, date]);
 
   return (
     <Form onSubmit={handleClickCreateOffer}>
@@ -92,6 +91,7 @@ const CreateOffer = () => {
           placeholder="Enter date"
           value={date}
           onChange={(event) => setDate(event.target.value)}
+          readOnly
         />
       </Form.Group>
 
@@ -119,4 +119,5 @@ const CreateOffer = () => {
     </Form>
   );
 };
+
 export default CreateOffer;

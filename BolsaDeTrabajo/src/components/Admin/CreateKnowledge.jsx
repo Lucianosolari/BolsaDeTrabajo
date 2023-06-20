@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Form, Button, Table } from "react-bootstrap";
+import { Form, Button, Table, Alert } from "react-bootstrap";
 import { UserContext } from "../../context/UserContext";
 import { getKnowledge, addKnowledge, deleteKnowledge } from "../../api"; // Reemplaza "api" con tu archivo de funciones de la API
 
@@ -7,6 +7,7 @@ export default function CreateKnowledge() {
   const [knowledgeList, setKnowledgeList] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const { user } = useContext(UserContext);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchKnowledgeList();
@@ -14,19 +15,34 @@ export default function CreateKnowledge() {
 
   const fetchKnowledgeList = async () => {
     try {
-      const knowledgeData = await getKnowledge();
-      setKnowledgeList(knowledgeData);
+      const response = await getKnowledge(user.token);
+      if (response.ok) {
+        const knowledgeData = await response.json();
+        setKnowledgeList(knowledgeData);
+        console.log(knowledgeData);
+      } else {
+        console.error("Error:", response.status);
+      }
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 
+  useEffect(() => {
+    setError("");
+  }, [selectedType]);
+
   const handleAddKnowledge = async () => {
+    if (!selectedType) {
+      setError("Debe ingresar un conocimiento");
+      return;
+    }
+
     try {
       await addKnowledge(user.token, selectedType); // Reemplaza "addKnowledge" con la función que agrega el conocimiento a la base de datos
       fetchKnowledgeList(); // Vuelve a obtener la lista de conocimientos actualizada desde la base de datos
       setSelectedType("");
-      setSelectedLevel("");
+      setError("");
     } catch (error) {
       console.error(error);
     }
@@ -47,13 +63,12 @@ export default function CreateKnowledge() {
         <Form.Group controlId="selectedType">
           <Form.Label>Tipo</Form.Label>
           <Form.Control
-            as="select"
+            type="text"
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-          >
-            <option value="">Seleccione un tipo</option>
-            {/* Agrega las opciones de tipo aquí */}
-          </Form.Control>
+            isInvalid={!!error}
+          />
+          {error && <Alert variant="danger">{error}</Alert>}
         </Form.Group>
 
         <Button onClick={handleAddKnowledge}>Agregar Conocimiento</Button>
@@ -71,7 +86,7 @@ export default function CreateKnowledge() {
               {knowledgeList.map((knowledge) => (
                 <tr key={knowledge.knowledgeId}>
                   <td>{knowledge.type}</td>
-
+                  <td>{knowledge.level}</td>
                   <td>
                     <Button
                       variant="danger"

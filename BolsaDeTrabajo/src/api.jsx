@@ -130,16 +130,19 @@ export async function updatePendingCompany(companyId, token) {
 // cambiar ruta de controler y tipo
 export async function getKnowledge(token) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Admin/getKnowledge`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${DB_DOMAIN}/Knowledge/knowledge/GetAllKnowledge`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error();
     }
     const data = await response;
     return data;

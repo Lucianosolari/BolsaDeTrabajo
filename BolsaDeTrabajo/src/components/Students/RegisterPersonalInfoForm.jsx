@@ -62,7 +62,7 @@ export default function PersonalInfoForm() {
     setDocNumberError("");
     setError("");
     setApiError("");
-  }, [userName, password, file, lastName, firstName, email, altEmail, docType, docNumber, cuil, birthdate, gender, maritalStatus]);
+  }, [userName, password, confirmPassword, file, lastName, firstName, email, altEmail, docType, docNumber, cuil, birthdate, gender, maritalStatus]);
 
   const handleCreateStudent = async (event) => {
     event.preventDefault();
@@ -70,7 +70,7 @@ export default function PersonalInfoForm() {
       ? format(birthdate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
       : null;
 
-      if (!userName || !password || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
+      if (!userName || !password || !confirmPassword || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
         setError("Todos los campos deben estar completados")
         return;
       }

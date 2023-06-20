@@ -438,6 +438,7 @@ export async function createCompany(companyData) {
       body: JSON.stringify({
         userName: companyData.userName,
         password: companyData.password,
+        confirmPassword: companyData.confirmPassword,
         companyCUIT: companyData.CUIT,
         companyLine: companyData.line,
         companyName: companyData.name,

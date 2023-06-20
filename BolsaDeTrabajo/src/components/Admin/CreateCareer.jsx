@@ -26,8 +26,8 @@ const CreateCareer = () => {
       setSuccess("");
       return;
     }
-    setError(""); // Limpiar el mensaje de error
-    setSuccess(""); // Limpiar el mensaje de éxito
+    setError("");
+    setSuccess("");
 
     try {
       const data = await createCareer({

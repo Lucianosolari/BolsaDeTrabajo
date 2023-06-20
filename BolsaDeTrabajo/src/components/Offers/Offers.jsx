@@ -62,9 +62,9 @@ function Offers() {
         <Row>
           <Col>
             <p>
-              ¿Aún no estás registrado? Ingresa y hazlo{" "}
+              ¿Aún no estás registrado? Regístrate{" "}
               <Link to="/studentsform" className="highlight-link">
-                <Button variant="primary">Registrarme</Button>
+                <Button variant="primary" className="buttons">Registrarme</Button>
               </Link>
             </p>
           </Col>
@@ -80,7 +80,7 @@ function Offers() {
                 to={{ pathname: "/login", state: { from: "Offers" } }}
                 className="highlight-link"
               >
-                <Button variant="secondary">aquí</Button>
+                <Button variant="secondary" className="buttons">aquí</Button>
               </Link>
             </p>
           </Col>

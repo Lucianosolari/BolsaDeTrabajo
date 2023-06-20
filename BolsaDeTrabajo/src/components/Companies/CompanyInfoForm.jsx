@@ -5,6 +5,7 @@ import { createCompany } from "../../api";
 const CompanyInfoForm = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [companyCUIT, setCompanyCUIT] = useState("");
   const [companyLine, setCompanyLine] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -26,7 +27,7 @@ const CompanyInfoForm = () => {
 
   const handleCreateCompany = async (event) => {
     event.preventDefault();
-    if (!userName || !password || !companyCUIT || !companyLine || !companyName || !companyAddress || !companyLocation || !companyPostalCode || !companyPhone || !companyWebPage || !companyPersonalName || !companyPersonalSurname || !companyPersonalJob || !companyPersonalPhone || !companyPersonalEmail || !companyRelationContact) {
+    if (!userName || !password || !confirmPassword || !companyCUIT || !companyLine || !companyName || !companyAddress || !companyLocation || !companyPostalCode || !companyPhone || !companyWebPage || !companyPersonalName || !companyPersonalSurname || !companyPersonalJob || !companyPersonalPhone || !companyPersonalEmail || !companyRelationContact) {
       setFrontError("Todos los campos deben estar completos");
       return;
     }
@@ -34,6 +35,7 @@ const CompanyInfoForm = () => {
       const data = await createCompany({
         userName: userName,
         password: password,
+        confirmPassword: confirmPassword,
         CUIT: companyCUIT,
         line: companyLine,
         name: companyName,
@@ -64,17 +66,18 @@ const CompanyInfoForm = () => {
   useEffect(() => {
     setFrontError("");
     setApiError("");
-  }, [userName, password, companyCUIT, companyLine, companyName, companyAddress, companyLocation, companyPostalCode, companyPhone, companyWebPage, companyPersonalName, companyPersonalSurname, companyPersonalJob, companyPersonalPhone, companyPersonalEmail, companyRelationContact])
+  }, [userName, password, confirmPassword, companyCUIT, companyLine, companyName, companyAddress, companyLocation, companyPostalCode, companyPhone, companyWebPage, companyPersonalName, companyPersonalSurname, companyPersonalJob, companyPersonalPhone, companyPersonalEmail, companyRelationContact])
   return (
     <Form onSubmit={handleCreateCompany}>
       <Row>
         <Col>
           <Form.Group controlId="company-user-name">
-            <Form.Label>Usuario</Form.Label>
+            <Form.Label>Nombre de usuario</Form.Label>
             <Form.Control
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
+              placeholder="Ingresa el nombre de usuario"
             />
           </Form.Group>
         </Col>
@@ -85,6 +88,18 @@ const CompanyInfoForm = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Ingresa la contraseña"
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group controlId="company-confirm-password">
+            <Form.Label>Confirmar contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Ingresa nuevamente la contraseña"
             />
           </Form.Group>
         </Col>
@@ -98,6 +113,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyCUIT}
               onChange={(e) => setCompanyCUIT(e.target.value)}
+              placeholder="Ingresa el CUIT de la empresa"
             />
           </Form.Group>
         </Col>
@@ -108,6 +124,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyLine}
               onChange={(e) => setCompanyLine(e.target.value)}
+              placeholder="Ingresa el rubro de la empresa"
             />
           </Form.Group>
         </Col>
@@ -121,6 +138,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="Ingresa la razón social de la empresa"
             />
           </Form.Group>
         </Col>
@@ -131,6 +149,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyAddress}
               onChange={(e) => setCompanyAddress(e.target.value)}
+              placeholder="Ingresa el domicilio de la empresa"
             />
           </Form.Group>
         </Col>
@@ -162,6 +181,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyPostalCode}
               onChange={(e) => setCompanyPostalCode(e.target.value)}
+              placeholder="Introduce el código postal"
             />
           </Form.Group>
         </Col>
@@ -170,7 +190,7 @@ const CompanyInfoForm = () => {
       <Row>
         <Col>
           <Form.Group controlId="company-phone">
-            <Form.Label>Teléfono</Form.Label>
+            <Form.Label>Teléfono de la empresa</Form.Label>
             <Form.Control
               type="number"
               value={companyPhone}
@@ -185,6 +205,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyWebPage}
               onChange={(e) => setCompanyWebPage(e.target.value)}
+              placeholder="Ingresa la dirección web de la empresa"
             />
           </Form.Group>
         </Col>
@@ -198,6 +219,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyPersonalName}
               onChange={(e) => setCompanyPersonalName(e.target.value)}
+              placeholder="Ingresa tu nombre personal"
             />
           </Form.Group>
         </Col>
@@ -208,6 +230,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyPersonalSurname}
               onChange={(e) => setCompanyPersonalSurname(e.target.value)}
+              placeholder="Ingresa tu apellido"
             />
           </Form.Group>
         </Col>
@@ -221,6 +244,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyPersonalJob}
               onChange={(e) => setCompanyPersonalJob(e.target.value)}
+              placeholder="Ingresa tu puesto en la empresa"
             />
           </Form.Group>
         </Col>
@@ -239,11 +263,12 @@ const CompanyInfoForm = () => {
       <Row>
         <Col>
           <Form.Group controlId="company-personal-email">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Email personal</Form.Label>
             <Form.Control
               type="email"
               value={companyPersonalEmail}
               onChange={(e) => setCompanyPersonalEmail(e.target.value)}
+              placeholder="Ingresa tu correo electrónico"
             />
           </Form.Group>
         </Col>
@@ -254,6 +279,7 @@ const CompanyInfoForm = () => {
               type="text"
               value={companyRelationContact}
               onChange={(e) => setCompanyRelationContact(e.target.value)}
+              placeholder="Ingresa el nombre de tu persona de contacto"
             />
           </Form.Group>
         </Col>

@@ -2,3 +2,8 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
 }
+
+img {
+  filter: brightness(1.1);
+  mix-blend-mode: multiply;
+}

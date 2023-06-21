@@ -16,6 +16,14 @@ const CreateCareer = () => {
   const [success, setSuccess] = useState("");
   const { user } = useContext(UserContext);
 
+  const validateTotalSubjects = (careerTotalSubjects) => {
+    const numberPattern = /^\d+$/; // Expresión regular para validar números enteros positivos
+    if (!numberPattern.test(careerTotalSubjects)) {
+      return false; // Retorna falso si la validación falla
+    }
+    return true;
+  }
+
   useEffect(() => {
     setApiError("");
     setFrontError("");
@@ -24,17 +32,25 @@ const CreateCareer = () => {
 
   const handleClickCreateCareer = async (event) => {
     event.preventDefault();
-
     if (
       !careerName ||
       !careerAbbreviation ||
       !careerType ||
       !careerTotalSubjects
     ) {
+      setSuccess("");
       setFrontError("Por favor, complete todos los campos.");
       return;
     }
     
+    const totalSubjectIsValid = validateTotalSubjects(careerTotalSubjects);
+    if (!totalSubjectIsValid) {
+      setFrontError("El total de materias solo puede contener números enteros positivos");
+      return;
+    }
+    else {
+      setFrontError("");
+    }
 
     try {
       const data = await createCareer({
@@ -52,8 +68,8 @@ const CreateCareer = () => {
         setCareerAbbreviation("");
         setCareerType("");
         setCareerTotalSubjects(1);
-        setSuccess("¡Carrera creada exitosamente!");
       }
+      setSuccess("¡Carrera creada exitosamente!");
       setApiError("");
     } catch (error) {
       setApiError(error.message);

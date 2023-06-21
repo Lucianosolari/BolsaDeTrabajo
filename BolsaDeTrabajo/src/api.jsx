@@ -559,13 +559,14 @@ export async function recoverPassword(userName) {
       }),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
+      const data = await response.text();
       throw new Error(
         data.message || "No se pudo encontrar nombre de usuario."
       );
     }
+
+    const data = await response.text();
     return data;
   } catch (error) {
     console.error(error);

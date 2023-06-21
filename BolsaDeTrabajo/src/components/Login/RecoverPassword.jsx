@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { recoverPassword } from "../../api";
 import "./Login.css";
 
 export default function RecoverPassword() {
   const [userName, setUserName] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
 
   const handleRecoverPassword = async (event) => {
     event.preventDefault();
 
     try {
-      const data = await recoverPassword({ username: userName });
-      console.log(data);
+      const response = await recoverPassword({ username: userName });
+      setApiSuccess(response);
+      setApiError("");
     } catch (error) {
       console.error(error);
+      setApiError(error.message);
+      setApiSuccess("");
     }
   };
 
@@ -36,6 +41,9 @@ export default function RecoverPassword() {
         <Button variant="primary" type="submit" style={{ marginTop: "20px" }}>
           Recuperar contraseña
         </Button>
+
+        {apiError && <Alert variant="danger">{apiError}</Alert>}
+        {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
       </Form>
     </div>
   );

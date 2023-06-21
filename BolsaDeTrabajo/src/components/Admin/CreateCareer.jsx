@@ -104,8 +104,6 @@ const CreateCareer = () => {
         <Form.Label>Total de materias</Form.Label>
         <Form.Control
           type="number"
-          min="1"
-          placeholder="Ingrese el total de materias"
           value={careerTotalSubjects}
           onChange={(event) => setCareerTotalSubjects(event.target.value)}
         />

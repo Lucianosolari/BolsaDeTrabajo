@@ -68,6 +68,11 @@ export async function createCareer({ token, careerData }) {
         careerTotalSubjects: careerData.careerTotalSubjects,
       }),
     });
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      throw new Error(errorMessage);
+    }
     const data = await response.json();
     return data;
   } catch (error) {

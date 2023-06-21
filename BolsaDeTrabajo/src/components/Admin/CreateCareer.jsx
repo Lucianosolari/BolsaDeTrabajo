@@ -3,18 +3,27 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { useContext } from "react";
 import { createCareer } from "../../api";
 import { UserContext } from "../../context/UserContext";
+import { useEffect } from "react";
 
 const CreateCareer = () => {
   const [careerName, setCareerName] = useState("");
   const [careerAbbreviation, setCareerAbbreviation] = useState("");
   const [careerType, setCareerType] = useState("");
   const [careerTotalSubjects, setCareerTotalSubjects] = useState(1);
-  const [error, setError] = useState("");
+
+  const [apiError, setApiError] = useState("");
+  const [frontError, setFrontError] = useState("");
   const [success, setSuccess] = useState("");
   const { user } = useContext(UserContext);
 
-  const handleClickCreateCareer = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    setApiError("");
+    setFrontError("");
+  }, [careerName, careerAbbreviation, careerType, careerTotalSubjects])
+  
+
+  const handleClickCreateCareer = async (event) => {
+    event.preventDefault();
 
     if (
       !careerName ||
@@ -22,12 +31,10 @@ const CreateCareer = () => {
       !careerType ||
       !careerTotalSubjects
     ) {
-      setError("Por favor, complete todos los campos.");
-      setSuccess("");
+      setFrontError("Por favor, complete todos los campos.");
       return;
     }
-    setError("");
-    setSuccess("");
+    
 
     try {
       const data = await createCareer({
@@ -40,16 +47,17 @@ const CreateCareer = () => {
         },
       });
 
-      // Clear the form fields and display success message
-      setCareerName("");
-      setCareerAbbreviation("");
-      setCareerType("");
-      setCareerTotalSubjects(1);
-      setSuccess("¡Carrera creada exitosamente!");
+      if (data) {
+        setCareerName("");
+        setCareerAbbreviation("");
+        setCareerType("");
+        setCareerTotalSubjects(1);
+        setSuccess("¡Carrera creada exitosamente!");
+      }
+      setApiError("");
     } catch (error) {
-      console.error(error);
-      // Handle error
-      setError("Error al crear la carrera. Por favor, inténtelo de nuevo.");
+      setApiError(error.message);
+      setSuccess("");
     }
   };
 
@@ -106,7 +114,8 @@ const CreateCareer = () => {
       <Button variant="primary" type="submit">
         Crear Carrera
       </Button>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {frontError && <Alert variant="danger">{frontError}</Alert>}
+      {apiError && <Alert variant="danger">{apiError}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
     </Form>
   );

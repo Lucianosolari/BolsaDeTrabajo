@@ -45,6 +45,7 @@ const CreateCareer = () => {
     
     const totalSubjectIsValid = validateTotalSubjects(careerTotalSubjects);
     if (!totalSubjectIsValid) {
+      setSuccess("");
       setFrontError("El total de materias solo puede contener números enteros positivos");
       return;
     }
@@ -69,11 +70,11 @@ const CreateCareer = () => {
         setCareerType("");
         setCareerTotalSubjects(1);
       }
-      setSuccess("¡Carrera creada exitosamente!");
       setApiError("");
+      setSuccess("¡Carrera creada exitosamente!");
     } catch (error) {
-      setApiError(error.message);
       setSuccess("");
+      setApiError(error.message);
     }
   };
 

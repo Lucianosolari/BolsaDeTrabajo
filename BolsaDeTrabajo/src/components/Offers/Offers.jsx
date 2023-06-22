@@ -50,19 +50,19 @@ function Offers() {
 
   return (
     <Container style={{ marginBlock: "20px" }}>
-      <h1>¡Estas son las ofertas que tenemos para ti!</h1>
+      <h1>¡Estas son las ofertas que tenemos para vos!</h1>
 
       {user ? (
-        <h3>¡No esperes más y postúlate ahora mismo! </h3>
+        <h3>¡No esperes más y postulate ahora mismo! </h3>
       ) : (
-        <h3>Para postularte tienes que iniciar sesión</h3>
+        <h3>Para postularte tenés que iniciar sesión</h3>
       )}
 
       {!user && (
         <Row>
           <Col>
             <p>
-              ¿Aún no estás registrado? Regístrate{" "}
+              ¿Aún no estás registrado? Registrate{" "}
               <Link to="/studentsform" className="highlight-link">
                 <Button variant="primary" className="buttons">Registrarme</Button>
               </Link>
@@ -75,7 +75,7 @@ function Offers() {
         <Row>
           <Col>
             <p>
-              ¿Ya tienes cuenta? Ingresa{" "}
+              ¿Ya tenés cuenta? Ingresá{" "}
               <Link
                 to={{ pathname: "/login", state: { from: "Offers" } }}
                 className="highlight-link"

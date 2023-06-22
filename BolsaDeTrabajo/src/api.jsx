@@ -156,10 +156,10 @@ export async function getKnowledge(token) {
     throw error;
   }
 }
-// cambiar ruta de controler y tipo
+
 export async function addKnowledge(token, type) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Admin/updateCompanyPending`, {
+    const response = await fetch(`${DB_DOMAIN}/Admin/createKnowledge`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

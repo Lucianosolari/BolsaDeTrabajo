@@ -12,6 +12,7 @@ import {
   FormSelect,
   Alert,
 } from "react-bootstrap";
+import { differenceInYears } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -45,10 +46,7 @@ export default function PersonalInfoForm() {
   }
 
   const validateConfirmPassword = (password, confirmPassword) => {
-    if (password !== confirmPassword) {
-      return false;
-    }
-    return true;
+    return password === confirmPassword;
   }
 
   const validateEmail = (email) => {
@@ -75,6 +73,16 @@ export default function PersonalInfoForm() {
     return CUITRegex.test(CUIT);
   }
 
+  const validateBirth = (birth) => {
+    const currentDate = new Date();
+    const age = differenceInYears(currentDate, birth);
+
+    if (age < 18) {
+      return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
     setFrontError("");
     setApiError("");
@@ -87,24 +95,28 @@ export default function PersonalInfoForm() {
       : null;
 
       if (!userName || !password || !confirmPassword || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
+        setApiSuccess("");
         setFrontError("Todos los campos deben estar completados")
         return;
       }
 
     const passwordIsValid = validatePassword(password);
     if (!passwordIsValid) {
+      setApiSuccess("");
       setFrontError("Contraseña insegura, debe contener al menos una letra mayúscula, una minúscula, un número y un caracter especial. 8 en total")
       return;
     }
     
     const confirmPasswordIsValid = validateConfirmPassword(password, confirmPassword);
     if (!confirmPasswordIsValid) {
+      setApiSuccess("");
       setFrontError("Los campos introducidos de contraseña no coinciden");
       return;
     }
 
     const emailIsValid = validateEmail(email);
     if (!emailIsValid) {
+      setApiSuccess("");
       setFrontError(
         "El Email principal no es válido. Debe ser una dirección de correo que termine en '@frro.utn.edu.ar'."
       );
@@ -113,6 +125,7 @@ export default function PersonalInfoForm() {
 
     const altEmailIsValid = validateAltEmail(altEmail);
     if (!altEmailIsValid) {
+      setApiSuccess("");
       setFrontError(
         "El Email alternativo no es válido. Debe ser una dirección de correo como ejemplo@gmail.com"
       );
@@ -121,13 +134,22 @@ export default function PersonalInfoForm() {
 
     const isDocNumber = validateDocNumber(docNumber);
     if (!isDocNumber) {
+      setApiSuccess("");
       setFrontError("El documento debe ser válido");
       return;
     }
 
     const isCUIT = validateCUIT(cuil);
     if (!isCUIT) {
+      setApiSuccess("");
       setFrontError("El CUIT debe ser un número entero positivo de 11 dígitos");
+      return;
+    }
+
+    const birthIsValid = validateBirth(birthdate);
+    if (!birthIsValid) {
+      setApiSuccess("");
+      setFrontError("Fecha de nacimiento no válida, debe tener al menos 18 años para registrarse");
       return;
     }
 

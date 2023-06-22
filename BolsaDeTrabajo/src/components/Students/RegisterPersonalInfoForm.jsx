@@ -33,34 +33,50 @@ export default function PersonalInfoForm() {
   const [birthdate, setBirthdate] = useState(null);
   const [gender, setGender] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [altEmailError, setAltEmailError] = useState("");
-  const [docNumberError, setDocNumberError] = useState("");
-  const [error, setError] = useState("");
+
+  const [frontError, setFrontError] = useState("");
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
   const navigate = useNavigate();
 
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password)
+  }
+
+  const validateConfirmPassword = (password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      return false;
+    }
+    return true;
+  }
+
   const validateEmail = (email) => {
-    const regex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
-    return regex.test(email);
+    const emailRegex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
+    return emailRegex.test(email);
   };
 
   const validateAltEmail = (altEmail) => {
-    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return regex.test(altEmail);
+    const altEmailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
+    if (emailRegex.test(altEmail)) {
+      return false;
+    }
+    return altEmailRegex.test(altEmail);
   };
 
   const validateDocNumber = (docNumber) => {
-    const dniRegex = /^\d{7,8}$/;
-    return dniRegex.test(docNumber);
+    const docNumberRegex = /^\d{8}$/;
+    return docNumberRegex.test(docNumber);
   };
 
+  const validateCUIT = (CUIT) => {
+    const CUITRegex = /^\d{11}$/;
+    return CUITRegex.test(CUIT);
+  }
+
   useEffect(() => {
-    setEmailError("");
-    setAltEmailError("");
-    setDocNumberError("");
-    setError("");
+    setFrontError("");
     setApiError("");
   }, [userName, password, confirmPassword, file, lastName, firstName, email, altEmail, docType, docNumber, cuil, birthdate, gender, maritalStatus]);
 
@@ -71,33 +87,48 @@ export default function PersonalInfoForm() {
       : null;
 
       if (!userName || !password || !confirmPassword || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
-        setError("Todos los campos deben estar completados")
+        setFrontError("Todos los campos deben estar completados")
         return;
       }
-    const isEmailValid = validateEmail(email);
-    if (!isEmailValid) {
-      setEmailError(
-        "El email es inválido. Debe ser una dirección de correo válida que termine en '@frro.utn.edu.ar'."
+
+    const passwordIsValid = validatePassword(password);
+    if (!passwordIsValid) {
+      setFrontError("Contraseña insegura, debe contener al menos una letra mayúscula, una minúscula, un número y un caracter especial. 8 en total")
+      return;
+    }
+    
+    const confirmPasswordIsValid = validateConfirmPassword(password, confirmPassword);
+    if (!confirmPasswordIsValid) {
+      setFrontError("Los campos introducidos de contraseña no coinciden");
+      return;
+    }
+
+    const emailIsValid = validateEmail(email);
+    if (!emailIsValid) {
+      setFrontError(
+        "El Email principal no es válido. Debe ser una dirección de correo que termine en '@frro.utn.edu.ar'."
       );
       return;
-    } else {
-      setEmailError(""); // Limpiar el mensaje de error si el email es válido
     }
-    const isAltEmailValid = validateAltEmail(altEmail);
-    if (!isAltEmailValid) {
-      setAltEmailError(
-        "Email es inválido. Debe ser una dirección de correo válida como ejemplo@gmail.com "
+
+    const altEmailIsValid = validateAltEmail(altEmail);
+    if (!altEmailIsValid) {
+      setFrontError(
+        "El Email alternativo no es válido. Debe ser una dirección de correo como ejemplo@gmail.com"
       );
       return;
-    } else {
-      setAltEmailError("");
     }
+
     const isDocNumber = validateDocNumber(docNumber);
     if (!isDocNumber) {
-      setDocNumberError("El documento debe ser válido");
+      setFrontError("El documento debe ser válido");
       return;
-    } else {
-      setDocNumberError("");
+    }
+
+    const isCUIT = validateCUIT(cuil);
+    if (!isCUIT) {
+      setFrontError("El CUIT debe ser un número entero positivo de 11 dígitos");
+      return;
     }
 
     try {
@@ -203,14 +234,13 @@ export default function PersonalInfoForm() {
       <Row>
         <Col>
           <FormGroup controlId="email">
-            <FormLabel>Email</FormLabel>
+            <FormLabel>Email principal</FormLabel>
             <FormControl
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Ingresa tu correo electrónico"
             />
-            {emailError && <div className="text-danger">{emailError}</div>}
           </FormGroup>
         </Col>
         <Col>
@@ -222,9 +252,6 @@ export default function PersonalInfoForm() {
               onChange={(e) => setAltEmail(e.target.value)}
               placeholder="Ingresa un correo electrónico alternativo"
             />
-            {altEmailError && (
-              <div className="text-danger">{altEmailError}</div>
-            )}
           </FormGroup>
         </Col>
       </Row>
@@ -251,9 +278,6 @@ export default function PersonalInfoForm() {
                   value={docNumber}
                   onChange={(e) => setDocNumber(e.target.value)}
                 />
-                {docNumberError && (
-                  <div className="text-danger">{docNumberError}</div>
-                )}
               </Col>
             </Row>
           </FormGroup>
@@ -354,7 +378,7 @@ export default function PersonalInfoForm() {
         </Col>
       </Row>
 
-      {error && <Alert variant="danger">{error}</Alert>}
+      {frontError && <Alert variant="danger">{frontError}</Alert>}
       {apiError && <Alert variant="danger">{apiError}</Alert>}
       {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
 

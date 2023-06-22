@@ -41,10 +41,15 @@ const NavBar = () => {
             xs={6}
             className="d-flex align-items-center justify-content-center"
           >
-            <Nav className="mr-auto ">
-              {!user && <Link to="/signInOption">Unite a la bolsa</Link>}
-              <Link to="/Offers">Ultimos empleos</Link>
-              <Link to="/admin">Novedades</Link>
+            <Nav className="mr-auto">
+              {!user && (
+                <Link to="/signInOption" className="nav-link">
+                  Unite a la bolsa
+                </Link>
+              )}
+              <Link to="/Offers" className="nav-link">
+                Ultimos empleos
+              </Link>
             </Nav>
           </Col>
           <Col xs={3} className="text-right">

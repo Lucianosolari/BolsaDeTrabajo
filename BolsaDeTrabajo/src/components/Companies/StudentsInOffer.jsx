@@ -32,7 +32,7 @@ const StudentsInOffer = () => {
 
       const downloadLink = document.createElement("a");
       downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = "cv.pdf";
+      downloadLink.download = `${student.name}-cv.pdf`;
       downloadLink.click();
     } catch (error) {
       console.error(error);
@@ -50,8 +50,8 @@ const StudentsInOffer = () => {
             <Card.Title>
               Nombre y apellido: {student.name} {student.surname}
             </Card.Title>
-            <Button onClick={() => handleDownloadCV(student)}>
-              Ver CV del estudiante
+            <Button variant="info" onClick={() => handleDownloadCV(student)}>
+              Descargar CV del estudiante
             </Button>
           </Card.Body>
         </Card>

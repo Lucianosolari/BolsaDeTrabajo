@@ -693,7 +693,7 @@ export async function logout(token) {
 export async function downloadStudentCvForCompany(userId, token) {
   try {
     const response = await fetch(
-      `${DB_DOMAIN}/CVFiles/${userId}/getStudentCV`,
+      `${DB_DOMAIN}/Company/CVFiles/${userId}/getStudentCV`,
       {
         method: "GET",
         headers: {

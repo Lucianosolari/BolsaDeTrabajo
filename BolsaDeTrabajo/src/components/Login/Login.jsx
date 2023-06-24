@@ -94,11 +94,10 @@ export default function Login() {
           )}
         </Button>
 
-        <Link
-          to="/recover-password"
-          style={{ color: "black", marginTop: "20px" }}
-        >
-          ¿Olvidaste tu contraseña?
+        <Link to="/recover-password">
+          <Button variant="outline-dark" style={{ marginTop: "10px" }}>
+            ¿Olvidaste tu contraseña?
+          </Button>
         </Link>
       </Form>
     </div>

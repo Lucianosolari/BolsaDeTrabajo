@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { getCompanyOffers, deleteOffer } from "../../api"; //removeStudentFromOffer
+import { getCompanyOffers, deleteOffer } from "../../api";
 import { format } from "date-fns";
 import { Card, Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const OfferCompany = () => {
   const { user } = useContext(UserContext);
@@ -10,6 +11,8 @@ const OfferCompany = () => {
 
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCompanyOffers(user.userId, user.token)
@@ -63,6 +66,9 @@ const OfferCompany = () => {
               Fecha de publicación{" "}
               {format(new Date(offer.createdDate), "dd/MM/yyyy")}
             </Card.Text>
+            <Button onClick={() => navigate(`/studentsInOffer/${offer.offerId}`)}>
+              Ver estudiantes inscriptos
+            </Button>
 
             <Button
               onClick={() => handleRemoveOffer(offer.offerId)}

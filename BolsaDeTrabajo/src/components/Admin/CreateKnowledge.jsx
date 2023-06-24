@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Form, Button, Table, Alert } from "react-bootstrap";
 import { UserContext } from "../../context/UserContext";
-import { getKnowledge, addKnowledge, deleteKnowledge } from "../../api"; // Reemplaza "api" con tu archivo de funciones de la API
+import { getKnowledge, addKnowledge, deleteKnowledge } from "../../api";
 
 export default function CreateKnowledge() {
+  const { user } = useContext(UserContext);
   const [knowledgeList, setKnowledgeList] = useState([]);
   const [selectedType, setSelectedType] = useState("");
-  const { user } = useContext(UserContext);
-  const [error, setError] = useState("");
+  const [successAlert, setSuccessAlert] = useState(null);
+  const [errorAlert, setErrorAlert] = useState(null);
 
   useEffect(() => {
     fetchKnowledgeList();
@@ -20,40 +21,51 @@ export default function CreateKnowledge() {
         const knowledgeData = await response.json();
         setKnowledgeList(knowledgeData);
         console.log(knowledgeData);
-      } else {
-        console.error("Error:", response.status);
       }
     } catch (error) {
-      console.error(error.message);
+      setErrorAlert(error.message);
     }
   };
 
-  useEffect(() => {
-    setError("");
-  }, [selectedType]);
-
   const handleAddKnowledge = async () => {
     if (!selectedType) {
-      setError("Debe ingresar un conocimiento");
+      setErrorAlert("Debe ingresar un conocimiento");
+      return;
+    }
+    if (!/[a-zA-Z]/.test(selectedType)) {
+      setErrorAlert(
+        "El nombre del conocimiento debe contener al menos una letra"
+      );
       return;
     }
 
     try {
-      await addKnowledge(user.token, selectedType); // Reemplaza "addKnowledge" con la función que agrega el conocimiento a la base de datos
-      fetchKnowledgeList(); // Vuelve a obtener la lista de conocimientos actualizada desde la base de datos
-      setSelectedType("");
-      setError("");
+      const response = await addKnowledge(user.token, selectedType);
+      if (response === "Conocimiento creado") {
+        await fetchKnowledgeList();
+        setSelectedType("");
+        setSuccessAlert(response);
+        setErrorAlert(null);
+      } else {
+        throw new Error("Error al crear el conocimiento");
+      }
     } catch (error) {
-      console.error(error);
+      setSuccessAlert(null);
+      setErrorAlert(error.message);
     }
   };
 
   const handleDeleteKnowledge = async (knowledgeId) => {
     try {
-      await deleteKnowledge(knowledgeId); // Reemplaza "deleteKnowledge" con la función que elimina el conocimiento de la base de datos
-      fetchKnowledgeList(); // Vuelve a obtener la lista de conocimientos actualizada desde la base de datos
+      await deleteKnowledge(user.token, knowledgeId);
+      setKnowledgeList((prevKnowledgeList) =>
+        prevKnowledgeList.filter(
+          (knowledge) => knowledge.knowledgeId !== knowledgeId
+        )
+      );
+      setSuccessAlert("Conocimiento borrado");
     } catch (error) {
-      console.error(error);
+      setErrorAlert(error.message);
     }
   };
 
@@ -66,9 +78,27 @@ export default function CreateKnowledge() {
             type="text"
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            isInvalid={!!error}
+            isInvalid={!!errorAlert}
           />
-          {error && <Alert variant="danger">{error}</Alert>}
+
+          {successAlert && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessAlert(null)}
+              dismissible
+            >
+              {successAlert}
+            </Alert>
+          )}
+          {errorAlert && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorAlert(null)}
+              dismissible
+            >
+              {errorAlert}
+            </Alert>
+          )}
         </Form.Group>
 
         <Button onClick={handleAddKnowledge}>Agregar Conocimiento</Button>

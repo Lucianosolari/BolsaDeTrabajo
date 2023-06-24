@@ -53,6 +53,30 @@ export async function createOffer({ token, offerData }) {
   }
 }
 
+export async function getStudentsInOffer(token, offerId) {
+  try {
+    const response = await fetch(`${DB_DOMAIN}/Company/${offerId}/getStudentsInOffer`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      console.error(errorMessage); // Imprimir el mensaje de error en la consola
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function createCareer({ token, careerData }) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Admin/createCareer`, {
@@ -166,48 +190,43 @@ export async function addKnowledge(token, type) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        type: type,
+        Type: type,
       }),
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error);
+      const errorData = await response.text();
+      throw new Error(errorData);
     }
 
-    const responseText = await response.text();
-    if (responseText.length === 0) {
-      throw new Error("Error");
+    const successData = await response.text();
+    if (successData !== "Conocimiento creado") {
+      throw new Error("Error al crear el conocimiento");
     }
 
-    return JSON.parse(responseText);
+    return successData;
   } catch (error) {
     console.error(error);
     throw error;
   }
 }
-// cambiar ruta de controler y tipo
+
 export async function deleteKnowledge(token, id) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Company/deleteCompany/${id}`, {
+    const response = await fetch(`${DB_DOMAIN}/Admin/deleteKnowledge/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        knowledgeId: id,
-      }),
     });
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      const error = new Error(`Response status is ${response.status}`);
-      error.response = errorResponse;
-      console.log(error.response);
-      throw error;
+
+    if (response.ok) {
+      return true;
+    } else {
+      const error = await response.text();
+      throw new Error(error);
     }
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }

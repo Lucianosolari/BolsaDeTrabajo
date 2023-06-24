@@ -19,23 +19,18 @@ const CompanyMenu = () => {
   const { setUser, user } = useContext(UserContext);
 
   const logoutUserClick = async () => {
-    console.log(user.userId);
     try {
       console.log(user.userId);
       const data = await logout(user.token);
       setUser(null);
       navigate("/");
-      console.log(user.token);
     } catch (error) {
       console.error(error);
     }
-    console.log(user.token);
   };
 
   const removeUserClick = async () => {
-    console.log(user.userId);
     try {
-      console.log(user.userId);
       const data = await deleteCompany(user.token, user.userId);
       setUser(null);
       navigate("/");

@@ -26,6 +26,7 @@ import CvFileDownload from "./components/Students/CvFileDownload";
 import NotFound from "./components/NotFound/NotFound";
 import OfferCompany from "./components/Companies/OfferCompany";
 import CreateKnowledge from "./components/Admin/CreateKnowledge";
+import StudentsInOffer from "./components/Companies/StudentsInOffer";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
                   path="/pendingCompanies"
                   element={<PendingCompanies />}
                 />
+                <Route path="/studentsInOffer/:offerId" element={<StudentsInOffer/>} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Container>

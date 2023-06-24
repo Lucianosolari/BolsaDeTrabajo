@@ -55,13 +55,16 @@ export async function createOffer({ token, offerData }) {
 
 export async function getStudentsInOffer(token, offerId) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Company/${offerId}/getStudentsInOffer`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${DB_DOMAIN}/Company/${offerId}/getStudentsInOffer`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       const errorResponse = await response.text();
@@ -681,6 +684,30 @@ export async function logout(token) {
       console.log(error.response);
       throw error;
     }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function downloadStudentCvForCompany(userId, token) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/CVFiles/${userId}/getStudentCV`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error en la solicitud");
+    }
+    const data = await response;
+    return data;
   } catch (error) {
     console.error(error);
     throw error;

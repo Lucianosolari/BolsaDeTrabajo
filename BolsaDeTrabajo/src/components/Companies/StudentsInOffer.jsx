@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
-import { getStudentsInOffer } from '../../api';
-import { Alert, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/UserContext";
+import { getStudentsInOffer, downloadStudentCvForCompany } from "../../api";
+import { Alert, Button, Card } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 const StudentsInOffer = () => {
   const { user } = useContext(UserContext);
@@ -22,33 +22,37 @@ const StudentsInOffer = () => {
       });
   }, [offerId, user.token]);
 
+  const handleDownloadCV = async (student) => {
+    try {
+      const response = await downloadStudentCvForCompany(
+        student.userId,
+        user.token
+      );
+      const blob = await response.blob();
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = "cv.pdf";
+      downloadLink.click();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div style={{ marginBlock: "20px" }}>
-
       {registeredStudents.map((student, index) => (
         <Card
           key={student.offerId}
           className={index % 2 === 0 ? "even-card" : "odd-card"}
         >
           <Card.Body>
-            <Card.Title>Nombre y apellido: {student.name} {student.surname}</Card.Title>
-
-            {/* <Card.Subtitle className="mb-2 text-muted">
-              Con conocimiento excluyente en: {offer.offerSpecialty}
-            </Card.Subtitle>
-
-            <Card.Text>{offer.offerDescription}</Card.Text>
-            <Card.Text>
-              Fecha de publicación{" "}
-              {format(new Date(offer.createdDate), "dd/MM/yyyy")}
-            </Card.Text>
-
-            <Button
-              onClick={() => handleRemoveOffer(offer.offerId)}
-              variant="danger"
-            >
-              Eliminar Oferta
-            </Button> */}
+            <Card.Title>
+              Nombre y apellido: {student.name} {student.surname}
+            </Card.Title>
+            <Button onClick={() => handleDownloadCV(student)}>
+              Ver CV del estudiante
+            </Button>
           </Card.Body>
         </Card>
       ))}

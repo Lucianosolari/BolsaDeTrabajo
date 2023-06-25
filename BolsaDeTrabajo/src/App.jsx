@@ -27,6 +27,7 @@ import NotFound from "./components/NotFound/NotFound";
 import OfferCompany from "./components/Companies/OfferCompany";
 import CreateKnowledge from "./components/Admin/CreateKnowledge";
 import StudentsInOffer from "./components/Companies/StudentsInOffer";
+import KnowledgeStudent from "./components/Students/KnowledgeStudent";
 
 function App() {
   return (
@@ -65,6 +66,10 @@ function App() {
                 <Route path="/uploadCV" element={<CvFileForm />} />
                 <Route path="/CVStudent" element={<CvFileDownload />} />
                 <Route path="/OtherInfo" element={<OtherInfoForm />} />
+                <Route
+                  path="/StudentKnowledge"
+                  element={<KnowledgeStudent />}
+                />
 
                 <Route path="/offerStudent" element={<OfferStudent />} />
                 <Route path="/offerCompany" element={<OfferCompany />} />
@@ -74,7 +79,10 @@ function App() {
                   path="/pendingCompanies"
                   element={<PendingCompanies />}
                 />
-                <Route path="/studentsInOffer/:offerId" element={<StudentsInOffer/>} />
+                <Route
+                  path="/studentsInOffer/:offerId"
+                  element={<StudentsInOffer />}
+                />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Container>

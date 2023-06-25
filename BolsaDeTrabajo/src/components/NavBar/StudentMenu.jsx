@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import {
-  FaCog,
   FaUser,
   FaClipboard,
   FaBars,
@@ -10,6 +9,7 @@ import {
   FaTrashAlt,
   FaBriefcase,
   FaFilePdf,
+  FaCode,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -66,8 +66,12 @@ const StudentMenu = () => {
             <FaFilePdf className="mr-2" /> Cargar CV
           </Dropdown.Item>
 
-          <Dropdown.Item as={Link} to="/OtherInfo" style={{ margin: "0px" }}>
-            <FaCog className="mr-2" /> Cargar otra info - Falta implementar
+          <Dropdown.Item
+            as={Link}
+            to="/StudentKnowledge"
+            style={{ margin: "0px" }}
+          >
+            <FaCode className="mr-2" /> Agregar conocimientos
           </Dropdown.Item>
 
           <Dropdown.Item as={Link} to="/offerStudent" style={{ margin: "0px" }}>

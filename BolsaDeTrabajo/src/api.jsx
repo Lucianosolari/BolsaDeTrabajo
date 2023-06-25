@@ -713,3 +713,75 @@ export async function downloadStudentCvForCompany(userId, token) {
     throw error;
   }
 }
+
+export async function addKnowledgeToStudent(token, knowledgeId) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/Knowledge/${knowledgeId}/AddKnowledge`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      return true;
+    } else {
+      const error = await response.text();
+      throw new Error(error);
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteKnowledgeFromStudent(knowledgeId, token) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/Knowledge/${knowledgeId}/DeleteKnowledge`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      const error = new Error(`Response status is ${response.status}`);
+      error.response = errorResponse;
+      console.log(error.response);
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getStudentKnowledge(token) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Student/Knowledge/GetKnowledgesToStudent`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+    const data = await response;
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

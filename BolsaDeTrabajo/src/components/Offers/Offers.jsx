@@ -10,6 +10,7 @@ function Offers() {
   const [offersData, setOffersData] = useState([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [apiError, setApiError] = useState("");
   const [selectedOfferId, setSelectedOfferId] = useState("");
   const { user } = useContext(UserContext);
 
@@ -23,11 +24,11 @@ function Offers() {
       const data = await response?.json();
       setOffersData(data?.value || []);
     } catch (error) {
-      console.error(error);
+      setApiError(error.message)
     }
   };
 
-  const handleStudentToOffer = async (offerId) => {
+  const handleAddStudentToOffer = async (offerId) => {
     try {
       const response = await addStudentToOffer(
         user.token,
@@ -38,24 +39,30 @@ function Offers() {
         setMessage(
           "Te inscribiste correctamente. En la sección 'Ver mis ofertas' podrás ver más detalles."
         );
-        setError(""); // Limpiar el estado de error
+        setError("");
       }
     } catch (error) {
       setError(error.message);
       console.log(error);
-      setMessage(""); // Limpiar el estado de mensaje
+      setMessage("");
     }
     setSelectedOfferId(offerId);
   };
 
   return (
     <Container style={{ marginBlock: "20px" }}>
-      <h1>¡Estas son las ofertas que tenemos para vos!</h1>
-
-      {user ? (
-        <h3>¡No esperes más y postulate ahora mismo! </h3>
+      {offersData.length > 0 ? (
+        <h1>¡Estas son las ofertas que tenemos para vos!</h1>
       ) : (
-        <h3>Para postularte tenés que iniciar sesión</h3>
+        <h1>Actualmente no hay ofertas en el sistema.</h1>
+      )}
+
+      {(user && offersData.length > 0) ? (
+        <h3>¡No esperes más y postulate a una oferta ahora mismo!</h3>
+      ) : null}
+
+      {!user && (
+        <h3>Para postularte a una oferta tenés que iniciar sesión</h3>
       )}
 
       {!user && (
@@ -106,7 +113,7 @@ function Offers() {
             </Card.Text>
             {user && user.userType === "Student" && (
               <Button
-                onClick={() => handleStudentToOffer(offer.offerId)}
+                onClick={() => handleAddStudentToOffer(offer.offerId)}
                 variant="primary"
               >
                 Inscribirse a la oferta

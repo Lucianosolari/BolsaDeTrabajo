@@ -42,14 +42,14 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/signInOption" element={<SignIn />} />
+                <Route path="/sign-in-option" element={<SignIn />} />
 
                 <Route
-                  path="/studentsform"
+                  path="/students-form"
                   element={<RegisterPersonalInfoForm />}
                 />
 
-                <Route path="/companyform" element={<CompanyInfoForm />} />
+                <Route path="/company-form" element={<CompanyInfoForm />} />
                 <Route path="/admin" element={<AdminForm />} />
                 <Route path="/recover-password" element={<RecoverPassword />} />
 
@@ -72,7 +72,7 @@ function App() {
                 />
 
                 <Route path="/offerStudent" element={<OfferStudent />} />
-                <Route path="/offerCompany" element={<OfferCompany />} />
+                <Route path="/company-offers" element={<OfferCompany />} />
                 <Route path="/createCareer" element={<CreateCareer />} />
                 <Route path="/createKnowledge" element={<CreateKnowledge />} />
                 <Route

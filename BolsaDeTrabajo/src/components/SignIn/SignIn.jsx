@@ -8,11 +8,11 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const handleStudentRegistration = () => {
-    navigate('/studentsform');
+    navigate('/students-form');
   };
 
   const handleCompanyRegistration = () => {
-    navigate('/companyform');
+    navigate('/company-form');
   };
 
   return (

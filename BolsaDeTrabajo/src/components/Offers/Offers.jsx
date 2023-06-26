@@ -51,13 +51,18 @@ function Offers() {
 
   return (
     <Container style={{ marginBlock: "20px" }}>
-      {offersData.length > 0 ? (
-        <h1>¡Estas son las ofertas que tenemos para vos!</h1>
+      {user.UserType === 'Student' ? (
+        offersData.length > 0 ? (
+          <h1>¡Estas son las ofertas que tenemos para vos!</h1>
+        ) : (
+          <h1>Actualmente no hay ofertas en el sistema.</h1>
+          )
+      ) : offersData.length > 0 ? (
+        <h1>Listado de ofertas</h1>
       ) : (
-        <h1>Actualmente no hay ofertas en el sistema.</h1>
-      )}
+        <h1>No hay ofertas actualmente</h1>)}
 
-      {(user && offersData.length > 0) ? (
+      {(user && user.userType === "Student" && offersData.length > 0) ? (
         <h3>¡No esperes más y postulate a una oferta ahora mismo!</h3>
       ) : null}
 
@@ -70,7 +75,7 @@ function Offers() {
           <Col>
             <p>
               ¿Aún no estás registrado? Registrate{" "}
-              <Link to="/studentsform" className="highlight-link">
+              <Link to="/students-form" className="highlight-link">
                 <Button variant="primary" className="buttons">Registrarme</Button>
               </Link>
             </p>

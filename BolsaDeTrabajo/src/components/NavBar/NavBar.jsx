@@ -43,7 +43,7 @@ const NavBar = () => {
           >
             <Nav className="mr-auto">
               {!user && (
-                <Link to="/signInOption" className="nav-link">
+                <Link to="/sign-in-option" className="nav-link">
                   Unite a la bolsa
                 </Link>
               )}

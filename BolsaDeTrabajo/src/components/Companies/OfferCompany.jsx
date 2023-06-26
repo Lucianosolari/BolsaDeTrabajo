@@ -82,7 +82,7 @@ const OfferCompany = () => {
       {apiError && <Alert variant="danger">{apiError}</Alert>}
       {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
     </div>
-  );
+  );// ENVIAR NOMBRE DE LA OFERTA PARA MOSTRARLO, OPCIONAL
 };
 
 export default OfferCompany;

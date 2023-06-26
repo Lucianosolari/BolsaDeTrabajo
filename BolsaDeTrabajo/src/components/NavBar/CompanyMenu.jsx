@@ -46,7 +46,7 @@ const CompanyMenu = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item as={Link} to="/offerCompany" style={{ margin: "0px" }}>
+        <Dropdown.Item as={Link} to="/company-offers" style={{ margin: "0px" }}>
           <FaUser className="mr-2" /> Mis ofertas
         </Dropdown.Item>
         <Dropdown.Item as={Link} to="/createOffer" style={{ margin: "0px" }}>

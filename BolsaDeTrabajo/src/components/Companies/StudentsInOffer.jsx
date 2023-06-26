@@ -41,6 +41,7 @@ const StudentsInOffer = () => {
 
   return (
     <div style={{ marginBlock: "20px" }}>
+      <h1>Oferta: </h1>
       {registeredStudents.map((student, index) => (
         <Card
           key={student.offerId}

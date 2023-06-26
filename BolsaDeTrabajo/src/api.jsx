@@ -259,11 +259,9 @@ export async function createStudent(studentData) {
         civilStatus: studentData.maritalStatus,
       }),
     });
-
     if (!response.ok) {
       const errorResponse = await response.text();
       const errorMessage = errorResponse || "Error desconocido";
-      console.error(errorMessage); // Imprimir el mensaje de error en la consola
       throw new Error(errorMessage);
     }
     const data = await response.json();
@@ -509,7 +507,9 @@ export async function getOffers() {
     });
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      throw new Error(errorMessage);
     }
     const data = await response;
     return data;

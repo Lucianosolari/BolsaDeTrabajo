@@ -51,7 +51,7 @@ function Offers() {
 
   return (
     <Container style={{ marginBlock: "20px" }}>
-      {user.UserType === 'Student' ? (
+      {user && user.userType === 'Student' ? (
         offersData.length > 0 ? (
           <h1>¡Estas son las ofertas que tenemos para vos!</h1>
         ) : (

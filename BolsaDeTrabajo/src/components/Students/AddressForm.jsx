@@ -47,9 +47,6 @@ export default function AddressForm() {
       if (
         !familyStreet ||
         !familyStreetNumber ||
-        !familyStreetLetter ||
-        !familyFloor ||
-        !familyDepartment ||
         !familyCountry ||
         !familyProvince ||
         !familyLocation ||
@@ -57,9 +54,6 @@ export default function AddressForm() {
         !familyOtherPhone ||
         !personalStreet ||
         !personalStreetNumber ||
-        !personalStreetLetter ||
-        !personalFloor ||
-        !personalDepartment ||
         !personalCountry ||
         !personalProvince ||
         !personalLocation ||
@@ -169,12 +163,12 @@ export default function AddressForm() {
 
               <Form.Group as={Row} controlId="familyDepartment">
                 <Form.Label column sm={2}>
-                  Número departamento
+                  Departamento
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
                     type="text"
-                    placeholder="Ingrese el número de departamento"
+                    placeholder="Ingrese departamento (opcional)"
                     value={familyDepartment}
                     onChange={(e) => setFamilyDepartment(e.target.value)}
                   />
@@ -234,11 +228,11 @@ export default function AddressForm() {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Ingrese su número de teléfono particular"
                     value={familyPersonalPhone}
                     onChange={(e) =>
-                      setFamilyPersonalPhone(parseInt(e.target.value))
+                      setFamilyPersonalPhone(e.target.value)
                     }
                   />
                 </Col>
@@ -250,11 +244,11 @@ export default function AddressForm() {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Ingrese otro número de teléfono (opcional)"
                     value={familyOtherPhone}
                     onChange={(e) =>
-                      setFamilyOtherPhone(parseInt(e.target.value))
+                      setFamilyOtherPhone(e.target.value)
                     }
                   />
                 </Col>
@@ -328,12 +322,12 @@ export default function AddressForm() {
 
               <Form.Group as={Row} controlId="personalDepartment">
                 <Form.Label column sm={2}>
-                  Número departamento
+                  Departamento
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
                     type="text"
-                    placeholder="Ingrese el número de departamento (opcional)"
+                    placeholder="Ingrese departamento (opcional)"
                     value={personalDepartment}
                     onChange={(e) => setPersonalDepartment(e.target.value)}
                   />
@@ -393,7 +387,7 @@ export default function AddressForm() {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Ingrese su número de teléfono particular"
                     value={personalPersonalPhone}
                     onChange={(e) =>
@@ -409,7 +403,7 @@ export default function AddressForm() {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Ingrese otro número de teléfono (opcional)"
                     value={personalOtherPhone}
                     onChange={(e) =>

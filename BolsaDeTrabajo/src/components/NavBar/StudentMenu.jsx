@@ -48,11 +48,7 @@ const StudentMenu = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item
-            as={Link}
-            to="/addressStudent"
-            style={{ margin: "0px" }}
-          >
+          <Dropdown.Item as={Link} to="/addressStudent" style={{ margin: "0px" }}>
             <FaUser className="mr-2" /> Domicilio
           </Dropdown.Item>
           <Dropdown.Item

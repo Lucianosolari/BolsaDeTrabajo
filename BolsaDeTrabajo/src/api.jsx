@@ -272,7 +272,7 @@ export async function createStudent(studentData) {
   }
 }
 
-export async function updateStudentAddressInfo(token, addressData) {
+export async function updateStudentAddressInfo({ token, addressData }) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Student/addStudentAdressInfo`, {
       method: "PUT",
@@ -280,14 +280,35 @@ export async function updateStudentAddressInfo(token, addressData) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(addressData),
+      body: JSON.stringify({
+        familyStreet: addressData.familyStreet,
+        familyStreetNumber: addressData.familyStreetNumber,
+        familyStreetLetter: addressData.familyStreetLetter,
+        familyFloor: addressData.familyFloor,
+        familyDepartment: addressData.familyDepartment,
+        familyCountry: addressData.familyCountry,
+        familyProvince: addressData.familyProvince,
+        familyLocation: addressData.familyLocation,
+        familyPersonalPhone: addressData.familyPersonalPhone,
+        familyOtherPhone: addressData.familyOtherPhone,
+
+        personalStreet: addressData.personalStreet,
+        personalStreetNumber: addressData.personalStreetNumber,
+        personalStreetLetter: addressData.personalStreetLetter,
+        personalFloor: addressData.personalFloor,
+        personalDepartment: addressData.personalDepartment,
+        personalCountry: addressData.personalCountry,
+        personalProvince: addressData.personalProvince,
+        personalLocation: addressData.personalLocation,
+        personalPersonalPhone: addressData.personalPersonalPhone,
+        personalOtherPhone: addressData.personalOtherPhone
+      }),
     });
-
     if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.error);
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      throw new Error(errorMessage);
     }
-
     const data = await response.json();
     return data;
   } catch (error) {

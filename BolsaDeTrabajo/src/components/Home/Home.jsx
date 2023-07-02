@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import "./Home.css";
 
 const Home = () => {
@@ -16,20 +16,28 @@ const Home = () => {
               Tecnológica Nacional Facultad Regional Rosario, te invita a
               ingresar tu CV en el Sistema Virtual de Búsqueda de Empleo para
               que encuentres el trabajo que estás buscando. Esta
-              es una base en la cual podes actualizar tus datos cuantas veces
+              es una base en la cual podés actualizar tus datos cuantas veces
               quieras (y es recomendable que lo hagas periódicamente) e
               inscribirte a las ofertas que proponen las empresas o
               instituciones.
             </p>
             <p className=" text-justify">
-              ¿Como Inscribirte? El primer paso es tener una cuenta de email de
+              ¿Cómo inscribirte? El primer paso es tener una cuenta de email de
               la UTN-FRRO, si aún no la tenés, retirá el formulario en la
-              Secretaría de Asuntos Universitarios, o accedé al formulario del CVG.
+              Secretaría de Asuntos Universitarios, o accedé al formulario que se encuentra en el CVG:
+              <Button id="cvg-button"
+                href="https://frro.cvg.utn.edu.ar/course/view.php?id=737#section-6"
+                target="_blank"
+              >
+                Trámites administrativos
+              </Button>
             </p>
             <p>
               ¿Cómo acceder al sistema de Bolsa de Trabajo? Debés ingresar al sistema mediante el logo
               que se encuentra en la esquina superior derecha (personita con fondo azul), introduciendo
               tu usuario y tu contraseña.
+              <br></br>
+              Si todavía no estás registrado, accedé a "Unite a la bolsa" en la parte superior, luego a "Inscribirme como estudiante" y completá el formulario.
             </p>
             <p className="text-justify">
               ¿Cómo subir tu CV y actualizar información personal y académica?
@@ -47,6 +55,9 @@ const Home = () => {
               postularte para las búsquedas. Una vez hecho esto, podrás ver tus postulaciones accediendo a "Ver mis ofertas" en el menú desplegable y 
               tendrás la opción de cancelar la postulación. En la fila correspondiente a la búsqueda a la cual te
               postulaste deberá aparecer la fecha de postulación.
+              <br></br>
+              Las empresas en las que te postules podrán ver los datos necesarios, incluyendo tu correo alternativo, con el cual podrán comunicarse directamente con vos.
+              Una vez que la empresa se comunica con el estudiante, el objetivo de la página web ya está logrado.
             </p>
             <p className=" text-justify">
               ¿Cada cuánto tiempo se publican búsquedas laborales? A medida que

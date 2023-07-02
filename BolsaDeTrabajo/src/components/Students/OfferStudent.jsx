@@ -3,7 +3,6 @@ import { UserContext } from "../../context/UserContext";
 import { getStudentOffers, deleteStudentToOffer } from "../../api";
 import { format } from "date-fns";
 import { Card, Button, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom"
 const OfferStudent = () => {
   const { user } = useContext(UserContext);
@@ -11,10 +10,6 @@ const OfferStudent = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [offerId, setOfferId] = useState(null);
-
-  const navigate = useNavigate();
-
-  const navigateToOffers = () => { navigate("/Offers") }
 
   useEffect(() => {
     getStudentOffers(user.userId, user.token)

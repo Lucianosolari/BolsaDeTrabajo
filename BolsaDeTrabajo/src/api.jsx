@@ -1,5 +1,7 @@
 const DB_DOMAIN = "https://localhost:7069/api";
 
+// import axios from "axios";
+
 export async function loginUser(userData) {
   try {
     const response = await fetch(`${DB_DOMAIN}/Authentication/authenticate`, {
@@ -158,6 +160,47 @@ export async function updatePendingCompany(companyId, token) {
     throw error;
   }
 }
+
+// export const fetchCVFiles = () => {
+//   return axios.get("/api/Admin/getPendingCVFiles")
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       console.error("Error al obtener los archivos: ", error);
+//       throw error;
+//     });
+// };
+
+// export async function updatePendingCVFile(CVId, token) {
+//   try {
+//     const response = await fetch(
+//       `${DB_DOMAIN}/Admin/updatePendingCVFile/${CVId}`,
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );
+
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       throw new Error(errorData.error);
+//     }
+
+//     const responseText = await response.text();
+//     if (responseText.length === 0) {
+//       throw new Error("Error");
+//     }
+
+//     return JSON.parse(responseText);
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }
 
 // cambiar ruta de controler y tipo
 export async function getKnowledge(token) {

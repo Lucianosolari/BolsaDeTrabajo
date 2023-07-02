@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Row,
@@ -15,34 +15,46 @@ import { UserContext } from "../../context/UserContext";
 const AddressForm = () => {
   const { user } = useContext(UserContext);
 
-  const [personalStreet, setPersonalStreet] = useState("");
-  const [personalStreetNumber, setPersonalStreetNumber] = useState(0);
-  const [personalStreetLetter, setPersonalStreetLetter] = useState("");
-  const [personalFloor, setPersonalFloor] = useState(0);
-  const [personalDepartment, setPersonalDepartment] = useState("");
-  const [personalCountry, setPersonalCountry] = useState("");
-  const [personalProvince, setPersonalProvince] = useState("");
-  const [personalLocation, setPersonalLocation] = useState("");
-  const [personalPersonalPhone, setPersonalPersonalPhone] = useState(0);
-  const [personalOtherPhone, setPersonalOtherPhone] = useState(0);
-
   const [familyStreet, setFamilyStreet] = useState("");
-  const [familyStreetNumber, setFamilyStreetNumber] = useState(0);
+  const [familyStreetNumber, setFamilyStreetNumber] = useState("");
   const [familyStreetLetter, setFamilyStreetLetter] = useState("");
-  const [familyFloor, setFamilyFloor] = useState(0);
+  const [familyFloor, setFamilyFloor] = useState("");
   const [familyDepartment, setFamilyDepartment] = useState("");
   const [familyCountry, setFamilyCountry] = useState("");
   const [familyProvince, setFamilyProvince] = useState("");
   const [familyLocation, setFamilyLocation] = useState("");
-  const [familyPersonalPhone, setFamilyPersonalPhone] = useState(0);
-  const [familyOtherPhone, setFamilyOtherPhone] = useState(0);
+  const [familyPersonalPhone, setFamilyPersonalPhone] = useState("");
+  const [familyOtherPhone, setFamilyOtherPhone] = useState("");
 
-  const [showAlert, setShowAlert] = useState("");
-  const [showAlertValidation, setShowAlertValidation] = useState(false);
+  const [personalStreet, setPersonalStreet] = useState("");
+  const [personalStreetNumber, setPersonalStreetNumber] = useState("");
+  const [personalStreetLetter, setPersonalStreetLetter] = useState("");
+  const [personalFloor, setPersonalFloor] = useState("");
+  const [personalDepartment, setPersonalDepartment] = useState("");
+  const [personalCountry, setPersonalCountry] = useState("");
+  const [personalProvince, setPersonalProvince] = useState("");
+  const [personalLocation, setPersonalLocation] = useState("");
+  const [personalPersonalPhone, setPersonalPersonalPhone] = useState("");
+  const [personalOtherPhone, setPersonalOtherPhone] = useState("");
+
+  const [frontError, setFrontError] = useState("");
   const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
 
-  const handleClickUpdateStudentAddressInfo = async (event) => {
+  const floorRegex = /^\d$/;
+
+  const validateFloor = (floor) => { return floorRegex.test(floor); }
+
+  useEffect(() => {
+    setFrontError("");
+    setApiError("");
+  }, [familyStreet, familyStreetNumber, familyFloor, familyCountry, familyProvince, familyLocation, familyPersonalPhone, familyOtherPhone, personalStreet, personalStreetNumber, personalFloor, personalCountry, personalProvince, personalLocation, personalPersonalPhone, personalOtherPhone]);
+
+  const handleUpdateStudentAddressInfo = async (event) => {
     event.preventDefault();
+    setFrontError("")
+    setApiError("");
+    setApiSuccess("");
     if (
       !familyStreet ||
       !familyStreetNumber ||
@@ -59,11 +71,24 @@ const AddressForm = () => {
       !personalPersonalPhone ||
       !personalOtherPhone
     ) {
-      setShowAlertValidation(true);
+      setApiSuccess("");
+      setFrontError("Por favor, complete los campos obligatorios");
       return;
     }
-    setShowAlert(false);
-    setApiError(false);
+    const familyFloorIsValid = validateFloor(familyFloor)
+    if (!familyFloorIsValid) {
+      setApiSuccess("");
+      setFrontError("Piso de domicilio familiar no válido, debe ser un número entero o 0 si no existe");
+      return;
+    }
+
+    const personalFloorIsValid = validateFloor(personalFloor)
+    if (!personalFloorIsValid) {
+      setApiSuccess("");
+      setFrontError("Piso de domicilio personal no válido, debe ser un número entero o 0 si no existe");
+      return;
+    }
+
     try {
       const data = await updateStudentAddressInfo({
         token: user.token, 
@@ -89,8 +114,10 @@ const AddressForm = () => {
           personalPersonalPhone: personalPersonalPhone,
           personalOtherPhone: personalOtherPhone,
       }});
-      setShowAlert(true);
+      setApiError("");
+      setApiSuccess("Datos registrados correctamente")
     } catch (error) {
+      setApiSuccess("");
       setApiError(error.message);
     }
   };
@@ -98,6 +125,7 @@ const AddressForm = () => {
   return (
     <>
     {user && user.userType === 'Student' ? (
+      <Form onSubmit={handleUpdateStudentAddressInfo}>
       <Container className="my-4">
       <div className="container">
         <Card>
@@ -125,6 +153,7 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
+                  min={1}
                   placeholder="Ingrese el número de la calle"
                   value={familyStreetNumber}
                   onChange={(e) =>
@@ -155,9 +184,10 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese el número de piso (opcional)"
+                  min={0}
+                  placeholder="Ingrese el número de piso (0 si no existe)"
                   value={familyFloor}
-                  onChange={(e) => setFamilyFloor(parseInt(e.target.value))}
+                  onChange={(e) => setFamilyFloor(e.target.value)}
                 />
               </Col>
             </Form.Group>
@@ -230,7 +260,7 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese su número de teléfono particular"
+                  placeholder="Ingrese número de teléfono particular"
                   value={familyPersonalPhone}
                   onChange={(e) =>
                     setFamilyPersonalPhone(e.target.value)
@@ -246,7 +276,7 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese otro número de teléfono (opcional)"
+                  placeholder="Ingrese otro número de teléfono"
                   value={familyOtherPhone}
                   onChange={(e) =>
                     setFamilyOtherPhone(e.target.value)
@@ -284,6 +314,7 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
+                  min={1}
                   placeholder="Ingrese el número de la calle"
                   value={personalStreetNumber}
                   onChange={(e) =>
@@ -314,7 +345,8 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese el número de piso (opcional)"
+                  min={0}
+                  placeholder="Ingrese el número de piso (0 si no existe)"
                   value={personalFloor}
                   onChange={(e) => setPersonalFloor(e.target.value)}
                 />
@@ -405,7 +437,7 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  placeholder="Ingrese otro número de teléfono (opcional)"
+                  placeholder="Ingrese otro número de teléfono"
                   value={personalOtherPhone}
                   onChange={(e) =>
                     setPersonalOtherPhone(e.target.value)
@@ -417,35 +449,17 @@ const AddressForm = () => {
         </Card>
       </div>
       <br></br>
-      {showAlert && (
-        <Alert
-          variant="success"
-          onClose={() => setShowAlert(false)}
-          dismissible
-        >
-          Domicilio cargado con éxito, continúa cargando tus datos
-        </Alert>
-      )}
-
-      {showAlertValidation && (
-        <Alert
-          variant="danger"
-          onClose={() => setShowAlertValidation(false)}
-          dismissible
-        >
-          Por favor, complete todos los campos obligatorios.
-        </Alert>
-      )}
-
-      {apiError && (<Alert variant="danger" onClose={() => setApiError("")} dismissible>{apiError}</Alert>)}
-      <Button onClick={handleClickUpdateStudentAddressInfo}>
+      {frontError && <Alert variant="danger">{frontError}</Alert>}
+      {apiError && <Alert variant="danger">{apiError}</Alert>}
+      {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
+      <Button variant="primary" type="submit">
         Cargar Domicilios
       </Button>
     </Container>
+    </Form>
     ):
-      <p>Debe iniciar sesión como estudiante</p>
+      <h1>Debe iniciar sesión como estudiante</h1>
     }
-      
     </>
   );
 }

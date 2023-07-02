@@ -176,8 +176,8 @@ export default function PersonalInfoForm() {
       console.log(data);
       // Hacer algo con los datos retornados (data) después de crear el estudiante
     } catch (error) {
-      setApiError(error.message);
       setApiSuccess("");
+      setApiError(error.message);
     }
   };
 

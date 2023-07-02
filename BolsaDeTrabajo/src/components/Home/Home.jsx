@@ -15,7 +15,7 @@ const Home = () => {
               La Secretaría de Asuntos Universitarios de la Universidad
               Tecnológica Nacional Facultad Regional Rosario, te invita a
               ingresar tu CV en el Sistema Virtual de Búsqueda de Empleo para
-              que encuentres el trabajo o la pasantía que estás buscando. Esta
+              que encuentres el trabajo que estás buscando. Esta
               es una base en la cual podes actualizar tus datos cuantas veces
               quieras (y es recomendable que lo hagas periódicamente) e
               inscribirte a las ofertas que proponen las empresas o
@@ -23,32 +23,29 @@ const Home = () => {
             </p>
             <p className=" text-justify">
               ¿Como Inscribirte? El primer paso es tener una cuenta de email de
-              la UTN-FRRO, si aún no la tienes, retira el formulario en la
-              Secretaría de Asuntos Universitarios. ¿Cómo acceder al sistema de
-              Bolsa de Trabajo? Debes ingresar al sistema mediante el formulario
-              que se encuentra más arriba, en esta misma página, introduciendo
-              tu usuario y tu contraseña. Recuerda que primero debiste haber
-              cambiado la clave por defecto de la cuenta de correo
-              @frro.utn.edu.ar.
+              la UTN-FRRO, si aún no la tenés, retirá el formulario en la
+              Secretaría de Asuntos Universitarios, o accedé al formulario del CVG.
+            </p>
+            <p>
+              ¿Cómo acceder al sistema de Bolsa de Trabajo? Debés ingresar al sistema mediante el logo
+              que se encuentra en la esquina superior derecha (personita con fondo azul), introduciendo
+              tu usuario y tu contraseña.
             </p>
             <p className="text-justify">
               ¿Cómo subir tu CV y actualizar información personal y académica?
-              La primera vez que accedes al sistema tendrás que cargar tus datos
-              desde "Actualizar mis datos". El CV (en formato pdf, doc o archivo
-              comprimido) lo subirás desde la pestaña "Otros Datos". IMPORTANTE:
-              Si no tienes subido el CV al momento de postularte, tu postulación
+              La primera vez que accedés al sistema podrás cargar tus diferentes datos personales
+              mediante el menú desplegable que se encontrará en la esquina superior derecha (si bien esto es opcional, es recomendable que completes los formularios). 
+              El CV (en formato pdf) lo subirás desde la pestaña "Cargar CV" en el mismo menú desplegable. IMPORTANTE:
+              Si no tenés subido el CV al momento de postularte, tu postulación
               no será tenida en cuenta por el sistema.
             </p>
             <p className="text-justify">
-              ¿Cómo postularte a las ofertas laborales? Desde "Búsquedas"
-              tendrás un listado con todas las ofertas laborales publicadas, y
-              para ver qué solicita cada una de ellas debes hacer clic donde
-              está la lupa (sobre el margen derecho). Si te interesa esa
-              búsqueda, haz clic en "Postularme a esta búsqueda". Repetimos: Es
+              ¿Cómo postularte a las ofertas laborales? Desde "Últimos empleos"
+              tendrás un listado con todas las ofertas laborales publicadas. Si te interesa una
+              búsqueda laboral, hacé clic en "Inscribirse a la oferta". Repetimos: Es
               imprescindible haber cargado tu currículum en el sistema previo a
-              postularte para las búsquedas. Una vez hecho esto, haz clic donde
-              dice volver y podrás acceder a alguna otra búsqueda o salir del
-              sistema. En la fila correspondiente a la búsqueda a la cual te
+              postularte para las búsquedas. Una vez hecho esto, podrás ver tus postulaciones accediendo a "Ver mis ofertas" en el menú desplegable y 
+              tendrás la opción de cancelar la postulación. En la fila correspondiente a la búsqueda a la cual te
               postulaste deberá aparecer la fecha de postulación.
             </p>
             <p className=" text-justify">
@@ -56,32 +53,17 @@ const Home = () => {
               las empresas soliciten personal, la SAU publicará las búsquedas en
               el sistema una vez verificada la documentación de la misma.
             </p>
-            <p className="text-center">Tipos de BÚSQUEDAS:</p>
-            <p className=" text-justify">
-              BOLSA DE TRABAJO: No es necesario ser alumno regular para este
-              tipo de búsqueda. En el caso de que sea requisito, estará
-              especificado en la publicación.
-            </p>
-            <p className="text-justify">
-              PASANTÍAS: Para este tipo de búsqueda, es REQUISITO (Ley Nacional
-              Nº26427/2008) ser ALUMNO REGULAR. Es decir, haber aprobado 2
-              MATERIAS en el ciclo lectivo anterior o 2 materias en el ciclo
-              lectivo actual. Aquellos que no cumplan con este requisito no
-              serán tenidos en cuenta en sus postulaciones en este tipo de
-              búsquedas. Más info en: PASANTÍAS.
-            </p>
             <p className="text-justify">
               Como podrás ver, es muy fácil y rápido postularse a una Oferta
-              Laboral o de Pasantía. Es por eso que es fundamental que tu CV
+              Laboral. Es por eso que es fundamental que tu CV
               siempre esté actualizado. Los cambios más frecuentes son:
             </p>
             <ul>
               <li>Teléfono principal</li>
-              <li>Teléfono de mensajes o celular</li>
-              <li>Dirección de e-mail</li>
+              <li>Teléfono alternativo</li>
               <li>Actualización del curriculum vitae</li>
               <li>
-                Cualquier otra modificación, ya sea en idioma, conocimientos,
+                Cualquier otra modificación como conocimientos,
                 experiencia laboral, etc., es imprescindible notificarla y
                 requerirá la actualización de tu CV.
               </li>

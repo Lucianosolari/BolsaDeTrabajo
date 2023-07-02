@@ -41,9 +41,13 @@ const AddressForm = () => {
   const [apiError, setApiError] = useState("");
   const [apiSuccess, setApiSuccess] = useState("");
 
-  const floorRegex = /^\d$/;
+  const streetNumberRegex = /^[1-9]\d{0,3}$/;
+  const floorRegex = /^\d{1,2}$/;
+  const phoneNumberRegex = /^\d{10}$/;
 
+  const validateStreetNumber = (streetNumber) => { return streetNumberRegex.test(streetNumber) }
   const validateFloor = (floor) => { return floorRegex.test(floor); }
+  const validatePhoneNumber = (phoneNumber) => { return phoneNumberRegex.test(phoneNumber) }
 
   useEffect(() => {
     setFrontError("");
@@ -55,6 +59,7 @@ const AddressForm = () => {
     setFrontError("")
     setApiError("");
     setApiSuccess("");
+    
     if (
       !familyStreet ||
       !familyStreetNumber ||
@@ -75,17 +80,27 @@ const AddressForm = () => {
       setFrontError("Por favor, complete los campos obligatorios");
       return;
     }
-    const familyFloorIsValid = validateFloor(familyFloor)
-    if (!familyFloorIsValid) {
-      setApiSuccess("");
-      setFrontError("Piso de domicilio familiar no válido, debe ser un número entero o 0 si no existe");
+    
+    const familyStreetNumberIsValid = validateStreetNumber(familyStreetNumber);
+    const personalStreetNumberIsValid = validateStreetNumber(personalStreetNumber);
+    if (!familyStreetNumberIsValid || !personalStreetNumberIsValid) {
+      setFrontError("Número de calle debe ser un número entero de entre 1 y 4 dígitos");
       return;
     }
 
+    const familyFloorIsValid = validateFloor(familyFloor)
     const personalFloorIsValid = validateFloor(personalFloor)
-    if (!personalFloorIsValid) {
-      setApiSuccess("");
-      setFrontError("Piso de domicilio personal no válido, debe ser un número entero o 0 si no existe");
+    if (!familyFloorIsValid || !personalFloorIsValid) {
+      setFrontError("Piso debe ser un número entero de 1 o 2 dígitos o 0 si no existe");
+      return;
+    }
+
+    const familyPersonalPhoneIsValid = validatePhoneNumber(familyPersonalPhone);
+    const familyOtherPhoneIsValid = validatePhoneNumber(familyOtherPhone);
+    const personalPersonalPhoneIsValid = validatePhoneNumber(personalPersonalPhone);
+    const personalOtherPhoneIsValid = validatePhoneNumber(personalOtherPhone);
+    if (!familyPersonalPhoneIsValid || !familyOtherPhoneIsValid || !personalPersonalPhoneIsValid || !personalOtherPhoneIsValid) {
+      setFrontError("Los teléfonos deben ser números enteros de 10 dígitos");
       return;
     }
 
@@ -153,7 +168,6 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  min={1}
                   placeholder="Ingrese el número de la calle"
                   value={familyStreetNumber}
                   onChange={(e) =>
@@ -184,7 +198,6 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  min={0}
                   placeholder="Ingrese el número de piso (0 si no existe)"
                   value={familyFloor}
                   onChange={(e) => setFamilyFloor(e.target.value)}
@@ -314,7 +327,6 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  min={1}
                   placeholder="Ingrese el número de la calle"
                   value={personalStreetNumber}
                   onChange={(e) =>
@@ -345,7 +357,6 @@ const AddressForm = () => {
               <Col sm={10}>
                 <Form.Control
                   type="number"
-                  min={0}
                   placeholder="Ingrese el número de piso (0 si no existe)"
                   value={personalFloor}
                   onChange={(e) => setPersonalFloor(e.target.value)}

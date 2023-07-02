@@ -1,12 +1,16 @@
 import React, { useState, useContext } from "react";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { downloadCV } from "../../api";
 import { UserContext } from "../../context/UserContext";
 
 export default function CvFileDownload() {
   const { user } = useContext(UserContext);
 
+  const [apiSuccess, setApiSuccess] = useState("");
+  const [apiError, setApiError] = useState(""); 
+
   const handleDownloadCV = async () => {
+    setApiError("");
     try {
       const response = await downloadCV(user.token);
       const blob = await response.blob();
@@ -15,8 +19,11 @@ export default function CvFileDownload() {
       downloadLink.href = URL.createObjectURL(blob);
       downloadLink.download = "cv.pdf";
       downloadLink.click();
+      setApiError("");
+      setApiSuccess("CV descargado correctamente");
     } catch (error) {
-      console.error(error);
+      setApiSuccess("");
+      setApiError(error.message);
     }
   };
 
@@ -25,6 +32,9 @@ export default function CvFileDownload() {
       <Button variant="primary" size="lg" onClick={handleDownloadCV}>
         Descargar mi CV
       </Button>
+      {apiError && <Alert variant="danger">{apiError}</Alert>}
+      {apiError && <p>Para cargar tu CV, seleccioná la opción "Cargar CV" en el menú desplegable.</p>}
+      {apiSuccess && <Alert variant="success">{apiSuccess}</Alert>}
     </div>
   );
 }

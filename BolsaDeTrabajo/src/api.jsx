@@ -380,13 +380,13 @@ export async function downloadCV(token) {
     const response = await fetch(`${DB_DOMAIN}/Student/downloadCV`, {
       method: "GET",
       headers: {
-        Accept: "application/json",
+        Accept: "application/pdf",
         Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
-      throw new Error("Error en la solicitud");
+      throw new Error("Currículum no encontrado");
     }
     const data = await response;
     return data;

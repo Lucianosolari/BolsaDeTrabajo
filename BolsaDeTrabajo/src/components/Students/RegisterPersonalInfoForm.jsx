@@ -19,6 +19,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { createStudent } from "../../api";
 import { useNavigate } from "react-router-dom";
 
+import { validateEmail } from "./validateEmail";
+
 export default function PersonalInfoForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -41,17 +43,13 @@ export default function PersonalInfoForm() {
   const navigate = useNavigate();
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password)
-  }
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
 
   const validateConfirmPassword = (password, confirmPassword) => {
     return password === confirmPassword;
-  }
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@frro\.utn\.edu\.ar$/;
-    return emailRegex.test(email);
   };
 
   const validateAltEmail = (altEmail) => {
@@ -71,7 +69,7 @@ export default function PersonalInfoForm() {
   const validateCUIT = (CUIT) => {
     const CUITRegex = /^\d{11}$/;
     return CUITRegex.test(CUIT);
-  }
+  };
 
   const validateBirth = (birth) => {
     const currentDate = new Date();
@@ -86,7 +84,22 @@ export default function PersonalInfoForm() {
   useEffect(() => {
     setFrontError("");
     setApiError("");
-  }, [userName, password, confirmPassword, file, lastName, firstName, email, altEmail, docType, docNumber, cuil, birthdate, gender, maritalStatus]);
+  }, [
+    userName,
+    password,
+    confirmPassword,
+    file,
+    lastName,
+    firstName,
+    email,
+    altEmail,
+    docType,
+    docNumber,
+    cuil,
+    birthdate,
+    gender,
+    maritalStatus,
+  ]);
 
   const handleCreateStudent = async (event) => {
     event.preventDefault();
@@ -94,20 +107,40 @@ export default function PersonalInfoForm() {
       ? format(birthdate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
       : null;
 
-      if (!userName || !password || !confirmPassword || !file || !lastName || !firstName || !email || !altEmail || !docType || !docNumber || !cuil || !birthdate || !gender || !maritalStatus) {
-        setApiSuccess("");
-        setFrontError("Todos los campos deben estar completados")
-        return;
-      }
+    if (
+      !userName ||
+      !password ||
+      !confirmPassword ||
+      !file ||
+      !lastName ||
+      !firstName ||
+      !email ||
+      !altEmail ||
+      !docType ||
+      !docNumber ||
+      !cuil ||
+      !birthdate ||
+      !gender ||
+      !maritalStatus
+    ) {
+      setApiSuccess("");
+      setFrontError("Todos los campos deben estar completados");
+      return;
+    }
 
     const passwordIsValid = validatePassword(password);
     if (!passwordIsValid) {
       setApiSuccess("");
-      setFrontError("Contraseña insegura, debe contener al menos una letra mayúscula, una minúscula, un número y un caracter especial. 8 en total")
+      setFrontError(
+        "Contraseña insegura, debe contener al menos una letra mayúscula, una minúscula, un número y un caracter especial. 8 en total"
+      );
       return;
     }
-    
-    const confirmPasswordIsValid = validateConfirmPassword(password, confirmPassword);
+
+    const confirmPasswordIsValid = validateConfirmPassword(
+      password,
+      confirmPassword
+    );
     if (!confirmPasswordIsValid) {
       setApiSuccess("");
       setFrontError("Los campos introducidos de contraseña no coinciden");
@@ -149,7 +182,9 @@ export default function PersonalInfoForm() {
     const birthIsValid = validateBirth(birthdate);
     if (!birthIsValid) {
       setApiSuccess("");
-      setFrontError("Fecha de nacimiento no válida, debe tener al menos 18 años para registrarse");
+      setFrontError(
+        "Fecha de nacimiento no válida, debe tener al menos 18 años para registrarse"
+      );
       return;
     }
 

@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { getStudentsInOffer, downloadStudentCvForCompany } from "../../api";
 import { Alert, Button, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const StudentsInOffer = () => {
   const { user } = useContext(UserContext);
   const [registeredStudents, setRegisteredStudents] = useState([]);
   const [apiError, setApiError] = useState("");
   const { offerId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getStudentsInOffer(user.token, offerId)
@@ -44,13 +45,19 @@ const StudentsInOffer = () => {
       <h1>Oferta: </h1>
       {registeredStudents.map((student, index) => (
         <Card
-          key={student.offerId}
+          key={student.userId}
           className={index % 2 === 0 ? "even-card" : "odd-card"}
         >
           <Card.Body>
             <Card.Title>
               Nombre y apellido: {student.name} {student.surname}
             </Card.Title>
+            <Card.Text>
+              Email de contacto: {student.altEmail}
+            </Card.Text>
+            <Button variant="info" onClick={() => navigate(`/student-in-offer-knowledge/${student.userId}`)}>
+              Ver conocimientos del estudiante
+            </Button>
             <Button variant="info" onClick={() => handleDownloadCV(student)}>
               Descargar CV del estudiante
             </Button>

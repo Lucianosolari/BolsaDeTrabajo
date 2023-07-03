@@ -28,6 +28,7 @@ import OfferCompany from "./components/Companies/OfferCompany";
 import CreateKnowledge from "./components/Admin/CreateKnowledge";
 import StudentsInOffer from "./components/Companies/StudentsInOffer";
 import KnowledgeStudent from "./components/Students/KnowledgeStudent";
+import StudentInOfferKnowledge from "./components/Companies/StudentInOfferKnowledge";
 
 function App() {
   return (
@@ -82,6 +83,10 @@ function App() {
                 <Route
                   path="/studentsInOffer/:offerId"
                   element={<StudentsInOffer />}
+                />
+                <Route
+                  path="student-in-offer-knowledge/:userId"
+                  element={<StudentInOfferKnowledge />}
                 />
                 <Route path="*" element={<NotFound />} />
               </Routes>

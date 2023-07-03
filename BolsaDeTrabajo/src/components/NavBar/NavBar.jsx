@@ -34,7 +34,7 @@ const NavBar = () => {
         <Row className="w-100">
           <Col xs={3}>
             <Link to="/">
-              <img src="./logo.png" alt="Logo de la Empresa" />
+              <img src="/logo.png" alt="Logo de la Empresa" />
             </Link>
           </Col>
           <Col

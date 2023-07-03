@@ -71,7 +71,34 @@ export async function getStudentsInOffer(token, offerId) {
     if (!response.ok) {
       const errorResponse = await response.text();
       const errorMessage = errorResponse || "Error desconocido";
-      console.error(errorMessage); // Imprimir el mensaje de error en la consola
+      console.error(errorMessage); 
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getStudentKnowledgeAsCompany(token, userId) {
+  try {
+    const response = await fetch(
+      `${DB_DOMAIN}/Company/getStudentKnowledge/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      const errorMessage = errorResponse || "Error desconocido";
+      console.error(errorMessage); 
       throw new Error(errorMessage);
     }
     const data = await response.json();

@@ -81,11 +81,11 @@ function App() {
                   element={<PendingCompanies />}
                 />
                 <Route
-                  path="/studentsInOffer/:offerId"
+                  path="/studentsInOffer/:offerTitle/:offerId"
                   element={<StudentsInOffer />}
                 />
                 <Route
-                  path="student-in-offer-knowledge/:userId"
+                  path="student-in-offer-knowledge/:name/:surname/:userId"
                   element={<StudentInOfferKnowledge />}
                 />
                 <Route path="*" element={<NotFound />} />

@@ -8,7 +8,7 @@ const StudentsInOffer = () => {
   const { user } = useContext(UserContext);
   const [registeredStudents, setRegisteredStudents] = useState([]);
   const [apiError, setApiError] = useState("");
-  const { offerId } = useParams();
+  const { offerTitle, offerId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const StudentsInOffer = () => {
 
   return (
     <div style={{ marginBlock: "20px" }}>
-      <h1>Oferta: </h1>
+      <h1>Oferta: {offerTitle}</h1>
       {registeredStudents.map((student, index) => (
         <Card
           key={student.userId}
@@ -55,11 +55,11 @@ const StudentsInOffer = () => {
             <Card.Text>
               Email de contacto: {student.altEmail}
             </Card.Text>
-            <Button variant="info" onClick={() => navigate(`/student-in-offer-knowledge/${student.userId}`)}>
-              Ver conocimientos del estudiante
+            <Button id="Button" variant="info" onClick={() => navigate(`/student-in-offer-knowledge/${student.name}/${student.surname}/${student.userId}`)} style={{marginRight: '10px'}}>
+              Ver conocimientos
             </Button>
             <Button variant="info" onClick={() => handleDownloadCV(student)}>
-              Descargar CV del estudiante
+              Descargar CV
             </Button>
           </Card.Body>
         </Card>

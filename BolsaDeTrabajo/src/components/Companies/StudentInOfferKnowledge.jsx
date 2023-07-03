@@ -8,7 +8,8 @@ const StudentInOfferKnowledge = () => {
     const { user } = useContext(UserContext);
     const [studentKnowledgeList, setStudentKnowledgeList] = useState([]);
     const [apiError, setApiError] = useState("");
-    const { userId } = useParams();
+    const [apiSuccess, setApiSuccess] = useState(false);
+    const { name, surname, userId } = useParams();
 
     useEffect(() => {
         getStudentKnowledgeAsCompany(user.token, userId)
@@ -16,15 +17,19 @@ const StudentInOfferKnowledge = () => {
             console.log(data);
             setStudentKnowledgeList(data);
             setApiError("");
+            setApiSuccess(true);
         })
         .catch((error) => {
+            setApiSuccess(false);
             setApiError(error.message);
         });
     }, [userId, user.token]);
 
     return (
     <div style={{ marginBlock: "20px" }}>
-        <h1>Estudiante: Nombre y apellido</h1>
+        {apiSuccess && studentKnowledgeList.length > 0 ? 
+        (<>
+        <h1>Conocimientos del estudiante: {name} {surname}</h1>
         {studentKnowledgeList.map((knowledge, index) => (
             <Card
                 key={knowledge.knowledgeId}
@@ -32,7 +37,7 @@ const StudentInOfferKnowledge = () => {
             >
                 <Card.Body>
                     <Card.Title>
-                        Tipo de conocimiento: {knowledge.type}
+                        Conocimiento: {knowledge.type}
                     </Card.Title>
                     <Card.Text>
                         Nivel: {knowledge.level}
@@ -40,7 +45,9 @@ const StudentInOfferKnowledge = () => {
                 </Card.Body>
             </Card> 
         ))}
-        {apiError}
+        </>)
+        :
+        (<h1>El estudiante {name} {surname} no posee conocimientos</h1>)}
     </div>
     );
 }

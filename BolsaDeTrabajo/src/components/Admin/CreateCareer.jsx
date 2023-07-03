@@ -17,9 +17,9 @@ const CreateCareer = () => {
   const { user } = useContext(UserContext);
 
   const validateTotalSubjects = (careerTotalSubjects) => {
-    const numberPattern = /^\d+$/; // Expresión regular para validar números enteros positivos
+    const numberPattern = /^\d+$/;
     if (!numberPattern.test(careerTotalSubjects)) {
-      return false; // Retorna falso si la validación falla
+      return false;
     }
     return true;
   }

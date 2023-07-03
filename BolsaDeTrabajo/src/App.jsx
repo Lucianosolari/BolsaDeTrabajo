@@ -11,7 +11,7 @@ import RecoverPassword from "./components/Login/RecoverPassword";
 import Login from "./components/Login/Login";
 import UniversityInfoForm from "./components/Students/UniversityInfoForm";
 import { UserProvider } from "./context/UserContext";
-import CreateOffer from "./components/Offers/CreateOffer";
+import CreateOffer from "./components/Companies/CreateOffer";
 import Offers from "./components/Offers/Offers";
 import AddressForm from "./components/Students/AddressForm";
 import NavStudent from "./components/Students/NavStudent";

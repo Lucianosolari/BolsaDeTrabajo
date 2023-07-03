@@ -54,41 +54,41 @@ const CreateOffer = () => {
   return (
     <Form onSubmit={handleClickCreateOffer}>
       <Form.Group controlId="formTitle">
-        <Form.Label>Title</Form.Label>
+        <Form.Label>Título</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter title"
+          placeholder="Introduzca el título"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="formSpecialty">
-        <Form.Label>Specialty</Form.Label>
+        <Form.Label>Especialidad</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter specialty"
+          placeholder="Introduzca la especialidad"
           value={specialty}
           onChange={(event) => setSpecialty(event.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="formDescription">
-        <Form.Label>Description</Form.Label>
+        <Form.Label>Descripción</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
-          placeholder="Enter description"
+          placeholder="Introduzca la especialidad"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
       </Form.Group>
 
       <Form.Group controlId="formDate">
-        <Form.Label>Date</Form.Label>
+        <Form.Label>Fecha</Form.Label>
         <Form.Control
           type="date"
-          placeholder="Enter date"
+          placeholder="Introduzca la fecha"
           value={date}
           onChange={(event) => setDate(event.target.value)}
           readOnly

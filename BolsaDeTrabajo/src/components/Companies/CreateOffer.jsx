@@ -8,7 +8,6 @@ const CreateOffer = () => {
   const [title, setTitle] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const { user } = useContext(UserContext);
   const [success, setSuccess] = useState("");
   const [frontError, setFrontError] = useState("");
@@ -29,7 +28,6 @@ const CreateOffer = () => {
           title: title,
           specialty: specialty,
           description: description,
-          date: date,
           companyId: user.userId,
         },
       });
@@ -39,7 +37,6 @@ const CreateOffer = () => {
         setTitle("");
         setSpecialty("");
         setDescription("");
-        setDate(new Date().toISOString().slice(0, 10));
       }
     } catch (error) {
       setApiError(error.message);
@@ -49,7 +46,7 @@ const CreateOffer = () => {
   useEffect(() => {
     setApiError("");
     setFrontError("");
-  }, [title, specialty, description, date]);
+  }, [title, specialty, description]);
 
   return (
     <Form onSubmit={handleClickCreateOffer}>
@@ -81,17 +78,6 @@ const CreateOffer = () => {
           placeholder="Introduzca la especialidad"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="formDate">
-        <Form.Label>Fecha</Form.Label>
-        <Form.Control
-          type="date"
-          placeholder="Introduzca la fecha"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-          readOnly
         />
       </Form.Group>
 

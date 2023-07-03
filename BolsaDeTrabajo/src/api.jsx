@@ -43,7 +43,6 @@ export async function createOffer({ token, offerData }) {
         offerTitle: offerData.title,
         offerSpecialty: offerData.specialty,
         offerDescription: offerData.description,
-        createdDate: offerData.date,
         companyId: offerData.companyId,
       }),
     });

@@ -112,7 +112,7 @@ export async function createCareer({ token, careerData }) {
 
 export async function getPendingCompanies(token) {
   try {
-    const response = await fetch(`${DB_DOMAIN}/Admin/getAllCompanyPending`, {
+    const response = await fetch(`${DB_DOMAIN}/Admin/getAllPendingCompanies`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -134,7 +134,7 @@ export async function getPendingCompanies(token) {
 export async function updatePendingCompany(companyId, token) {
   try {
     const response = await fetch(
-      `${DB_DOMAIN}/Admin/updateCompanyPending/${companyId}`,
+      `${DB_DOMAIN}/Admin/updatePendingCompany/${companyId}`,
       {
         method: "POST",
         headers: {

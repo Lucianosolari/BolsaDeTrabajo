@@ -66,7 +66,7 @@ const OfferCompany = () => {
               Fecha de publicación{" "}
               {format(new Date(offer.createdDate), "dd/MM/yyyy")}
             </Card.Text>
-            <Button onClick={() => navigate(`/studentsInOffer/${offer.offerId}`)}>
+            <Button onClick={() => navigate(`/studentsInOffer/${offer.offerTitle}/${offer.offerId}`)} style={{marginRight: '10px'}}>
               Ver estudiantes inscriptos
             </Button>
 

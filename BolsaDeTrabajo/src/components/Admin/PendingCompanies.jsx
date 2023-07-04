@@ -43,9 +43,19 @@ const PendingCompanies = () => {
             className={index % 2 === 0 ? "even-card" : "odd-card"}
           >
             <Card.Body>
-              <Card.Title> {company.companyName}</Card.Title>
+              <Card.Title style={{fontSize: '30px'}}> {company.companyName}</Card.Title>
+              <Card.Subtitle style={{fontSize: '20px', textDecoration: 'underline'}}>Datos de la empresa</Card.Subtitle>
+              <Card.Text>CUIT: {company.companyCUIT}</Card.Text>
               <Card.Text> Rubro: {company.companyLine}</Card.Text>
+              <Card.Text> Teléfono: {company.companyPhone} </Card.Text>
               <Card.Text> Ciudad: {company.companyLocation}</Card.Text>
+              <Card.Text>Dirección: {company.companyAddress}</Card.Text>
+
+              <Card.Subtitle style={{fontSize: '20px', textDecoration: 'underline'}}>Datos de contacto</Card.Subtitle>
+              <Card.Text>Nombre personal: {company.companyPersonalName}</Card.Text>
+              <Card.Text>Apellido: {company.companyPersonalSurname}</Card.Text>
+              <Card.Text>Cargo: {company.companyPersonalJob}</Card.Text>
+              <Card.Text>Teléfono personal: {company.companyPersonalPhone}</Card.Text>
               <Button
                 onClick={() =>
                   handleUpdatePendingCompany(company.userId, company.companyName)

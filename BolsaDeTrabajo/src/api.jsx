@@ -1,4 +1,4 @@
-const DB_DOMAIN = "https://localhost:7069/api";
+const DB_DOMAIN = "https://bolsautn.somee.com/api";
 
 // import axios from "axios";
 

@@ -114,7 +114,7 @@ function Offers() {
                     className="highlight-link"
                   >
                     <Button variant="secondary" className="buttons">
-                      aquí
+                      Aquí
                     </Button>
                   </Link>
                 </p>

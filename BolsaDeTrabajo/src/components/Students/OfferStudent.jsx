@@ -51,7 +51,9 @@ const OfferStudent = () => {
   return (
     <div style={{ marginBlock: "20px" }}>
       {isLoading ? (
-        <Spinner animation="border" role="status"/>
+        <div className="spinner-container">
+          <Spinner animation="border" role="status" className="spinner" />
+        </div>
       ) : (
         <>
           {offers.length === 0 ? (

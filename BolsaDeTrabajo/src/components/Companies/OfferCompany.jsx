@@ -21,7 +21,7 @@ const OfferCompany = () => {
         setOffers(data);
       })
       .catch((error) => {
-        setApiError(error);
+        setApiError(error.message);
       })
       .finally(() => {
         setIsLoading(false);

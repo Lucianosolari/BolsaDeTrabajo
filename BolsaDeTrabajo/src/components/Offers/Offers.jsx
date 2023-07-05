@@ -11,7 +11,7 @@ function Offers() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [apiError, setApiError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedOfferId, setSelectedOfferId] = useState("");
   const { user } = useContext(UserContext);
 
@@ -25,9 +25,10 @@ function Offers() {
       const response = await getOffers();
       const data = await response?.json();
       setOffersData(data?.value || []);
-      setIsLoading(false);
     } catch (error) {
-      setApiError(error.message)
+      setApiError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,9 +56,7 @@ function Offers() {
   return (
     <Container style={{ marginBlock: "20px" }}>
       {isLoading ? (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Cargando...</span>
-      </Spinner>
+      <Spinner animation="border" role="status"/>
       ) : 
       (<>
         {user && user.userType === 'Student' ? (

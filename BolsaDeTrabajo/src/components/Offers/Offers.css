@@ -17,3 +17,15 @@
 .highlight-link:hover {
   text-decoration: none;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner {
+  width: 5rem;
+  height: 5rem;
+}

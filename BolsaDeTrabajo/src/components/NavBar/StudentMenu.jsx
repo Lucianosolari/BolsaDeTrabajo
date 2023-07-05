@@ -76,7 +76,7 @@ const StudentMenu = () => {
           </Dropdown.Item>
 
           <Dropdown.Item as={Link} to="/offerStudent" style={{ margin: "0px" }}>
-            <FaBriefcase className="mr-2" /> Ver mis ofertas
+            <FaBriefcase className="mr-2" /> Ver mis postulaciones
           </Dropdown.Item>
 
           <Dropdown.Item
